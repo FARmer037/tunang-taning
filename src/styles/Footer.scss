@@ -1,0 +1,16 @@
+@import './Variables.scss';
+
+.footer {
+    background-color: $lightPink;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 26px 0;
+    
+    p {
+        color: $gray;
+        margin-bottom: 8px;
+        font-size: 12px;
+    }
+}

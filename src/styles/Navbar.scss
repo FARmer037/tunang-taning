@@ -1,0 +1,49 @@
+@import './Variables.scss';
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 30px;
+    min-height: 100px;
+    box-shadow: $bottomShadow;
+
+    img {
+        // display: none;
+        max-height: 60px;
+    }
+}
+
+.navbar__menu {
+    display: flex;
+    align-items: center;
+
+    a {
+        text-decoration: none;
+        margin: 6px 16px;
+        color: $gray;
+        padding: 4px 12px 6px 12px;
+    }
+
+    a:hover {
+        color: $darkPink;
+        transition: 0.3s;
+    }
+}
+
+.navbar__menu-login {
+    border-left: 2px solid $gray;
+    padding: 4px 0;
+
+    .register {
+        background-color: $primaryPink;
+        padding: 4px 12px 5px 12px;
+        border-radius: 100px;
+        color: #fff;
+    }
+
+    .register:hover {
+        background-color: #353443;
+        color: #fff;
+    }
+}

@@ -1,0 +1,54 @@
+@import '../styles/Variables.scss';
+
+@mixin buttonStyle {
+    border: none;
+    font-size: 16px;
+    color: #fff;
+    padding: 10px 26px;
+    margin: 30px 30px 0 0;
+    border-radius: 100px;
+}
+
+.banner {
+    display: flex;
+    padding: 50px;
+    box-shadow: $bottomShadow;
+}
+
+.banner__courses {
+    width: 50%;
+    // background-color: yellow;
+    // padding: 50px 60px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 60px;
+
+    h1 {
+        font-size: 30px;
+    }
+
+    p {
+        margin-top: 30px;
+    }
+
+    button {
+        @include buttonStyle();
+        background-color: $primaryPink;
+    }
+
+    .certificate {
+        @include buttonStyle();
+        background-color: $secondaryPink;
+    }
+}
+
+.banner__videos {
+    width: 50%;
+    // background-color: yellowgreen;
+}
+
+.banner__courses-button {
+    margin-top: 36px;
+}
