@@ -4,7 +4,7 @@ import ReactPlayer from 'react-player'
 import { Button } from 'antd'
 
 const Banner = () => {
-  const [isAuthen, setIsAuthen] = useState(false)
+  const [isAuthen, setIsAuthen] = useState(true)
 
   return (
     <div className='banner'>
@@ -16,10 +16,9 @@ const Banner = () => {
 
         <div className='banner__courses-button'>
           {isAuthen ? (
-            <div>
-              <button>เข้าอบรบ</button>
-              <button className='certificate'>เกียรติบัตร</button>
-            </div>
+            <Button shape='round' type='primary' size='large'>
+              เข้าอบรบ
+            </Button>
           ) : (
             <Button shape='round' type='primary' size='large'>
               ลงทะเบียนเข้าอบรบ

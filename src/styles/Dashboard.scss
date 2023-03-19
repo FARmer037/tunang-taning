@@ -1,0 +1,132 @@
+@import "../styles/Variables.scss";
+
+@mixin center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboardheader {
+  padding: 20px 100px;
+}
+
+.dashboardheader__coueses {
+  padding: 20px 0;
+
+  h1 {
+    font-size: $xl;
+  }
+
+  p {
+    font-size: $sm;
+  }
+}
+
+.dashboardheader__progress {
+  display: flex;
+  margin: 20px 0;
+}
+
+.dashboardheader__progress-detail {
+  @include center();
+  background-color: $primaryPink;
+  width: 60%;
+  padding: 20px 0;
+
+  p,
+  h1 {
+    color: white;
+  }
+
+  p {
+    font-size: $sm;
+  }
+
+  h1 {
+    font-size: $xxl;
+  }
+}
+
+.dashboardheader__progress-name {
+  @include center();
+  background-color: rgb(252, 246, 239);
+  width: 40%;
+
+  h2 {
+    font-size: $lg;
+    color: $darkGray;
+  }
+
+  button {
+    @include button();
+    margin-top: 16px;
+    font-size: $sm;
+  }
+
+  .disable-button {
+      background-color: $disablePink;
+  }
+}
+
+.dashboard {
+  padding: 20px 100px;
+
+  p {
+    font-size: $sm;
+    color: $gray;
+  }
+}
+
+.lesson {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid $lightGray;
+
+  .left {
+    div {
+      @include center();
+      width: 50px;
+      height: 50px;
+      border: 2px solid $lightPink;
+      border-radius: 100px;
+
+      p {
+        font-size: $lg;
+        color: $gray;
+      }
+    }
+  }
+
+  .right {
+    flex: 1;
+    padding: 10px;
+
+    h2 {
+      color: $darkGray;
+      font-weight: 400;
+    }
+
+    .video-button {
+      background-color: $lightPink;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+
+      a {
+        margin-left: 10px;
+        color: $gray;
+        cursor: pointer;
+      }
+
+      a:hover {
+          text-decoration: underline;
+      }
+    }
+  }
+}

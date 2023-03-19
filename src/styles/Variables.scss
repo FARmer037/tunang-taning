@@ -6,7 +6,23 @@ $darkGray: #555;
 $gray: #777;
 $lightGray: #e1e1e1;
 $secondaryPink: #c79274;
+$disablePink: #f1d9cb;
+
+// font size
+$xxl: 50px;
+$xl: 30px;
+$lg: 20px;
+$sm: 12px;
 
 
 // shadow
 $bottomShadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+
+
+@mixin button {
+    border: none;
+    padding: 6px 20px;
+    border-radius: 10px;
+    color: white;
+    background-color: $primaryPink;
+}

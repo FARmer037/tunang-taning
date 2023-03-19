@@ -2,17 +2,19 @@ import './App.css'
 import { ConfigProvider } from 'antd'
 import Login from './Login'
 import Courses from './Courses'
+import DashBoard from './DashBoard'
 
 function App () {
   return (
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: '#fb6f92'
+          colorPrimary: '#fb6f92',
+          colorInfo: '#fb6f92'
         }
       }}
     >
-      <Courses />
+      <DashBoard />
     </ConfigProvider>
   )
 }
