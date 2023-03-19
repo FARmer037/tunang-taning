@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import '../login.scss'
 import { Input, Button, Checkbox } from 'antd'
+import { useNavigate } from 'react-router-dom'
 
 const LoginForm = () => {
   const [isRemember, setIsRemember] = useState(true)
+
+  const navigate = useNavigate()
 
   const onChange = () => {
     setIsRemember(!isRemember)
@@ -33,7 +36,7 @@ const LoginForm = () => {
         </div>
       </div>
 
-      <Button type='primary' size='large'>
+      <Button type='primary' size='large' onClick={() => navigate('/courses')}>
         เข้าสู่ระบบ
       </Button>
 

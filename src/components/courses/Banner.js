@@ -2,9 +2,13 @@ import React, { useState } from 'react'
 import '../../styles/CoursesBanner.scss'
 import ReactPlayer from 'react-player'
 import { Button } from 'antd'
+import { useNavigate } from 'react-router-dom'
 
 const Banner = () => {
   const [isAuthen, setIsAuthen] = useState(true)
+  const [isPay, setIsPay] = useState(false)
+
+  const navigate = useNavigate()
 
   return (
     <div className='banner'>
@@ -16,7 +20,13 @@ const Banner = () => {
 
         <div className='banner__courses-button'>
           {isAuthen ? (
-            <Button shape='round' type='primary' size='large'>
+            <Button
+              shape='round'
+              type='primary'
+              size='large'
+              onClick={() => navigate('/dashboard')}
+              disabled={!isPay}
+            >
               เข้าอบรบ
             </Button>
           ) : (

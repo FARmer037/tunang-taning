@@ -1,21 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Layout from './components/Layout'
 import Banner from './components/courses/Banner'
 import Descriptions from './components/courses/Descriptions'
 import Lecturer from './components/courses/Lecturer'
+import { Alert, Button } from 'antd'
+import { useNavigate } from 'react-router-dom'
 
 const Courses = () => {
+  const [isPay, setIsPay] = useState(false)
+  const navigate = useNavigate()
+
   return (
     <Layout>
       <Banner />
 
-      {/* button */}
-      {/* <p>button</p> */}
+      {!isPay && (
+        <Alert
+          message='คุณยังไม่ได้ชำระเงินค่าสมัครอบรบ กรุณาชำระเงินก่อนเข้าอบรบ'
+          type='error'
+          className='alert'
+          action={
+            <Button size='small' danger onClick={() => navigate('/pay')}>
+              ชำระเงิน
+            </Button>
+          }
+        />
+      )}
 
-      {/* courses description */}
       <Descriptions />
 
-      {/* teacher */}
       <Lecturer />
     </Layout>
   )
