@@ -1,0 +1,56 @@
+@import './Variables.scss';
+
+@mixin payCard {
+    width: 50%;
+    padding: 40px;
+}
+
+.pay {
+    width: 80%;
+    align-self: center;
+    height: 80vh;
+    margin: 20px 0;
+    display: flex;
+    box-shadow: $boxShadow;
+}
+
+.pay__channel {
+    @include payCard();
+    border-right: 1px solid $lightGray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.pay__channel-list {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $lightGray;
+
+    img {
+        width: 30px;
+        height: 30px;
+    }
+
+    div {
+        display: flex;
+        align-items: center;
+    }
+
+    h1 {
+        margin-left: 20px;
+    }
+
+    h3 {
+        margin-left: 50px;
+        font-weight: 400
+    }
+}
+
+.pay__inform {
+    @include payCard();
+
+    h1 {
+        margin-bottom: 20px;
+    }
+}
