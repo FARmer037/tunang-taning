@@ -1,0 +1,52 @@
+@import "./Variables.scss";
+
+@mixin titleBox {
+  background-color: $lightPink;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 6px;
+
+  h3 {
+    font-weight: 400;
+  }
+}
+
+.quiz {
+  padding: 20px 100px;
+  margin-bottom: 20px;
+
+  h1 {
+      font-size: $xl;
+      color: $darkGray;
+      margin: 20px 0;
+  }
+}
+
+.quiz__title-box {
+  @include titleBox();
+}
+
+.quizcard {
+  margin: 30px 0;
+}
+
+.quizcard__title {
+  display: flex;
+  align-items: center;
+
+  .number {
+    @include center();
+    background-color: $darkPink;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    margin-right: 20px;
+  }
+}
+
+.quizcard__choice {
+  padding: 10px 0 20px 60px;
+  border-bottom: 1px solid $lightGray;
+}

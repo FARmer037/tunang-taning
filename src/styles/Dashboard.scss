@@ -1,12 +1,5 @@
 @import "../styles/Variables.scss";
 
-@mixin center {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .dashboardheader {
   padding: 20px 100px;
 }

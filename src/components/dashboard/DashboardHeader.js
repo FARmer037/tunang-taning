@@ -15,7 +15,7 @@ const DashboardHeader = () => {
             <div className='dashboardheader__progress'>
                 <div className='dashboardheader__progress-detail'>
                     <p>Course Progress:</p>
-                    <h1>0.0<span>%</span></h1>
+                    <h1>21.6<span>%</span></h1>
                 </div>
                 <div className='dashboardheader__progress-name'>
                     <h2>Mustofa Sachi</h2>
