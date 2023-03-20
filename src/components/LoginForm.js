@@ -1,10 +1,17 @@
 import React, { useState } from 'react'
 import '../login.scss'
-import { Input, Button, Checkbox } from 'antd'
+import { Input, Button, Checkbox, message, Space } from 'antd'
 import { useNavigate } from 'react-router-dom'
+
+const userTest = 'admin'
+const passwordTest = '123456'
 
 const LoginForm = () => {
   const [isRemember, setIsRemember] = useState(true)
+  const [username, setUsername] = useState(null)
+  const [password, setPassword] = useState(null)
+
+  const [messageApi, contextHolder] = message.useMessage()
 
   const navigate = useNavigate()
 
@@ -12,16 +19,43 @@ const LoginForm = () => {
     setIsRemember(!isRemember)
   }
 
+  const error = () => {
+    messageApi.open({
+      type: 'error',
+      content: 'invalid username or password',
+    });
+  };
+
+  const onSubmit = () => {
+    if (username === userTest && password === passwordTest) {
+      navigate('/courses')
+    } else {
+      error()
+    }
+
+  }
+
   return (
     <div className='login__card-form'>
+      {contextHolder}
       <img src={require('../images/logo.png')} alt='login image' />
       <h2>ยินดีต้อนรับ</h2>
 
       <div className='login__card-input'>
         <h5>Username or Email</h5>
-        <Input style={{ marginBottom: 20 }} />
+
+        <Input
+          style={{ marginBottom: 20 }}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+
         <h5>Password</h5>
-        <Input.Password style={{ marginBottom: 20 }} />
+        <Input.Password
+          style={{ marginBottom: 20 }}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
         <div className='login__card-forgotbox'>
           <Checkbox
@@ -36,7 +70,7 @@ const LoginForm = () => {
         </div>
       </div>
 
-      <Button type='primary' size='large' onClick={() => navigate('/courses')}>
+      <Button type='primary' size='large' onClick={onSubmit}>
         เข้าสู่ระบบ
       </Button>
 

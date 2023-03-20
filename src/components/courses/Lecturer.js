@@ -1,6 +1,6 @@
 import React from 'react'
 import '../../styles/Courses.scss'
-import image from '../../images/lecturer.png'
+import image from '../../images/lecturer2.jpeg'
 
 const Lecturer = () => {
   return (
@@ -9,11 +9,7 @@ const Lecturer = () => {
 
       <img src={image} alt='lecturer' />
 
-      <h3>รศ. ดร.สมิทธิ์ บุญชุติมา</h3>
-
-      <p>อาจารย์ประจำภาควิชาการประชาสัมพันธ์</p>
-      <p>คณะนิเทศศาสตร์</p>
-      <p>จุฬาลงกรณ์มหาวิทยาลัย</p>
+      <h3>ผศ.ดร.อิสมาอีล ราโอบ</h3>
     </div>
   )
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import '../../styles/Dashboard.scss'
 import { Progress } from 'antd'
 import { VideoCameraFilled, RightCircleFilled, EditOutlined } from '@ant-design/icons'
+import { Link } from 'react-router-dom'
 
 const Lesson = ({ lesson }) => {
     const { id, title, progress, icon } = lesson
@@ -27,8 +28,9 @@ const Lesson = ({ lesson }) => {
                                 <EditOutlined style={{ color: '#777' }} />
                             )
                         }
-
-                        <a>{title}</a>
+                        <Link to={id === 0 ? '/quiz' : '/video'} target="_blank">
+                            {title}
+                        </Link>
                     </div>
 
                     <RightCircleFilled style={{ color: '#777' }} />

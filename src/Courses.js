@@ -7,7 +7,7 @@ import { Alert, Button } from 'antd'
 import { useNavigate } from 'react-router-dom'
 
 const Courses = () => {
-  const [isPay, setIsPay] = useState(false)
+  const [isPay, setIsPay] = useState(true)
   const navigate = useNavigate()
 
   return (

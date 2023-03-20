@@ -3,10 +3,11 @@ import '../../styles/CoursesBanner.scss'
 import ReactPlayer from 'react-player'
 import { Button } from 'antd'
 import { useNavigate } from 'react-router-dom'
+import video from '../../videos/ep4.mp4'
 
 const Banner = () => {
   const [isAuthen, setIsAuthen] = useState(true)
-  const [isPay, setIsPay] = useState(false)
+  const [isPay, setIsPay] = useState(true)
 
   const navigate = useNavigate()
 
@@ -16,7 +17,7 @@ const Banner = () => {
         <h1>อบรมนิกะห์ออนไลน์</h1>
         <h1>(Nikah training online)</h1>
 
-        <p>รศ. ดร.สมิทธิ์ บุญชุติมา</p>
+        <p>ผศ.ดร.อิสมาอีล ราโอบ</p>
 
         <div className='banner__courses-button'>
           {isAuthen ? (
@@ -37,10 +38,13 @@ const Banner = () => {
         </div>
       </div>
       <div className='banner__videos'>
-        <ReactPlayer
+        {/* <ReactPlayer
           url='https://www.youtube.com/watch?v=d0qVXvjV8LM'
           controls={true}
-        />
+        /> */}
+        
+        <video src={video} controls />
+
       </div>
     </div>
   )

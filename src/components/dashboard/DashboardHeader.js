@@ -8,8 +8,7 @@ const DashboardHeader = () => {
         <div className='dashboardheader'>
             <div className='dashboardheader__coueses'>
                 <h1>อบรมนิกะห์ออนไลน์</h1>
-                <p>รศ.มานิตย์ จุมปา</p>
-                <p>Chulalongkorn University</p>
+                <p>ผศ.ดร.อิสมาอีล ราโอบ</p>
             </div>
 
             <div className='dashboardheader__progress'>

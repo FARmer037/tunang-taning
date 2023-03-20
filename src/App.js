@@ -6,6 +6,7 @@ import Courses from './Courses'
 import DashBoard from './DashBoard'
 import Quiz from './Quiz'
 import Pay from './Pay'
+import VideoPlayer from './VideoPlayer'
 
 function App () {
   return (
@@ -18,11 +19,12 @@ function App () {
       }}
     >
       <Routes>
-        <Route path='/login' element={<Login />} />
+        <Route path='/' element={<Login />} />
         <Route path='/courses' element={<Courses />} />
         <Route path='/dashboard' element={<DashBoard />} />
         <Route path='/quiz' element={<Quiz />} />
         <Route path='/pay' element={<Pay />} />
+        <Route path='/video' element={<VideoPlayer />} />
       </Routes>
     </ConfigProvider>
   )

@@ -1,7 +1,8 @@
 import React from 'react'
 import image from '../images/logo.png'
-import { Avatar, Dropdown, message } from 'antd'
+import { Avatar, Dropdown } from 'antd'
 import { UserOutlined } from '@ant-design/icons'
+import { useNavigate } from 'react-router-dom'
 
 const items = [
     {
@@ -19,9 +20,12 @@ const items = [
 ]
 
 const AuthenNavbar = () => {
+    const navigate = useNavigate()
 
     const onClick = ({ key }) => {
-        message.info(`Click on item ${key}`);
+        if (key === '3') {
+            navigate('/')
+        }
     }
 
     return (
