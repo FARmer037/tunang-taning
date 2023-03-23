@@ -1,30 +1,33 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Layout from './components/Layout'
 import './styles/Quiz.scss'
 import QuizCard from './components/QuizCard'
 import { questions } from './Question'
 import { Button } from 'antd'
+import { ScoreContext } from './App'
 
 const Quiz = () => {
-    return (
-        <Layout>
-            <div className='quiz'>
-                <h1>แบบทดสอบก่อนเรียน (Pretest)</h1>
+  const { score } = useContext(ScoreContext)
 
-                <div className='quiz__title-box'>
-                    <h3>จงเลือกคำตอบที่ถูกเพียง 1 ข้อ</h3>
-                </div>
+  return (
+    <Layout>
+      <div className='quiz'>
+        <h1>แบบทดสอบก่อนเรียน (Pretest)</h1>
 
-                {
-                    questions.map((element, index) => (
-                        <QuizCard key={index} id={index + 1} question={element} />
-                    ))
-                }
+        <div className='quiz__title-box'>
+          <h3>จงเลือกคำตอบที่ถูกเพียง 1 ข้อ</h3>
+        </div>
 
-                <Button type="primary">ส่งคำตอบ</Button>
-            </div>
-        </Layout>
-    )
+        {questions.map((element, index) => (
+          <QuizCard key={index} id={index + 1} question={element} />
+        ))}
+
+        <Button type='primary' onClick={() => console.log(score)}>
+          ส่งคำตอบ
+        </Button>
+      </div>
+    </Layout>
+  )
 }
 
 export default Quiz
