@@ -18,7 +18,7 @@ const Quiz = () => {
           <div className='quiz__result'>
             <h3>You obtained</h3>
             <h1>
-              7<span>/15</span>
+              {score}<span>/15</span>
             </h1>
             <h3>on this quiz/test</h3>
 
@@ -40,7 +40,7 @@ const Quiz = () => {
           ))}
 
           <div>
-            <Button type='primary' onClick={() => console.log(score)}>
+            <Button type='primary' onClick={() => setIsDone(true)}>
               ส่งคำตอบ
             </Button>
           </div>

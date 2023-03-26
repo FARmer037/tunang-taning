@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import '../../styles/Dashboard.scss'
+import { Link } from 'react-router-dom'
+import { Button } from 'antd'
 
 const DashboardHeader = () => {
-    const [isDone, setIsDone] = useState(false)
+    const [isDone, setIsDone] = useState(true)
 
     return (
         <div className='dashboardheader'>
@@ -19,7 +21,29 @@ const DashboardHeader = () => {
                 <div className='dashboardheader__progress-name'>
                     <h2>Mustofa Sachi</h2>
 
-                    <button className={!isDone && 'disable-button'}>เกียรติบัตร</button>
+                    {
+                        isDone ? (
+                            <Link to='/certificate' target='_blank'>
+                                <Button
+                                    shape='round'
+                                    type='primary'
+                                    size='large'
+                                    disabled={!isDone}
+                                >
+                                    เกียรติบัตร
+                                </Button>
+                            </Link>
+                        ) : (
+                            <Button
+                                shape='round'
+                                type='primary'
+                                size='large'
+                                disabled={!isDone}
+                            >
+                                เกียรติบัตร
+                            </Button>
+                        )
+                    }
                 </div>
             </div>
         </div>

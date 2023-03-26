@@ -1,0 +1,72 @@
+@import "./Variables.scss";
+
+.certificate {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+}
+
+.certificate__header {
+  padding: 20px 50px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.certificate__body {
+  display: flex;
+  justify-content: center;
+}
+
+.certificate__body-certificate {
+    background-color: white;
+    width: 496px;
+    height: 701.6px;
+    position: relative;
+    box-shadow: $boxShadow;
+
+    img {
+        width: 100%;
+    }
+
+    p {
+        position: absolute;
+        font-size: 13px;
+    }
+
+    .id-number {
+        top: 280px;
+        left: 210px;
+    }
+
+    .name {
+        top: 324px;
+        left: 180px;
+        font-size: $lg;
+    }
+
+    .address {
+        top: 383px;
+        left: 100px;
+    }
+    
+    .date-left {
+        top: 484px;
+        left: 100px;
+    }
+    
+    .date-right {
+        top: 484px;
+        left: 290px;
+    }
+    
+    .sign-left {
+        top: 524px;
+        left: 120px;
+    }
+    
+    .sign-right {
+        top: 524px;
+        left: 310px;
+    }
+}

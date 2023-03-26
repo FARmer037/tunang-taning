@@ -2,9 +2,7 @@ import React, { useState } from 'react'
 import '../login.scss'
 import { Input, Button, Checkbox, message, Space } from 'antd'
 import { useNavigate } from 'react-router-dom'
-
-const userTest = 'admin'
-const passwordTest = '123456'
+import axios from 'axios'
 
 const LoginForm = () => {
   const [isRemember, setIsRemember] = useState(true)
@@ -27,12 +25,27 @@ const LoginForm = () => {
   };
 
   const onSubmit = () => {
-    if (username === userTest && password === passwordTest) {
-      navigate('/courses')
-    } else {
-      error()
-    }
+    axios.post(`${process.env.REACT_APP_API_URL}Login`, {
+      USER: username,
+      PASSWORD: password
+    }, {
+      headers: {
+        Authorization: `App ${process.env.REACT_APP_AUTHORIZATION}`,
+        APP_KEY: process.env.REACT_APP_APP_KEY
+      }
+    })
+      .then(response => {
+        // console.log(response.data)
 
+        const { code } = response.data
+
+        if (code === 10) {
+          navigate('/courses')
+        } else {
+          error()
+        }
+      })
+      .catch(err => console.log(err))
   }
 
   return (

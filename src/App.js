@@ -8,6 +8,7 @@ import DashBoard from './DashBoard'
 import Quiz from './Quiz'
 import Pay from './Pay'
 import VideoPlayer from './VideoPlayer'
+import Certificate from './Certificate'
 
 export const ScoreContext = createContext()
 
@@ -31,6 +32,7 @@ function App () {
           <Route path='/quiz' element={<Quiz />} />
           <Route path='/pay' element={<Pay />} />
           <Route path='/video' element={<VideoPlayer />} />
+          <Route path='/certificate' element={<Certificate />} />
         </Routes>
       </ConfigProvider>
     </ScoreContext.Provider>
