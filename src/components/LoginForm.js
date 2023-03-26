@@ -1,10 +1,16 @@
 import React, { useState } from 'react'
 import '../login.scss'
-import { Input, Button, Checkbox, message, Space } from 'antd'
+import { Input, Button, Checkbox, message } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import Cookies from 'js-cookie'
+// import { useStateValue } from '../StateProvider'
+// import { actionType } from '../reducers/userReducer'
+// import { useSignIn } from 'react-auth-kit'
 
 const LoginForm = () => {
+  // const [{ user }, dispatch] = useStateValue()
+
   const [isRemember, setIsRemember] = useState(true)
   const [username, setUsername] = useState(null)
   const [password, setPassword] = useState(null)
@@ -12,6 +18,8 @@ const LoginForm = () => {
   const [messageApi, contextHolder] = message.useMessage()
 
   const navigate = useNavigate()
+
+  // const signIn = useSignIn()
 
   const onChange = () => {
     setIsRemember(!isRemember)
@@ -37,10 +45,31 @@ const LoginForm = () => {
       .then(response => {
         // console.log(response.data)
 
-        const { code } = response.data
+        const { code, itemdetail, item } = response.data
+
+        console.log(itemdetail)
+        console.log(item[0].USER_NAME)
+
+        // dispatch({
+        //   type: actionType.SET_USER,
+        //   user: item[0]
+        // })
+
+        // signIn({
+        //   token: itemdetail,
+        //   expiresIn: 3600,
+        //   tokenType: 'Bearer',
+        //   authState: { user: username }
+        // })
 
         if (code === 10) {
+          // navigate('/courses')
+
+          Cookies.set('user', item[0].USER_NAME)
+          Cookies.set('token', itemdetail, { expires: 1 })
+          
           navigate('/courses')
+
         } else {
           error()
         }
