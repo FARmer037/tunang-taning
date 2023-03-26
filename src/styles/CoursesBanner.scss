@@ -17,36 +17,22 @@
 
 .banner__courses {
     width: 50%;
-    // background-color: yellow;
-    // padding: 50px 60px;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding-left: 60px;
 
     h1 {
-        font-size: 30px;
+        font-size: $xl;
     }
 
     p {
         margin-top: 30px;
     }
-
-    button {
-        @include buttonStyle();
-        background-color: $primaryPink;
-    }
-
-    .certificate {
-        @include buttonStyle();
-        background-color: $secondaryPink;
-    }
 }
 
 .banner__videos {
     width: 50%;
-    // background-color: yellowgreen;
 
     video {
         width: 100%;
@@ -61,4 +47,26 @@
     margin: 30px 0;
     width: 90%;
     align-self: center;
+}
+
+@media screen and (max-width: 600px) {
+    .banner {
+        display: flex;
+        padding: 20px;
+        flex-direction: column;
+    }
+
+    .banner__courses {
+        width: 100%;
+        padding-left: 0px;
+
+        p {
+            margin-top: 10px;
+        }
+    }
+
+    .banner__videos {
+        width: 100%;
+        margin-top: 40px;
+    }
 }

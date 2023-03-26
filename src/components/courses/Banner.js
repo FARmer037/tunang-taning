@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import '../../styles/CoursesBanner.scss'
-import ReactPlayer from 'react-player'
 import { Button } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import video from '../../videos/ep4.mp4'
@@ -38,13 +37,7 @@ const Banner = () => {
         </div>
       </div>
       <div className='banner__videos'>
-        {/* <ReactPlayer
-          url='https://www.youtube.com/watch?v=d0qVXvjV8LM'
-          controls={true}
-        /> */}
-        
         <video src={video} controls />
-
       </div>
     </div>
   )
