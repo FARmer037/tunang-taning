@@ -56,10 +56,6 @@
     margin-top: 16px;
     font-size: $sm;
   }
-
-  .disable-button {
-      background-color: $disablePink;
-  }
 }
 
 .dashboard {
@@ -115,11 +111,60 @@
         margin-left: 10px;
         color: $gray;
         cursor: pointer;
+        text-decoration: none;
       }
 
       a:hover {
-          text-decoration: underline;
+        text-decoration: underline;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .dashboardheader {
+    padding: 0px 10px;
+  }
+
+  .dashboardheader__progress {
+    flex-direction: column;
+    margin: 10px 0;
+  }
+
+  .dashboardheader__progress-detail {
+    width: 100%;
+  }
+
+  .dashboardheader__progress-name {
+    width: 100%;
+    padding: 16px 0;
+  }
+
+  .dashboard {
+    padding: 0px 10px;
+
+    p {
+      font-size: $sm;
+      color: $gray;
+    }
+  }
+
+  .lesson {
+    .left {
+      div {
+        width: 40px;
+        height: 40px;
+
+        p {
+          font-size: $md;
+        }
+      }
+    }
+  }
+
+  .video-button {
+    a {
+      font-size: $sm;
     }
   }
 }
