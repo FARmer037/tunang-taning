@@ -15,7 +15,11 @@ const DashBoard = () => {
 
                 {
                     lessons.map((element) => (
-                        <Lesson key={element.id} lesson={element} />
+                        <Lesson
+                            key={element.id}
+                            lesson={element}
+                            allLesson={lessons}
+                        />
                     ))
                 }
             </div>

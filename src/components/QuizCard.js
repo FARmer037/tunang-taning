@@ -4,7 +4,7 @@ import '../styles/Quiz.scss'
 import { ScoreContext } from '../App'
 
 const QuizCard = ({ question, id }) => {
-  const { title, choices, answer } = question
+  const { title, choice, answer } = question
 
   const { setScore } = useContext(ScoreContext)
   const [value, setValue] = useState(null)
@@ -32,9 +32,9 @@ const QuizCard = ({ question, id }) => {
       <div className='quizcard__choice'>
         <Radio.Group onChange={onChange} value={value}>
           <Space direction='vertical'>
-            {choices.map((element, index) => (
+            {choice.map((element, index) => (
               <Radio key={index} value={index + 1}>
-                {element.choice}
+                {element.choice_name}
               </Radio>
             ))}
           </Space>

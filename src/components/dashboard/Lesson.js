@@ -4,8 +4,19 @@ import { Progress } from 'antd'
 import { VideoCameraFilled, RightCircleFilled, EditOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 
-const Lesson = ({ lesson }) => {
+const Lesson = ({ lesson, allLesson }) => {
     const { id, title, progress, icon } = lesson
+
+    const route = (id) => {
+        console.log(id, allLesson.length)
+        if (id === 0) {
+            return '/quiz/1'
+        } else if (id === allLesson.length - 1) {
+            return '/quiz/2'
+        } else {
+            return '/video'
+        }
+    }
 
     return (
         <div className='lesson'>
@@ -28,7 +39,7 @@ const Lesson = ({ lesson }) => {
                                 <EditOutlined style={{ color: '#777' }} />
                             )
                         }
-                        <Link to={id === 0 ? '/quiz' : '/video'} target="_blank">
+                        <Link to={route(id)} target="_blank">
                             {title}
                         </Link>
                     </div>
