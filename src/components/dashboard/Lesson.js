@@ -8,7 +8,6 @@ const Lesson = ({ lesson, allLesson }) => {
     const { id, title, progress, icon } = lesson
 
     const route = (id) => {
-        console.log(id, allLesson.length)
         if (id === 0) {
             return '/quiz/1'
         } else if (id === allLesson.length - 1) {

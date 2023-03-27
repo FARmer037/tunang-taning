@@ -12,7 +12,7 @@ const Courses = () => {
 
   return (
     <Layout>
-      <Banner />
+      <Banner isPay={isPay} />
 
       {!isPay && (
         <Alert

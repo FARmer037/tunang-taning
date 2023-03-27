@@ -1,14 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../../styles/CoursesBanner.scss'
 import { Button } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import video from '../../videos/ep4.mp4'
+import Cookies from 'js-cookie'
 
-const Banner = () => {
-  const [isAuthen, setIsAuthen] = useState(true)
-  const [isPay, setIsPay] = useState(true)
+const Banner = ({ isPay }) => {
+  const [isAuthen, setIsAuthen] = useState(false)
 
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const user = Cookies.get('user')
+
+    if (user) {
+      setIsAuthen(true)
+    }
+  }, [])
 
   return (
     <div className='banner'>

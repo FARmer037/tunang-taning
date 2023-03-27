@@ -14,6 +14,7 @@ const LoginForm = () => {
   const [isRemember, setIsRemember] = useState(true)
   const [username, setUsername] = useState(null)
   const [password, setPassword] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   const [messageApi, contextHolder] = message.useMessage()
 
@@ -33,6 +34,8 @@ const LoginForm = () => {
   };
 
   const onSubmit = () => {
+    setIsLoading(true)
+
     axios.post(`${process.env.REACT_APP_API_URL}Login`, {
       USER: username,
       PASSWORD: password
@@ -47,9 +50,6 @@ const LoginForm = () => {
 
         const { code, itemdetail, item } = response.data
 
-        console.log(itemdetail)
-        console.log(item[0].USER_NAME)
-
         // dispatch({
         //   type: actionType.SET_USER,
         //   user: item[0]
@@ -63,12 +63,12 @@ const LoginForm = () => {
         // })
 
         if (code === 10) {
-          // navigate('/courses')
-
           Cookies.set('user', item[0].USER_NAME, { expires: 1 })
           Cookies.set('token', itemdetail)
-          
+
           navigate('/courses')
+
+          setIsLoading(false)
 
         } else {
           error()
@@ -112,9 +112,17 @@ const LoginForm = () => {
         </div>
       </div>
 
-      <Button type='primary' size='large' onClick={onSubmit}>
-        เข้าสู่ระบบ
-      </Button>
+      {
+        isLoading ? (
+          <Button type="primary" loading>
+            Loading
+          </Button>
+        ) : (
+          <Button type='primary' size='large' onClick={onSubmit}>
+            เข้าสู่ระบบ
+          </Button>
+        )
+      }
 
       <p>
         ยังไม่ได้เป็นสมาชิก <a href='/#'>สมัครเลย!</a>

@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import LoadingPage from './LoadingPage'
+import Warning from './Warning'
 
 const Quiz = () => {
   const { id } = useParams()
@@ -18,12 +19,13 @@ const Quiz = () => {
   const [questions, setQuestions] = useState(null)
   const [title, setTitle] = useState('')
   const [timeOut, setTimeOut] = useState(0)
+  const [isExpired, setIsExpired] = useState(false)
 
   useEffect(() => {
     const question = async () => {
       const token = await Cookies.get('token')
 
-      const response = await axios
+      await axios
         .post(`${process.env.REACT_APP_API_URL}/Quiz`, {
           GROUP_ID: id
         }, {
@@ -32,19 +34,23 @@ const Quiz = () => {
             Authorization: `Bearer ${token}`
           }
         })
+        .then(async response => {
+          const { code, item, itemdetail } = response.data
 
-      // console.log(response.data)
-      if (response.data) {
-        const { code, item, itemdetail } = response.data
+          if (code === 10) {
+            setTitle(item.Quiz_Type)
+            setQuestions(item.Quiz)
+            setTimeOut(item.TimeOut)
+          }
 
-        if (code === 10) {
-          setTitle(item.Quiz_Type)
-          setQuestions(item.Quiz)
-          setTimeOut(item.TimeOut)
-        }
-
-        Cookies.set('token', itemdetail)
-      }
+          Cookies.set('token', itemdetail)
+        })
+        .catch(err => {
+          console.log(err.response.status)
+          if (err.response.status == 401) {
+            setIsExpired(true)
+          }
+        })
     }
 
     question()
@@ -52,7 +58,11 @@ const Quiz = () => {
 
   return (
     !questions ? (
-      <LoadingPage />
+      isExpired ? (
+        <Warning />
+      ) : (
+        <LoadingPage />
+      )
     ) : (
       <Layout>
         {isDone ? (
