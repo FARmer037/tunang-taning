@@ -3,6 +3,7 @@ import image from '../images/logo.png'
 import { Avatar, Dropdown } from 'antd'
 import { UserOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 const items = [
     {
@@ -24,6 +25,8 @@ const AuthenNavbar = () => {
 
     const onClick = ({ key }) => {
         if (key === '3') {
+            Cookies.remove('user')
+            Cookies.remove('token')
             navigate('/')
         }
     }

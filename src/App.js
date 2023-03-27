@@ -1,7 +1,8 @@
-import { useState, createContext } from 'react'
+import { useState, createContext, useEffect } from 'react'
 import './App.css'
 import { ConfigProvider } from 'antd'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
+import Cookies from 'js-cookie'
 import Login from './Login'
 import Courses from './Courses'
 import DashBoard from './DashBoard'
@@ -12,8 +13,19 @@ import Certificate from './Certificate'
 
 export const ScoreContext = createContext()
 
-function App () {
+function App() {
   const [score, setScore] = useState(0)
+  const [user, setUser] = useState(null)
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const user = Cookies.get('user')
+
+    if (user) {
+      navigate('/courses')
+    }
+  }, [])
 
   return (
     <ScoreContext.Provider value={{ score, setScore }}>
