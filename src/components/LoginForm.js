@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import '../login.scss'
 import { Input, Button, Checkbox, message } from 'antd'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 // import { useStateValue } from '../StateProvider'
@@ -125,7 +125,7 @@ const LoginForm = () => {
       }
 
       <p>
-        ยังไม่ได้เป็นสมาชิก <a href='/#'>สมัครเลย!</a>
+        ยังไม่ได้เป็นสมาชิก <Link to='register'>สมัครเลย!</Link>
       </p>
     </div>
   )
