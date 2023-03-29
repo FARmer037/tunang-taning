@@ -1,0 +1,36 @@
+@import './Variables.scss';
+
+.page404 {
+    @include center();
+    height: 100vh;
+
+    h1 {
+        font-weight: 400;
+        font-size: 100px;
+        color: $lightGray;
+    }
+
+    h2 {
+        font-weight: 400;
+        font-size: $xl;
+        color: $gray;
+    }
+
+    p {
+        font-size: $sm;
+        color: $gray;
+        margin-bottom: 50px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .page404 {    
+        h1 {
+            font-size: $xxl;
+        }
+    
+        h2 {
+            font-size: $md;
+        }
+    }
+}

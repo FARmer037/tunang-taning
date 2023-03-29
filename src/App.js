@@ -10,10 +10,11 @@ import Pay from './Pay'
 import VideoPlayer from './VideoPlayer'
 import Certificate from './Certificate'
 import Register from './Register'
+import Page404 from './Page404'
 
 export const ScoreContext = createContext()
 
-function App() {
+function App () {
   const [score, setScore] = useState(0)
 
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path='/pay' element={<Pay />} />
           <Route path='/video' element={<VideoPlayer />} />
           <Route path='/certificate' element={<Certificate />} />
+          <Route path='/*' element={<Page404 />} />
         </Routes>
       </ConfigProvider>
     </ScoreContext.Provider>
