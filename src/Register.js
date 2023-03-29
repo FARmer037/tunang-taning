@@ -1,149 +1,127 @@
 import React, { useState } from 'react'
 import './styles/Register.scss'
-import { PlusOutlined } from '@ant-design/icons'
-import {
-    Button,
-    DatePicker,
-    Form,
-    Input,
-    InputNumber,
-    Select,
-    Upload,
-} from 'antd'
+import RegisterForm from './components/RegisterForm'
+import { UnlockOutlined, SmileOutlined, SolutionOutlined, UserOutlined } from '@ant-design/icons'
+import { Steps, Progress, Button } from 'antd'
+import { useNavigate } from 'react-router-dom'
 
-const { TextArea } = Input
+// status list
+// 1. wait
+// 2. process
+// 3. finish
+
+const steps = [
+    {
+        id: 1,
+        title: 'ข้อมูลส่วนตัว',
+        status: 'process',
+        icon: 'UserOutlined',
+    },
+    {
+        id: 2,
+        title: 'บัญชี',
+        status: 'process',
+        icon: 'UserOutlined',
+    },
+    {
+        id: 3,
+        title: 'OTP',
+        status: 'process',
+        icon: 'UserOutlined',
+    },
+    {
+        id: 4,
+        title: 'เสร็จสิ้น',
+        status: 'process',
+        icon: 'UserOutlined',
+    },
+]
 
 const Register = () => {
+    const [step, setStep] = useState(1)
+
+    const navigate = useNavigate()
+
+    const getStepTitle = (id) => {
+        const step = steps.find(step => step.id === id)
+
+        return step.title
+    }
+
     return (
         <div className='register'>
-            <div className='register__card'>
+            <div className='register__content'>
                 <img src={require('./images/logo.png')} alt='login image' />
-                <h1>ลงทะเบียน</h1>
 
-                <div className='register__card-form'>
-                    <div className='left'>
-                        <Form
-                            labelCol={{
-                                span: 8,
-                            }}
-                            wrapperCol={{
-                                span: 14,
-                            }}
-                            layout='horizontal'
-                            style={{
-                                width: '100%',
-                            }}
-                        >
-                            <Form.Item label='ชื่อ-สกุล (ไทย)'>
-                                <Input />
-                            </Form.Item>
+                <h2>ลงทะเบียนอมรมนิกะห์ออนไลน์</h2>
+                <p>มีรายละเอียดทั้งหมด 4 หน้า</p>
 
-                            <Form.Item label='ชื่อ-สกุล (อาหรับ)'>
-                                <Input />
-                            </Form.Item>
+                <div className='register__content-step'>
+                    <Steps
+                        items={[
+                            {
+                                title: 'ข้อมูลส่วนตัว',
+                                status: step === 1 ? 'process' : 'finish',
+                                icon: <UserOutlined />,
+                            },
+                            {
+                                title: 'บัญชี',
+                                status: step === 2 ? 'process' : step > 2 ? 'finish' : 'wait',
+                                icon: <SolutionOutlined />,
+                            },
+                            {
+                                title: 'OTP',
+                                status: step === 3 ? 'process' : step > 2 ? 'finish' : 'wait',
+                                icon: <UnlockOutlined />,
+                            },
+                            {
+                                title: 'เสร็จสิ้น',
+                                status: step === 4 ? 'finish' : 'wait',
+                                icon: <SmileOutlined />,
+                            },
+                        ]}
+                    />
 
-                            <Form.Item label='เลขที่บัตรประชาชน'>
-                                <Input />
-                            </Form.Item>
+                    <Progress percent={step * 100 / 4} showInfo={false} style={{ padding: 0, margin: 0 }} />
+                </div>
 
-                            <Form.Item label='เบอร์โทรศัพท์'>
-                                <Input />
-                            </Form.Item>
+                <div className='register__content-title'>
+                    <h2>{getStepTitle(step)}</h2>
+                    <p>Step {step} - 4</p>
+                </div>
 
-                            <Form.Item label='อีเมล'>
-                                <Input />
-                            </Form.Item>
-                            
-                            <Form.Item label='รหัสผ่าน'>
-                                <Input.Password />
-                            </Form.Item>
-                            
-                            <Form.Item label='ยืนยันรหัสผ่าน'>
-                                <Input.Password />
-                            </Form.Item>
-                        </Form>
-                    </div>
+                <RegisterForm step={step} />
 
-                    <div className='middle'>
-                        <Form
-                            labelCol={{
-                                span: 8,
-                            }}
-                            wrapperCol={{
-                                span: 14,
-                            }}
-                            layout='horizontal'
-                            style={{
-                                width: '100%',
-                            }}
-                        >
-                            <Form.Item label='เพศ'>
-                                <Input />
-                            </Form.Item>
+                <div className='register__content-button'>
+                    {
+                        step !== 1 && step !== 4 && (
+                            <Button
+                                style={{ marginRight: 20 }}
+                                onClick={() => setStep(step - 1)}
+                            >
+                                ย้อนกลับ
+                            </Button>
+                        )
+                    }
 
-                            <Form.Item label='อาชีพ'>
-                                <Select>
-                                    <Select.Option value='demo'>Demo</Select.Option>
-                                </Select>
-                            </Form.Item>
-
-                            <Form.Item label='วันเดือนปีเกิด'>
-                                <DatePicker />
-                            </Form.Item>
-
-                            <Form.Item label='อายุ'>
-                                <InputNumber />
-                            </Form.Item>
-
-                            <Form.Item label='สำเนาบัตรประชาชน' valuePropName='fileList'>
-                                <Upload action='/upload.do' listType='picture-card'>
-                                    <div>
-                                        <PlusOutlined />
-                                        <div
-                                            style={{
-                                                marginTop: 8,
-                                            }}
-                                        >
-                                            Upload
-                                        </div>
-                                    </div>
-                                </Upload>
-                            </Form.Item>
-                        </Form>
-                    </div>
-
-                    <div className='right'>
-                        <Form
-                            labelCol={{
-                                span: 8,
-                            }}
-                            wrapperCol={{
-                                span: 14,
-                            }}
-                            layout='horizontal'
-                            style={{
-                                width: '100%',
-                            }}
-                        >
-                            <Form.Item label='ชื่อมัสยิดที่อยู่'>
-                                <Input />
-                            </Form.Item>
-
-                            <Form.Item label='สังกัด คณะกรรมการอิสลามประจำจังหวัด' className='wrap-label'>
-                                <Select>
-                                    <Select.Option value='demo'>Demo</Select.Option>
-                                </Select>
-                            </Form.Item>
-
-                            <Form.Item label='สถานที่ให้ส่งเกียรติบัตร' className='wrap-label'>
-                                <TextArea rows={4} />
-                            </Form.Item>
-
-                            <Form.Item>
-                                <Button type='primary' className='register__button' >ลงทะเบียน</Button>
-                            </Form.Item>
-                        </Form>
-                    </div>
+                    {
+                        step === 4 ? (
+                            <Button
+                                type='primary'
+                                onClick={() => navigate('/')}
+                                style={{ marginTop: 26 }}
+                            >
+                                เข้าสู่ระบบ
+                            </Button>
+                        ) : (
+                            <Button
+                                type='primary'
+                                onClick={() => setStep(step + 1)}
+                            >
+                                ถัดไป
+                            </Button>
+                        )
+                    }
                 </div>
             </div>
         </div>

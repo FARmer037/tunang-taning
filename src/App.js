@@ -10,7 +10,6 @@ import Pay from './Pay'
 import VideoPlayer from './VideoPlayer'
 import Certificate from './Certificate'
 import Register from './Register'
-import Register2 from './Register2'
 
 export const ScoreContext = createContext()
 
@@ -29,7 +28,7 @@ function App() {
       >
         <Routes>
           <Route path='/' element={<Login />} />
-          <Route path='/register' element={<Register2 />} />
+          <Route path='/register' element={<Register />} />
           <Route path='/courses' element={<Courses />} />
           <Route path='/dashboard' element={<DashBoard />} />
           <Route path='/quiz/:id' element={<Quiz />} />

@@ -1,150 +1,21 @@
 @import "./Variables.scss";
 
-@mixin form {
-  display: flex;
-  flex: 1;
-}
-
 .register {
-  @include center();
-  width: 100%;
-  height: 100vh;
-  color: $darkGray;
-}
-
-.register__card {
-  @include center();
-  background-color: white;
-  width: 90%;
-  height: 80%;
-  box-shadow: $boxShadow;
-
-  img {
-    width: 200px;
-  }
-
-  h1 {
-    font-size: $lg;
-    font-weight: 400;
-    margin: 30px 0;
-  }
-}
-
-.register__card-form {
-  display: flex;
-  width: 100%;
-  margin-top: 20px;
-
-  .left {
-    @include form();
-    border-right: $lightBorder;
-  }
-  .middle {
-    @include form();
-    border-right: $lightBorder;
-  }
-  .right {
-    @include form();
-    padding: 0 10px;
-  }
-}
-
-.register__button {
-  margin-left: 170px;
-}
-
-.wrap-label {
-  .ant-form-item-label {
-    white-space: normal;
-  }
-}
-
-//  for iPad
-@media screen and (max-width: 820px) {
-  .register {
-    justify-content: flex-start;
-  }
-
-  .register__card {
-    height: auto;
-    width: 85%;
-
-    h1 {
-      margin: 20px 0;
-    }
-  }
-
-  .register__card-form {
-    flex-direction: column;
-    margin-top: 10px;
-
-    .left {
-      border-bottom: $lightBorder;
-      border-right: none;
-      padding-bottom: 10px;
-      margin-bottom: 30px;
-    }
-    .middle {
-      border-bottom: $lightBorder;
-      border-right: none;
-      padding-bottom: 10px;
-      margin-bottom: 30px;
-    }
-  }
-
-  .register__button {
-    margin-left: 220px;
-  }
-}
-
-// for Smartphone
-@media screen and (max-width: 600px) {
-  .register {
-    justify-content: flex-start;
-  }
-
-  .register__card {
-    height: auto;
-    width: 95%;
-    padding: 10px;
-
-    h1 {
-      margin: 20px 0;
-    }
-  }
-
-  .register__card-form {
-    flex-direction: column;
-    margin-top: 10px;
-
-    .left {
-      border-bottom: $lightBorder;
-      border-right: none;
-      margin-bottom: 30px;
-    }
-    .middle {
-      border-bottom: $lightBorder;
-      border-right: none;
-      margin-bottom: 30px;
-    }
-  }
-
-  .register__button {
-    margin-left: 0px;
-  }
-}
-
-.register2 {
   display: flex;
   justify-content: center;
   padding: 40px 0;
 }
 
-.register2__content {
+.register__content {
   width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  img {
+    width: 200px;
+    margin-bottom: 20px;
+  }
 
   h2 {
     font-size: $lg;
@@ -158,12 +29,12 @@
   }
 }
 
-.register2__content-step {
+.register__content-step {
   width: 100%;
   margin: 50px 0;
 }
 
-.register2__content-title {
+.register__content-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -173,12 +44,51 @@
   border-bottom: $lightBorder;
 }
 
-.register2__content-form {
+.register__content-form {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    width: 70px;
+    height: 70px;
+  }
+
+  h3 {
+    font-size: $md;
+    color: $darkGray;
+    font-weight: 400;
+  }
+
+  p {
+    margin-bottom: 10px;
+  }
+
+  .otp-input {
+    margin: 30px 0;
+
+    input:focus {
+      outline: none !important;
+      border: 1px solid $primaryPink;
+      box-shadow: 0 0 2px $primaryPink;
+    }
+  }
 }
 
-.register2__content-button {
+.register__content-button {
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 600px) {
+  .register__content {
+    width: 90%;
+
+    h2 {
+      font-size: $md;
+    }
+  }
 }
