@@ -9,10 +9,12 @@
 
   h1 {
     font-size: $xl;
+    color: $darkGray;
   }
 
   p {
     font-size: $sm;
+    color: $gray;
   }
 }
 
@@ -48,7 +50,7 @@
 
   h2 {
     font-size: $lg;
-    color: $darkGray;
+    color: $gray;
   }
 
   button {
@@ -165,12 +167,6 @@
           font-size: $md;
         }
       }
-    }
-  }
-
-  .video-button {
-    a {
-      font-size: $sm;
     }
   }
 }

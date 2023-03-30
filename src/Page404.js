@@ -12,9 +12,17 @@ const Page404 = () => {
       <h2>Page Not Found</h2>
       <p>The page you're looking for does not seem to exist.</p>
 
-      <Button type='primary' onClick={() => navigate('/')}>
-        BACK TO HOME
-      </Button>
+      <div className='page404__button'>
+        <Button type='primary' onClick={() => navigate('/')}>
+          BACK TO HOME
+        </Button>
+      </div>
+      
+      <div className='page404__smallButton'>
+        <Button type='primary' size='small' onClick={() => navigate('/')}>
+          Back to Home
+        </Button>
+      </div>
     </div>
   )
 }

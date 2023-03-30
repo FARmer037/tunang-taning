@@ -2,24 +2,44 @@ import React, { useContext, useState, useEffect } from 'react'
 import Layout from './components/Layout'
 import './styles/Quiz.scss'
 import QuizCard from './components/QuizCard'
-import { Button } from 'antd'
+import { Button, message } from 'antd'
 import { ScoreContext } from './App'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import LoadingPage from './LoadingPage'
 import Warning from './Warning'
+import { questions as MockQuestion } from './Question'
 
 const Quiz = () => {
   const { id } = useParams()
 
-  const { score } = useContext(ScoreContext)
+  const { score, answerArr, count } = useContext(ScoreContext)
 
   const [isDone, setIsDone] = useState(false)
   const [questions, setQuestions] = useState(null)
   const [title, setTitle] = useState('')
   const [timeOut, setTimeOut] = useState(0)
   const [isExpired, setIsExpired] = useState(false)
+
+  const [messageApi, contextHolder] = message.useMessage()
+
+  const error = () => {
+    messageApi.open({
+      type: 'error',
+      content: 'กรุณาทำข้อสอบให้ครบทุกข้อ',
+    });
+  }
+
+  const onSubmit = () => {
+    console.log(MockQuestion.length, count)
+    if (count !== MockQuestion.length) {
+      error()
+    } else {
+      // push answerArr to server
+      console.log(answerArr.sort())
+    }
+  }
 
   useEffect(() => {
     const question = async () => {
@@ -53,11 +73,11 @@ const Quiz = () => {
         })
     }
 
-    question()
+    // question()
   }, [])
 
   return (
-    !questions ? (
+    !MockQuestion ? (
       isExpired ? (
         <Warning />
       ) : (
@@ -81,18 +101,19 @@ const Quiz = () => {
           </div>
         ) : (
           <div className='quiz'>
+            {contextHolder}
             <h1>แบบทดสอบก่อนเรียน (Pretest)</h1>
 
             <div className='quiz__title-box'>
               <h3>จงเลือกคำตอบที่ถูกเพียง 1 ข้อ</h3>
             </div>
 
-            {questions.map((element, index) => (
+            {MockQuestion.map((element, index) => (
               <QuizCard key={index} id={index + 1} question={element} />
             ))}
 
             <div>
-              <Button type='primary' onClick={() => setIsDone(true)}>
+              <Button type='primary' onClick={onSubmit}>
                 ส่งคำตอบ
               </Button>
             </div>

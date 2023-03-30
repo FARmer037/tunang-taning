@@ -32,8 +32,9 @@
 }
 
 .navbar__menu-login {
-    border-left: 2px solid $gray;
+    border-left: 2px solid $lightGray;
     padding: 4px 0;
+    display: flex;
 
     .register {
         background-color: $primaryPink;

@@ -16,9 +16,11 @@ export const ScoreContext = createContext()
 
 function App () {
   const [score, setScore] = useState(0)
+  const [count, setCount] = useState(0)
+  const [answerArr, setAnswerArr] = useState([])
 
   return (
-    <ScoreContext.Provider value={{ score, setScore }}>
+    <ScoreContext.Provider value={{ score, setScore, count, setCount, answerArr, setAnswerArr }}>
       <ConfigProvider
         theme={{
           token: {
