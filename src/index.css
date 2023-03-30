@@ -1,12 +1,26 @@
+@font-face {
+  font-family: "NotoSansLight";
+  src: local("NotoSansLight"),
+    url("./fonts/NotoSansThai-Light.ttf") format("truetype");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "NotoSansRegular";
+  src: local("NotoSansRegular"),
+    url("./fonts/NotoSansThai-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
 body {
   margin: 0;
-  font-family: 'Noto Sans Thai', sans-serif;
+  font-family: "NotoSansRegular", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -16,5 +30,5 @@ code {
   box-sizing: border-box;
   font-size: 16px;
   /* font-weight: 400; */
-  font-family: 'Noto Sans Thai', sans-serif;
+  font-family: "NotoSansRegular", sans-serif;
 }
