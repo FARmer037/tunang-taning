@@ -5,7 +5,7 @@ import { VideoCameraFilled, RightCircleFilled, EditOutlined } from '@ant-design/
 import { Link } from 'react-router-dom'
 
 const Lesson = ({ lesson, allLesson }) => {
-    const { id, title, progress, icon } = lesson
+    const { lesson_id, title, progress, icon } = lesson
 
     const route = (id) => {
         if (id === 0) {
@@ -13,7 +13,7 @@ const Lesson = ({ lesson, allLesson }) => {
         } else if (id === allLesson.length - 1) {
             return '/quiz/2'
         } else {
-            return '/video'
+            return `/video/${id}`
         }
     }
 
@@ -21,7 +21,7 @@ const Lesson = ({ lesson, allLesson }) => {
         <div className='lesson'>
             <div className='left'>
                 <div>
-                    <p>{id}</p>
+                    <p>{lesson_id}</p>
                 </div>
             </div>
             <div className='right'>
@@ -38,7 +38,7 @@ const Lesson = ({ lesson, allLesson }) => {
                                 <EditOutlined style={{ color: '#777' }} />
                             )
                         }
-                        <Link to={route(id)} target="_blank">
+                        <Link to={route(lesson_id)} target="_blank">
                             {title}
                         </Link>
                     </div>

@@ -4,19 +4,26 @@ import { usePageVisibility } from 'react-page-visibility'
 import './styles/Video.scss'
 import Layout from './components/Layout'
 import {
-    LeftCircleOutlined,
-    RightCircleOutlined
+    LeftOutlined,
+    RightOutlined,
 } from '@ant-design/icons'
-import video from './videos/ep4.mp4'
+import { useParams, useNavigate } from 'react-router-dom'
+import { lessons } from './Lessons'
+import LoadingPage from './LoadingPage'
+import { Button } from 'antd'
 
 const VideoPlayer = () => {
+    const { id } = useParams()
+    const navige = useNavigate()
+
     const [isPlaying, setIsPlaying] = useState(true)
     const [isReady, setIsReady] = useState(false)
     const [played, setPlayed] = useState(0)
     const [startAt, setStart] = useState(0)
     const [duration, setDuration] = useState(0)
+    const [lesson, setLesson] = useState(null)
 
-    const playerRef = useRef();
+    const playerRef = useRef()
 
     const isVisible = usePageVisibility()
 
@@ -24,9 +31,9 @@ const VideoPlayer = () => {
         if (!isReady) {
             const timeToStart = startAt
             playerRef.current.seekTo(timeToStart, "seconds")
-            setIsReady(true);
+            setIsReady(true)
         }
-    }, [isReady]);
+    }, [isReady])
 
     const getDuration = (s) => {
         let min = s / 60
@@ -39,6 +46,28 @@ const VideoPlayer = () => {
         return Math.ceil(percent)
     }
 
+    const nextVideo = (id) => {
+        if (id === 0) {
+            console.log(id)
+        } else if (id === lessons.length - 1) {
+            console.log(id)
+        } else {
+            navige(`/video/${id}`)
+        }
+    }
+
+    useEffect(() => {
+        const getLesson = () => {
+            const lesson = lessons.find(item => +item.lesson_id === +id)
+
+            setLesson(lesson)
+        }
+
+        getLesson()
+
+        return () => { }
+    }, [])
+
     useEffect(() => {
         if (!isVisible) {
             setIsPlaying(false)
@@ -47,48 +76,52 @@ const VideoPlayer = () => {
     }, [isVisible])
 
     return (
-        <Layout>
-            <div className='video'>
-                <div className='video__header'>
-                    <h3>อบรมนิกะห์ออนไลน์</h3>
-                </div>
-
-                {/* <ReactPlayer
-                    ref={playerRef}
-                    url='https://www.youtube.com/watch?v=eGfAyfY_X18'
-                    // controls={true}
-                    width="70%"
-                    height="70%"
-                    playing={isPlaying}
-                    onReady={onReady}
-                    progressInterval={3000}
-                    playsinline={true}
-                    onProgress={(progress) => {
-                        setPlayed(progress.playedSeconds)
-                    }}
-                    // onPause={() => setPlayed(prev => prev - 3)}
-                    onPlay={() => setIsPlaying(true)}
-                    onDuration={(number) => setDuration(number)}
-                /> */}
-
-                <video src={video} controls />
-
-                <div className='video__controls'>
-                    <div className='video__controls-icon'>
-                        <LeftCircleOutlined />
+        !lesson ? (
+            <LoadingPage />
+        ) : (
+            <Layout>
+                <div className='video'>
+                    <div className='video__header'>
+                        <h3>อบรมนิกะห์ออนไลน์</h3>
                     </div>
 
-                    <p>บทที่ 4 การแต่งงานกับต่างศาสนิก</p>
-
-                    <div className='video__controls-icon'>
-                        <RightCircleOutlined />
+                    <div className='viveo__player'>
+                        <ReactPlayer
+                            ref={playerRef}
+                            url={lesson.video_path}
+                            // controls={true}
+                            width="100%"
+                            height="100%"
+                            playing={isPlaying}
+                            onReady={onReady}
+                            progressInterval={3000}
+                            playsinline={true}
+                            onProgress={(progress) => {
+                                setPlayed(progress.playedSeconds)
+                            }}
+                            // onPause={() => setPlayed(prev => prev - 3)}
+                            onPlay={() => setIsPlaying(true)}
+                            onDuration={(number) => setDuration(number)}
+                        />
                     </div>
-                </div>
 
-                {/* <p>ความยาววิดีโอ: {getDuration(duration)}</p>
+                    <div className='video__controls'>
+                        <div className='video__controls-icon'>
+                            <Button icon={<LeftOutlined />} onClick={() => nextVideo(+id - 1)} />
+                        </div>
+
+                        <p>{lesson ? lesson.title : ''}</p>
+
+                        <div className='video__controls-icon'>
+                            <Button icon={<RightOutlined />} onClick={() => nextVideo(+id + 1)} />
+                        </div>
+                    </div>
+
+                    {/* <p>ความยาววิดีโอ: {getDuration(duration)}</p>
                 <p>ดูไปแล้ว: {getPercent(Math.floor(played))}%</p> */}
-            </div>
-        </Layout>
+                </div>
+            </Layout>
+        )
     )
 }
 

@@ -1,4 +1,4 @@
-@import './Variables.scss';
+@import "./Variables.scss";
 
 .video {
   /* background-color: aquamarine; */
@@ -9,38 +9,64 @@
   align-items: center;
 
   video {
-      width: 70%;
+    width: 70%;
   }
 }
 
 .video__header {
-    // background-color: red;
-    width: 70%;
-    padding: 20px 0;
+  // background-color: red;
+  width: 70%;
+  padding: 20px 0;
 
-    h3 {
-        color: $darkGray;
-    }
+  h3 {
+    color: $darkGray;
+  }
 }
 
 .video__controls {
-    background-color: $lightPink;
-    padding: 10px;
-    border-radius: 6px;
-    display: flex;
-    width: 70%;
-    justify-content: space-between;
-    align-items: center;
-    margin: 20px 0;
+  background-color: $lightPink;
+  padding: 10px;
+  border-radius: 6px;
+  display: flex;
+  width: 70%;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
 
-    p {
-        font-size: $sm;
-        color: $darkGray;
-    }
+  p {
+    font-size: $sm;
+    color: $darkGray;
+  }
 }
 
 .video__controls-icon {
-    color: $gray;
-    padding: 2px;
-    cursor: pointer;
+  color: $gray;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.viveo__player {
+  width: 70%;
+  height: 70%;
+}
+
+@media screen and (max-width: 600px) {
+  .video {
+    video {
+      width: 90%;
+    }
+  }
+
+  .video__header {
+    width: 90%;
+  }
+
+  .video__controls {
+    width: 90%;
+  }
+
+  .viveo__player {
+    width: 90%;
+    height: auto;
+  }
 }

@@ -36,7 +36,7 @@ function App () {
           <Route path='/dashboard' element={<DashBoard />} />
           <Route path='/quiz/:id' element={<Quiz />} />
           <Route path='/pay' element={<Pay />} />
-          <Route path='/video' element={<VideoPlayer />} />
+          <Route path='/video/:id' element={<VideoPlayer />} />
           <Route path='/certificate' element={<Certificate />} />
           <Route path='/*' element={<Page404 />} />
         </Routes>
