@@ -1,6 +1,7 @@
 import React from 'react'
 import '../styles/Navbar.scss'
 import image from '../images/logo.png'
+import { Link } from 'react-scroll'
 
 const Navbar = () => {
   return (
@@ -12,7 +13,15 @@ const Navbar = () => {
           <a href='/'>หน้าแรก</a>
           <a href='/'>กูรสุสอบรบแต่งงาน</a>
           <a href='/'>แต่งงานออนไลน์</a>
-          <a href='/'>ของที่ระลึก</a>
+          <Link
+            to="gifts"
+            py={true}
+            smooth={true}
+            offset={50}
+            duration={500}
+          >
+            ของที่ระลึก
+          </Link>
         </div>
 
         <div className='navbar__menu-login'>
