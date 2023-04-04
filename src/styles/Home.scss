@@ -1,7 +1,6 @@
 @import "./Variables.scss";
 
 .home {
-  //   background-color: red;
   width: 100%;
 }
 
@@ -30,40 +29,75 @@
       color: $gray;
       font-weight: 400;
       margin-top: 10px;
+      text-align: center;
     }
   }
 }
 
 .home__gift {
-    @include center();
-    // background-color: red;
-    padding: 30px 0;
-    margin: 30px 0;
+  @include center();
+  padding: 30px 0;
+  margin: 30px 0;
 }
 
 .home__gift-title {
-    font-size: $xl;
-    color: $gray;
-    font-weight: 400;
-    margin-bottom: 30px;
+  font-size: $xl;
+  color: $gray;
+  font-weight: 400;
+  margin-bottom: 30px;
 }
 
 .home__gift-card-container {
-    // background-color: yellow;
-    width: 70%;
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+
+  h2 {
+    color: $darkGray;
+    margin-bottom: 10px;
+  }
+
+  .card-item {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+  }
+}
 
+.home__gift-card-item {
+  width: 300px;
+}
 
-    h2 {
-        color: $darkGray;
-        margin-bottom: 10px;
+@media screen and (max-width: 600px) {
+  .home__banner {
+    .home__title {
+      h1 {
+        font-size: $lg;
+        color: $gray;
+      }
+
+      h2 {
+        font-size: $sm;
+        margin-top: 2px;
+      }
     }
+  }
 
-    .card-item {
-        // background-color: yellowgreen;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+  .home__gift {
+    padding: 20px 0;
+    margin: 20px 0;
+  }
+
+  .home__gift-title {
+    font-size: $lg;
+  }
+
+  .home__gift-card-container {
+    flex-direction: column;
+  }
+
+  .home__gift-card-item {
+    width: 260px;
+    margin-bottom: 30px;
+  }
 }

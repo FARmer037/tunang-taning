@@ -1,57 +1,89 @@
-@import './Variables.scss';
+@import "./Variables.scss";
+
+@mixin navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 30px;
+  min-height: 100px;
+  box-shadow: $bottomShadow;
+
+  img {
+    max-height: 60px;
+  }
+}
 
 .navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 30px;
-    min-height: 100px;
-    box-shadow: $bottomShadow;
+  @include navbar();
+}
 
-    img {
-        // display: none;
-        max-height: 60px;
-    }
+.navbarMobile {
+  @include navbar();
+  padding: 20px;
+  min-height: 80px;
+
+  img {
+    max-height: 45px;
+  }
 }
 
 .navbar__menu {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    a {
-        text-decoration: none;
-        margin: 6px 16px;
-        color: $gray;
-        padding: 4px 12px 6px 12px;
-        cursor: pointer;
-    }
+  a {
+    text-decoration: none;
+    margin: 6px 16px;
+    color: $gray;
+    padding: 4px 12px 6px 12px;
+    cursor: pointer;
+  }
 
-    a:hover {
-        color: $darkPink;
-        transition: 0.3s;
-    }
+  a:hover {
+    color: $darkPink;
+    transition: 0.3s;
+  }
 }
 
 .navbar__menu-login {
-    border-left: 2px solid $lightGray;
-    padding: 4px 0;
-    display: flex;
+  border-left: 2px solid $lightGray;
+  padding: 4px 0;
+  display: flex;
 
-    .register {
-        background-color: $primaryPink;
-        padding: 4px 12px 5px 12px;
-        border-radius: 100px;
-        color: #fff;
-    }
+  .register {
+    background-color: $primaryPink;
+    padding: 4px 12px 5px 12px;
+    border-radius: 100px;
+    color: #fff;
+  }
 
-    .register:hover {
-        background-color: #353443;
-        color: #fff;
-    }
+  .register:hover {
+    background-color: #353443;
+    color: #fff;
+  }
 }
 
 @media screen and (max-width: 600px) {
-    .navbar {
-        padding: 0px;
-    }
+  .navbar {
+    padding: 0px;
+    display: none;
+  }
+
+  .navbar__menu {
+    flex-direction: column;
+  }
+
+  .navbar__menu-item {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+  .navbar__menu-login {
+    flex-direction: column;
+    border-left: none;
+    border-top: $lightBorder;
+    width: 100%;
+    align-items: center;
+  }
 }

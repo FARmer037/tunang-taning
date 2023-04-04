@@ -11,10 +11,11 @@ import VideoPlayer from './VideoPlayer'
 import Certificate from './Certificate'
 import Register from './Register'
 import Page404 from './Page404'
+import Home from './Home'
 
 export const ScoreContext = createContext()
 
-function App () {
+function App() {
   const [score, setScore] = useState(0)
   const [count, setCount] = useState(0)
   const [answerArr, setAnswerArr] = useState([])
@@ -30,7 +31,8 @@ function App () {
         }}
       >
         <Routes>
-          <Route path='/' element={<Login />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/courses' element={<Courses />} />
           <Route path='/dashboard' element={<DashBoard />} />

@@ -4,7 +4,7 @@ import Navbar from './Navbar'
 import AuthenNavbar from './AuthenNavbar'
 
 const Layout = ({ children }) => {
-  const [isAuthen, setIsAuthen] = useState(true)
+  const [isAuthen, setIsAuthen] = useState(false)
   return (
     <>
       {

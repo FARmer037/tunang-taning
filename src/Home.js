@@ -24,42 +24,50 @@ const Home = () => {
                     <h1 className='home__gift-title'>ของที่ระลึก</h1>
 
                     <div className='home__gift-card-container'>
-                        <Card
-                            hoverable
-                            style={{
-                                width: 300,
-                            }}
-                            cover={<img alt="example" src={gift1} />}
-                        >
-                            <div className='card-item'>
-                                <h2>ของชำร่วย “ลูกอม หมากฝรั่ง มิ้นต์”</h2>
-                                <Button type='primary' style={{ alignSelf: 'center' }}>สั่งซื้อ</Button>
-                            </div>
-                        </Card>
-                        <Card
-                            hoverable
-                            style={{
-                                width: 300,
-                            }}
-                            cover={<img alt="example" src={gift2} />}
-                        >
-                            <div className='card-item'>
-                                <h2>ของชำร่วย “นํ้ามันมะกอก”</h2>
-                                <Button type='primary' style={{ alignSelf: 'center' }}>สั่งซื้อ</Button>
-                            </div>
-                        </Card>
-                        <Card
-                            hoverable
-                            style={{
-                                width: 300,
-                            }}
-                            cover={<img alt="example" src={gift3} />}
-                        >
-                            <div className='card-item'>
-                                <h2>ของชำร่วย “ไม้แขวนเสื้อ”</h2>
-                                <Button type='primary' style={{ alignSelf: 'center' }}>สั่งซื้อ</Button>
-                            </div>
-                        </Card>
+                        <div className='home__gift-card-item'>
+                            <Card
+                                hoverable
+                                style={{
+                                    width: '100%',
+                                }}
+                                cover={<img alt="example" src={gift1} />}
+                            >
+                                <div className='card-item'>
+                                    <h2>ของชำร่วย “ลูกอม หมากฝรั่ง มิ้นต์”</h2>
+                                    <Button type='primary' style={{ alignSelf: 'center' }}>สั่งซื้อ</Button>
+                                </div>
+                            </Card>
+                        </div>
+
+                        <div className='home__gift-card-item'>
+                            <Card
+                                hoverable
+                                style={{
+                                    width: '100%',
+                                }}
+                                cover={<img alt="example" src={gift2} />}
+                            >
+                                <div className='card-item'>
+                                    <h2>ของชำร่วย “นํ้ามันมะกอก”</h2>
+                                    <Button type='primary' style={{ alignSelf: 'center' }}>สั่งซื้อ</Button>
+                                </div>
+                            </Card>
+                        </div>
+
+                        <div className='home__gift-card-item'>
+                            <Card
+                                hoverable
+                                style={{
+                                    width: '100%',
+                                }}
+                                cover={<img alt="example" src={gift3} />}
+                            >
+                                <div className='card-item'>
+                                    <h2>ของชำร่วย “ไม้แขวนเสื้อ”</h2>
+                                    <Button type='primary' style={{ alignSelf: 'center' }}>สั่งซื้อ</Button>
+                                </div>
+                            </Card>
+                        </div>
                     </div>
                 </div>
             </div>
