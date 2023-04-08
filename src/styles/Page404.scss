@@ -23,6 +23,10 @@
     }
 }
 
+.page404__smallButton {
+    display: none;
+}
+
 @media screen and (max-width: 600px) {
     .page404 {    
         h1 {
@@ -32,5 +36,13 @@
         h2 {
             font-size: $md;
         }
+    }
+
+    .page404__button {
+        display: none;
+    }
+
+    .page404__smallButton {
+        display: flex;
     }
 }

@@ -28,7 +28,7 @@ const DashBoard = () => {
                 {
                     lessons.map((element) => (
                         <Lesson
-                            key={element.id}
+                            key={element.lesson_id}
                             lesson={element}
                             allLesson={lessons}
                         />
