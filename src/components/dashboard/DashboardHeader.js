@@ -3,9 +3,7 @@ import '../../styles/Dashboard.scss'
 import { Link } from 'react-router-dom'
 import { Button } from 'antd'
 
-const DashboardHeader = () => {
-    const [isDone, setIsDone] = useState(true)
-
+const DashboardHeader = ({ name, progress }) => {
     return (
         <div className='dashboardheader'>
             <div className='dashboardheader__coueses'>
@@ -16,19 +14,18 @@ const DashboardHeader = () => {
             <div className='dashboardheader__progress'>
                 <div className='dashboardheader__progress-detail'>
                     <p>Course Progress:</p>
-                    <h1>21.6<span>%</span></h1>
+                    <h1>{progress}<span>%</span></h1>
                 </div>
                 <div className='dashboardheader__progress-name'>
-                    <h2>Mustofa Sachi</h2>
+                    <h2>{name}</h2>
 
                     {
-                        isDone ? (
+                        progress > 80 ? (
                             <Link to='/certificate' target='_blank'>
                                 <Button
                                     shape='round'
                                     type='primary'
                                     size='large'
-                                    disabled={!isDone}
                                 >
                                     เกียรติบัตร
                                 </Button>
@@ -38,7 +35,7 @@ const DashboardHeader = () => {
                                 shape='round'
                                 type='primary'
                                 size='large'
-                                disabled={!isDone}
+                                disabled
                             >
                                 เกียรติบัตร
                             </Button>

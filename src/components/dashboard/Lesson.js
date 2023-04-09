@@ -4,30 +4,22 @@ import { Progress } from 'antd'
 import { VideoCameraFilled, RightCircleFilled, EditOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 
-const Lesson = ({ lesson, allLesson }) => {
-    const { lesson_id, title, progress, icon } = lesson
+const Lesson = ({ lesson }) => {
+    const { lesson_id, title, progress, icon, is_done, quiz_id } = lesson
 
-    const route = (id) => {
-        if (id === 0) {
-            return '/quiz/1'
-        } else if (id === allLesson.length - 1) {
-            return '/quiz/2'
-        } else {
-            return `/video/${id}`
-        }
-    }
+    const route = !lesson_id ? `/quiz/${quiz_id}` : `/video/${lesson_id}`
 
     return (
         <div className='lesson'>
             <div className='left'>
                 <div>
-                    <p>{lesson_id}</p>
+                    <p>{lesson_id || quiz_id}</p>
                 </div>
             </div>
             <div className='right'>
                 <h2>{title}</h2>
 
-                <Progress percent={progress} showInfo={false} />
+                <Progress percent={!progress ? is_done ? 100 : 0 : progress} showInfo={false} />
 
                 <div className='video-button'>
                     <div>
@@ -38,7 +30,7 @@ const Lesson = ({ lesson, allLesson }) => {
                                 <EditOutlined style={{ color: '#777' }} />
                             )
                         }
-                        <Link to={route(lesson_id)} target="_blank">
+                        <Link to={route} target="_blank">
                             {title}
                         </Link>
                     </div>

@@ -4,8 +4,9 @@ import { Button } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import video from '../../videos/ep4.mp4'
 import Cookies from 'js-cookie'
+import ReactPlayer from 'react-player'
 
-const Banner = ({ isPay }) => {
+const Banner = ({ status, videoUrl, lecturer }) => {
   const [isAuthen, setIsAuthen] = useState(false)
 
   const navigate = useNavigate()
@@ -24,7 +25,7 @@ const Banner = ({ isPay }) => {
         <h1>อบรมนิกะห์ออนไลน์</h1>
         <h1>(Nikah training online)</h1>
 
-        <p>ผศ.ดร.อิสมาอีล ราโอบ</p>
+        <p>{lecturer}</p>
 
         <div className='banner__courses-button'>
           {isAuthen ? (
@@ -33,7 +34,7 @@ const Banner = ({ isPay }) => {
               type='primary'
               size='large'
               onClick={() => navigate('/dashboard')}
-              disabled={!isPay}
+              disabled={status !== 2}
             >
               เข้าอบรบ
             </Button>
@@ -45,7 +46,11 @@ const Banner = ({ isPay }) => {
         </div>
       </div>
       <div className='banner__videos'>
-        <video src={video} controls />
+        <ReactPlayer
+          url={videoUrl}
+          controls={true}
+          width='100%'
+        />
       </div>
     </div>
   )
