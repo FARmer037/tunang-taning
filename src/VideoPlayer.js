@@ -11,6 +11,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { lessons } from './Lessons'
 import LoadingPage from './LoadingPage'
 import { Button } from 'antd'
+import numeral from 'numeral'
 
 const VideoPlayer = () => {
     const { id } = useParams()
@@ -19,7 +20,7 @@ const VideoPlayer = () => {
     const [isPlaying, setIsPlaying] = useState(true)
     const [isReady, setIsReady] = useState(false)
     const [played, setPlayed] = useState(0)
-    const [startAt, setStart] = useState(0)
+    const [startAt, setStart] = useState(0)     // 0 หรือ รับจาก api
     const [duration, setDuration] = useState(0)
     const [lesson, setLesson] = useState(null)
 
@@ -30,31 +31,35 @@ const VideoPlayer = () => {
     const onReady = useCallback(() => {
         if (!isReady) {
             const timeToStart = startAt
-            playerRef.current.seekTo(timeToStart, "seconds")
+            playerRef.current.seekTo(timeToStart, 'seconds')
             setIsReady(true)
         }
     }, [isReady])
 
-    const getDuration = (s) => {
-        let min = s / 60
-        let sec = s % 60
-        return Math.floor(min) + ':' + sec
+    const onPause = () => {
+        let timeFormat = getDuration()
+
+        //  save played! (call api)
+
     }
 
-    const getPercent = (s) => {
-        const percent = s * 100 / duration
-        return Math.ceil(percent)
+    const getDuration = () => {
+        // let timeFormat = numeral(played).format('00:00:00')
+        // console.log(timeFormat)
+
+        let hour = played / 3600
+        let min = (played % 3600) / 60
+        let sec = (played % 3600) % 60
+
+        return (Math.floor(hour) + ':' + Math.floor(min) + ':' + Math.floor(sec))
     }
 
-    const nextVideo = (id) => {
-        if (id === 0) {
-            console.log(id)
-        } else if (id === lessons.length - 1) {
-            console.log(id)
-        } else {
-            navige(`/video/${id}`)
-        }
-    }
+    useEffect(() => {
+        let timeFormat = getDuration()
+
+        //  save timeFormat! (call api)
+
+    }, [played])
 
     useEffect(() => {
         const getLesson = () => {
@@ -71,6 +76,10 @@ const VideoPlayer = () => {
     useEffect(() => {
         if (!isVisible) {
             setIsPlaying(false)
+
+            let timeFormat = getDuration()
+
+            //  save played! (call api)
         }
 
     }, [isVisible])
@@ -90,16 +99,17 @@ const VideoPlayer = () => {
                             ref={playerRef}
                             url={lesson.video_path}
                             // controls={true}
-                            width="100%"
-                            height="100%"
+                            width='100%'
+                            height='100%'
                             playing={isPlaying}
                             onReady={onReady}
-                            progressInterval={3000}
+                            progressInterval={1000}
                             playsinline={true}
                             onProgress={(progress) => {
                                 setPlayed(progress.playedSeconds)
                             }}
                             // onPause={() => setPlayed(prev => prev - 3)}
+                            onPause={onPause}
                             onPlay={() => setIsPlaying(true)}
                             onDuration={(number) => setDuration(number)}
                         />
@@ -107,18 +117,19 @@ const VideoPlayer = () => {
 
                     <div className='video__controls'>
                         <div className='video__controls-icon'>
-                            <Button icon={<LeftOutlined />} onClick={() => nextVideo(+id - 1)} />
+                            <a href={(+id - 1) === 0 ? '/quiz/1' : `/video/${+id - 1}`}>
+                                <Button icon={<LeftOutlined />} />
+                            </a>
                         </div>
 
                         <p>{lesson ? lesson.title : ''}</p>
 
                         <div className='video__controls-icon'>
-                            <Button icon={<RightOutlined />} onClick={() => nextVideo(+id + 1)} />
+                            <a href={(+id + 1) > 15 ? '/quiz/2' : `/video/${+id + 1}`}>
+                                <Button icon={<RightOutlined />} />
+                            </a>
                         </div>
                     </div>
-
-                    {/* <p>ความยาววิดีโอ: {getDuration(duration)}</p>
-                <p>ดูไปแล้ว: {getPercent(Math.floor(played))}%</p> */}
                 </div>
             </Layout>
         )

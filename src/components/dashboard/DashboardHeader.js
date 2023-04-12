@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import '../../styles/Dashboard.scss'
 import { Link } from 'react-router-dom'
 import { Button } from 'antd'
@@ -21,24 +21,48 @@ const DashboardHeader = ({ name, progress }) => {
 
                     {
                         progress > 80 ? (
-                            <Link to='/certificate' target='_blank'>
+                            <div className='dashboardheader__progress-button'>
+                                <Link to='/certificate' target='_blank'>
+                                    <Button
+                                        shape='round'
+                                        type='primary'
+                                        size='large'
+                                        style={{ marginRight: 14 }}
+                                    >
+                                        เกียรติบัตร
+                                    </Button>
+                                </Link>
+                                <Link to='/' target='_blank'>
+                                    <Button
+                                        shape='round'
+                                        type='primary'
+                                        size='large'
+                                        style={{ background: '#c79274' }}
+                                    >
+                                        แบบประเมิน
+                                    </Button>
+                                </Link>
+                            </div>
+                        ) : (
+                            <div className='dashboardheader__progress-button'>
                                 <Button
                                     shape='round'
                                     type='primary'
                                     size='large'
+                                    style={{ marginRight: 14 }}
+                                    disabled
                                 >
                                     เกียรติบัตร
                                 </Button>
-                            </Link>
-                        ) : (
-                            <Button
-                                shape='round'
-                                type='primary'
-                                size='large'
-                                disabled
-                            >
-                                เกียรติบัตร
-                            </Button>
+                                <Button
+                                    shape='round'
+                                    type='primary'
+                                    size='large'
+                                    disabled
+                                >
+                                    แบบประเมิน
+                                </Button>
+                            </div>
                         )
                     }
                 </div>

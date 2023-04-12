@@ -11,9 +11,9 @@ import Warning from './Warning'
 import LoadingPage from './LoadingPage'
 
 const Courses = () => {
-  const [username, setUsername] = useState('')
+  const lecturer = 'ผศ.ดร.อิสมาอีล ราโอบ'
+
   const [videoUrl, setVideoUrl] = useState('')
-  const [lecturer, setLecturer] = useState('')
   const [status, setStatus] = useState(0)
   const [isLoading, setIsloading] = useState(true)
   const [isExpired, setIsExpired] = useState(false)
@@ -38,11 +38,9 @@ const Courses = () => {
           const { code, item, itemdetail, message } = await response.data
 
           if (code === 10) {
-            const { username, status, videoUrl, lecturer } = item
+            const { status, videoUrl } = item
 
-            setUsername(username)
             setVideoUrl(videoUrl)
-            setLecturer(lecturer)
             setStatus(status)
             setIsloading(false)
           }
