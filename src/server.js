@@ -133,13 +133,16 @@ createServer({
             }
         })
 
-        this.post("/api/Quiz", () => {
+        this.post('/api/Quiz', () => {
             return {
                 code: 10,
                 item: {
                     status: 0,
-                    score: null,
-                    questions: [
+                    score: 8,
+                    createAt: '24-Mar-2023 @ 10:30:53',
+                    Quiz_Type: 'แบบทดสอบก่อนเรียน (Pretest)',
+                    TimeOut: 5,
+                    Quiz: [
                         {
                             question_id: 1,
                             title: 'ข้อใดกล่าวถูกต้องเกี่ยวกับบทบัญญัติการแต่งงานในอิสลาม',
@@ -498,5 +501,17 @@ createServer({
                 message: 'success!'
             }
         })
-    },
+
+        this.post('/api/QuizSubmit', () => {
+            return {
+                code: 10,
+                item: {
+                    score: 10,
+                    createAt: '28-Mar-2023 @ 14:30:53'
+                },
+                itemdetail: 'token',
+                message
+            }
+        })
+    }
 })

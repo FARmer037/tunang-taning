@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import '../../styles/CoursesBanner.scss'
 import { Button } from 'antd'
 import { useNavigate } from 'react-router-dom'
-import video from '../../videos/ep4.mp4'
 import Cookies from 'js-cookie'
 import ReactPlayer from 'react-player'
 
@@ -34,13 +33,18 @@ const Banner = ({ status, videoUrl, lecturer }) => {
               type='primary'
               size='large'
               onClick={() => navigate('/dashboard')}
-              disabled={status !== 2}
+              disabled={status !== '2'}
             >
               เข้าอบรบ
             </Button>
           ) : (
-            <Button shape='round' type='primary' size='large'>
-              ลงทะเบียนเข้าอบรบ
+            <Button
+              shape='round'
+              type='primary'
+              size='large'
+              onClick={() => navigate('/register')}
+            >
+              ลงทะเบียนเข้าอบรม
             </Button>
           )}
         </div>

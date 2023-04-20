@@ -83,7 +83,7 @@ const Pay = () => {
               <Radio.Group onChange={onChange} value={value}>
                 <Space direction='vertical'>
                   {data.map((item, index) => (
-                    <Radio value={index + 1}>{item.bankName}</Radio>
+                    <Radio key={index} value={index + 1}>{item.bankName}</Radio>
                   ))}
                 </Space>
               </Radio.Group>
@@ -109,7 +109,7 @@ const Pay = () => {
               </Upload>
             </Form.Item>
           </Form>
-          <Button>แจ้งชำระเงิน</Button>
+          <Button type='primary'>แจ้งชำระเงิน</Button>
         </div>
       </div>
     </Layout>
