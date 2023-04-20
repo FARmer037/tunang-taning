@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import '../styles/Register.scss'
 import { PlusOutlined } from '@ant-design/icons'
 import {
@@ -9,15 +9,74 @@ import {
     Select,
     Upload,
     Col,
-    Row
+    Row,
+    Radio,
+    message,
 } from 'antd'
 import OtpInput from 'react-otp-input'
 import SuccessIcon from '../images/success.png'
- 
+import { ScoreContext } from '../App'
+
 const { TextArea } = Input
 
+const props = {
+    beforeUpload: (file) => {
+        const isPNG = file.type === 'image/png' || file.type === 'image/jpg' || file.type === 'image/jpeg'
+        if (!isPNG) {
+            message.error(`${file.name} ไม่ใช่ไฟล์รูปภาพ`)
+        }
+        return isPNG || Upload.LIST_IGNORE
+    },
+    onChange: (info) => {
+        console.log(info.fileList)
+    },
+}
+
 const RegisterForm = ({ step }) => {
-    const [otp, setOtp] = useState('')
+    const {
+        belongTo, setBelongTo,
+        firstNameTH, setFirstNameTH,
+        lastNameTH, setLastNameTH,
+        firstNameEN, setFirstNameEN,
+        lastNameEN, setLastNameEN,
+        idCardNumber, setidCardNumber,
+        idCardCopy, setIdCardCopy,
+        phoneNumber, setPhoneNumber,
+        mosqueAdress, setMosqueAddress,
+        birthDateShow, setBirthDateShow,
+        birthDate, setBirthDate,
+        age, setAge,
+        sex, setSex,
+        address, setAddress,
+        email, setEmail,
+        occupation, setOccupation,
+        sendingPlace, setSendingPlace,
+        username, setUsername,
+        password, setPassword,
+        confirmPassword, setConfirmPassword,
+        otp, setOtp
+    } = useContext(ScoreContext)
+
+    const handleDateStartChange = (newValue) => {
+        const date = new Date()
+
+        setBirthDateShow(newValue)
+
+        let difference = date.getTime() - (newValue.$d).getTime()
+        let TotalDays = Math.ceil(difference / (1000 * 3600 * 24))
+        let years = (Math.round(TotalDays / 365))
+
+        let day = newValue.$D
+        let month = newValue.$M + 1
+        let year = newValue.$y
+
+        let dateFormat = `${year}/${month}/${day}`
+
+        console.log(dateFormat)
+
+        setBirthDate(dateFormat)
+        setAge(years)
+    }
 
     switch (step) {
         case 1:
@@ -33,25 +92,25 @@ const RegisterForm = ({ step }) => {
                         }}
                     >
                         <Form.Item label='สังกัด คณะกรรมการอิสลามประจำจังหวัด'>
-                            <Select>
-                                <Select.Option value='demo1'>Demo</Select.Option>
-                                <Select.Option value='demo2'>Demo</Select.Option>
-                                <Select.Option value='demo3'>Demo</Select.Option>
-                                <Select.Option value='demo4'>Demo</Select.Option>
-                                <Select.Option value='demo5'>Demo</Select.Option>
-                                <Select.Option value='demo6'>Demo</Select.Option>
+                            <Select value={belongTo} onSelect={(value) => setBelongTo(value)}>
+                                <Select.Option value='demo1'>Demo1</Select.Option>
+                                <Select.Option value='demo2'>Demo2</Select.Option>
+                                <Select.Option value='demo3'>Demo3</Select.Option>
+                                <Select.Option value='demo4'>Demo4</Select.Option>
+                                <Select.Option value='demo5'>Demo5</Select.Option>
+                                <Select.Option value='demo6'>Demo6</Select.Option>
                             </Select>
                         </Form.Item>
 
                         <Row>
                             <Col span={12} style={{ paddingRight: 10 }}>
                                 <Form.Item label='ชื่อ (ภาษาไทย)'>
-                                    <Input />
+                                    <Input value={firstNameTH} onChange={e => setFirstNameTH(e.target.value)} />
                                 </Form.Item>
                             </Col>
                             <Col span={12} style={{ paddingLeft: 10 }}>
                                 <Form.Item label='นามสกุล (ภาษาไทย)'>
-                                    <Input />
+                                    <Input value={lastNameTH} onChange={e => setLastNameTH(e.target.value)} />
                                 </Form.Item>
                             </Col>
                         </Row>
@@ -59,70 +118,79 @@ const RegisterForm = ({ step }) => {
                         <Row>
                             <Col span={12} style={{ paddingRight: 10 }}>
                                 <Form.Item label='ชื่อ (ภาษาอังกฤษ)'>
-                                    <Input />
+                                    <Input value={firstNameEN} onChange={e => setFirstNameEN(e.target.value)} />
                                 </Form.Item>
                             </Col>
                             <Col span={12} style={{ paddingLeft: 10 }}>
                                 <Form.Item label='นามสกุล (ภาษาอังกฤษ)'>
-                                    <Input />
+                                    <Input value={lastNameEN} onChange={e => setLastNameEN(e.target.value)} />
                                 </Form.Item>
                             </Col>
                         </Row>
 
                         <Form.Item label='เลขที่บัตรประชาชน'>
-                            <Input />
+                            <Input value={idCardNumber} onChange={e => setidCardNumber(e.target.value)} />
                         </Form.Item>
 
                         <Form.Item label='เบอร์โทรศัพท์'>
-                            <Input />
-                        </Form.Item>
-
-                        <Form.Item label='ชื่อมัสยิดที่อยู่'>
-                            <Input />
+                            <Input value={phoneNumber} onChange={e => setPhoneNumber(e.target.value)} />
                         </Form.Item>
 
                         <Row>
                             <Col span={8} style={{ paddingRight: 10 }}>
                                 <Form.Item label='วันเดือนปีเกิด'>
-                                    <DatePicker />
+                                    <DatePicker value={birthDateShow} onChange={handleDateStartChange} />
                                 </Form.Item>
                             </Col>
                             <Col span={8} style={{ paddingLeft: 10 }}>
                                 <Form.Item label='อายุ'>
-                                    <InputNumber />
+                                    <InputNumber disabled={true} value={age} />
                                 </Form.Item>
                             </Col>
                         </Row>
 
                         <Form.Item label='เพศ'>
-                            <Input />
+                            <Radio.Group value={sex} onChange={e => setSex(e.target.value)}>
+                                <Radio value='male'> ชาย </Radio>
+                                <Radio value='female'> หญิง </Radio>
+                            </Radio.Group>
+                        </Form.Item>
+
+                        <Form.Item label='ที่อยู่' className='wrap-label'>
+                            <TextArea rows={4} value={address} onChange={e => setAddress(e.target.value)} />
                         </Form.Item>
 
                         <Form.Item label='อีเมล'>
-                            <Input />
+                            <Input value={email} onChange={e => setEmail(e.target.value)} />
                         </Form.Item>
 
                         <Form.Item label='อาชีพ'>
-                            <Select>
-                                <Select.Option value='demo1'>Demo</Select.Option>
-                                <Select.Option value='demo2'>Demo</Select.Option>
-                                <Select.Option value='demo3'>Demo</Select.Option>
+                            <Select value={occupation} onSelect={(value) => setOccupation(value)}>
+                                <Select.Option value='demo1'>Demo1</Select.Option>
+                                <Select.Option value='demo2'>Demo2</Select.Option>
+                                <Select.Option value='demo3'>Demo3</Select.Option>
                             </Select>
                         </Form.Item>
 
+                        <Form.Item label='ชื่อมัสยิดที่อยู่'>
+                            <Input value={mosqueAdress} onChange={e => setMosqueAddress(e.target.value)} />
+                        </Form.Item>
+
                         <Form.Item label='สถานที่ส่งเกียรติบัตรอบรม' className='wrap-label'>
-                            <TextArea rows={4} />
+                            <TextArea rows={4} value={sendingPlace} onChange={e => setSendingPlace(e.target.value)} />
                         </Form.Item>
 
                         <Form.Item label='สำเนาบัตรประชาชน' valuePropName='fileList'>
-                            <Upload action='/upload.do' listType='picture-card'>
+                            <Upload 
+                            {...props} 
+                            maxCount={1} 
+                            action='/api/fileupload' 
+                            listType='picture-card'
+                            accept='.png, .jpg, .jpeg'
+                            >
                                 <div>
                                     <PlusOutlined />
-                                    <div
-                                        style={{
-                                            marginTop: 8,
-                                        }}
-                                    >
+                                    <div style={{ marginTop: 8 }}>
                                         Upload
                                     </div>
                                 </div>
@@ -145,15 +213,15 @@ const RegisterForm = ({ step }) => {
                         }}
                     >
                         <Form.Item label='ชื่อผู้ใช้'>
-                            <Input />
+                            <Input value={username} onChange={e => setUsername(e.target.value)} />
                         </Form.Item>
 
                         <Form.Item label='รหัสผ่าน'>
-                            <Input.Password />
+                            <Input.Password value={password} onChange={e => setPassword(e.target.value)} />
                         </Form.Item>
 
                         <Form.Item label='ยืนยันรหัสผ่าน'>
-                            <Input.Password />
+                            <Input.Password value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
                         </Form.Item>
                     </Form>
                 </div>

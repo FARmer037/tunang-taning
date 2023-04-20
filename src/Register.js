@@ -1,14 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import './styles/Register.scss'
 import RegisterForm from './components/RegisterForm'
 import { UnlockOutlined, SmileOutlined, SolutionOutlined, UserOutlined } from '@ant-design/icons'
 import { Steps, Progress, Button } from 'antd'
 import { useNavigate } from 'react-router-dom'
-
-// status list
-// 1. wait
-// 2. process
-// 3. finish
+import { ScoreContext } from './App'
 
 const steps = [
     {
@@ -40,12 +36,68 @@ const steps = [
 const Register = () => {
     const [step, setStep] = useState(1)
 
+    const {
+        belongTo,
+        firstNameTH,
+        lastNameTH,
+        firstNameEN,
+        lastNameEN,
+        idCardNumber,
+        idCardCopy,
+        phoneNumber,
+        mosqueAdress,
+        birthDate,
+        age,
+        sex,
+        address,
+        email,
+        occupation,
+        sendingPlace,
+        username,
+        password,
+        confirmPassword,
+        otp,
+    } = useContext(ScoreContext)
+
     const navigate = useNavigate()
 
     const getStepTitle = (id) => {
         const step = steps.find(step => step.id === id)
 
         return step.title
+    }
+
+    const onNextClick = () => {
+        // console.log('belongTo -> ', belongTo)
+        // console.log('firstNameTH -> ', firstNameTH)
+        // console.log('lastNameTH -> ', lastNameTH)
+        // console.log('firstNameEN -> ', firstNameEN)
+        // console.log('lastNameEN -> ', lastNameEN)
+        // console.log('idCardNumber -> ', idCardNumber)
+        // console.log('idCardCopy -> ', idCardCopy)
+        // console.log('phoneNumber -> ', phoneNumber)
+        // console.log('mosqueAdress -> ', mosqueAdress)
+        // console.log('birthDate -> ', birthDate)
+        // console.log('age -> ', age)
+        // console.log('sex -> ', sex)
+        // console.log('email -> ', email)
+        // console.log('occupation -> ', occupation)
+        // console.log('sendingPlace -> ', sendingPlace)
+        
+        // console.log('username -> ', username)
+        // console.log('password -> ', password)
+        // console.log('confirmPassword -> ', confirmPassword)
+
+        // console.log('step', step)
+
+        if(step === 3) {
+            console.log('otp', otp)
+            //  otp verify here!
+
+            //  If the otp code is verified successfully, save the information to the database.
+        }
+        
+        setStep(step + 1)
     }
 
     return (
@@ -108,7 +160,7 @@ const Register = () => {
                         step === 4 ? (
                             <Button
                                 type='primary'
-                                onClick={() => navigate('/')}
+                                onClick={() => navigate('/login')}
                                 style={{ marginTop: 26 }}
                             >
                                 เข้าสู่ระบบ
@@ -116,7 +168,7 @@ const Register = () => {
                         ) : (
                             <Button
                                 type='primary'
-                                onClick={() => setStep(step + 1)}
+                                onClick={onNextClick}
                             >
                                 ถัดไป
                             </Button>

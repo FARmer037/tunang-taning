@@ -125,7 +125,7 @@ const LoginForm = () => {
       }
 
       <p>
-        ยังไม่ได้เป็นสมาชิก <Link to='register'>สมัครเลย!</Link>
+        ยังไม่ได้เป็นสมาชิก <Link to='/register'>สมัครเลย!</Link>
       </p>
     </div>
   )
