@@ -24,8 +24,8 @@ const Navbar = () => {
         <div className='navbar__menu'>
           <div className='navbar__menu-item'>
             <a href='/'>หน้าแรก</a>
-            <a href='/'>กูรสุสอบรบแต่งงาน</a>
-            <a href='/'>แต่งงานออนไลน์</a>
+            <a href='/courses'>กูรสุสอบรบแต่งงาน</a>
+            <a href='/courses'>แต่งงานออนไลน์</a>
             <LinkId
               to='gifts'
               py={true}
@@ -38,10 +38,8 @@ const Navbar = () => {
           </div>
 
           <div className='navbar__menu-login'>
-            <Link to='/login'>เข้าสู่ระบบ</Link>
-            <Link to='/register' className='register'>
-              ลงทะเบียน
-            </Link>
+            <Link to='/register'>ลงทะเบียน</Link>
+            <Link to='/login' className='register'>เข้าสู่ระบบ</Link>
           </div>
         </div>
       </div>
@@ -56,8 +54,8 @@ const Navbar = () => {
         <div className='navbar__menu'>
           <div className='navbar__menu-item'>
             <a href='/'>หน้าแรก</a>
-            <a href='/'>กูรสุสอบรบแต่งงาน</a>
-            <a href='/'>แต่งงานออนไลน์</a>
+            <a href='/courses'>กูรสุสอบรบแต่งงาน</a>
+            <a href='/courses'>แต่งงานออนไลน์</a>
             <LinkId
               to='gifts'
               py={true}
@@ -70,10 +68,8 @@ const Navbar = () => {
           </div>
 
           <div className='navbar__menu-login'>
-            <Link to='/login'>เข้าสู่ระบบ</Link>
-            <Link to='/register' className='register'>
-              ลงทะเบียน
-            </Link>
+            <Link to='/register'>ลงทะเบียน</Link>
+            <Link to='/login' className='register'>เข้าสู่ระบบ</Link>
           </div>
         </div>
       </Drawer>
