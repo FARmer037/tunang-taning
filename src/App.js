@@ -25,8 +25,8 @@ function App() {
   const [belongTo, setBelongTo] = useState(null)
   const [firstNameTH, setFirstNameTH] = useState('')
   const [lastNameTH, setLastNameTH] = useState('')
-  const [firstNameEN, setFirstNameEN] = useState('')
-  const [lastNameEN, setLastNameEN] = useState('')
+  const [firstNameAR, setFirstNameAR] = useState('')
+  const [lastNameAR, setLastNameAR] = useState('')
   const [idCardNumber, setidCardNumber] = useState('')
   const [idCardCopy, setIdCardCopy] = useState(null)
   const [phoneNumber, setPhoneNumber] = useState('')
@@ -55,8 +55,8 @@ function App() {
         belongTo, setBelongTo,
         firstNameTH, setFirstNameTH,
         lastNameTH, setLastNameTH,
-        firstNameEN, setFirstNameEN,
-        lastNameEN, setLastNameEN,
+        firstNameAR, setFirstNameAR,
+        lastNameAR, setLastNameAR,
         idCardNumber, setidCardNumber,
         idCardCopy, setIdCardCopy,
         phoneNumber, setPhoneNumber,

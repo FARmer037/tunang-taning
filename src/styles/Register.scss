@@ -83,6 +83,29 @@
   margin-top: 20px;
 }
 
+#images {
+  font-size: 14px;
+  color: $darkGray;
+}
+
+input[type="file"]::file-selector-button {
+  margin-right: 20px;
+  border: none;
+  background: #fff;
+  padding: 8px 16px;
+  border-radius: 10px;
+  color: #999;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+  border: $solidBorder;
+}
+
+input[type="file"]::file-selector-button:hover {
+  color: $primaryPink;
+  border-color: $primaryPink;
+  transition: 0.4s;
+}
+
 @media screen and (max-width: 600px) {
   .register__content {
     width: 90%;

@@ -9,9 +9,7 @@ import {
   InputNumber,
   Radio,
   Space,
-  Upload
 } from 'antd'
-import { PlusOutlined } from '@ant-design/icons'
 
 const data = [
   {
@@ -39,10 +37,33 @@ const data = [
 
 const Pay = () => {
   const [value, setValue] = useState(null)
+  const [slip, setSlip] = useState(null)
 
   const onChange = e => {
     console.log('radio checked', e.target.value)
     setValue(e.target.value)
+  }
+
+  const onLoad = (fileString) => {
+    const searchTerm = 'base64,'
+    const indexOfFirst = fileString.indexOf(searchTerm)
+    const firstIndex = indexOfFirst + 7
+    const base64 = fileString.slice(firstIndex)
+
+    setSlip(base64)
+    console.log(base64)
+  }
+
+  const getBase64 = file => {
+    let reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => {
+      onLoad(reader.result)
+    }
+  }
+
+  const onImageChange = (e) => {
+    getBase64(e.target.files[0])
   }
 
   return (
@@ -95,18 +116,12 @@ const Pay = () => {
               <DatePicker />
             </Form.Item>
             <Form.Item label='หลักฐานการโอน' valuePropName='fileList'>
-              <Upload action='/upload.do' listType='picture-card'>
-                <div>
-                  <PlusOutlined />
-                  <div
-                    style={{
-                      marginTop: 8
-                    }}
-                  >
-                    Upload
-                  </div>
-                </div>
-              </Upload>
+              <input
+                type='file'
+                id='images'
+                accept='image/*'
+                onChange={onImageChange}
+              />
             </Form.Item>
           </Form>
           <Button type='primary'>แจ้งชำระเงิน</Button>

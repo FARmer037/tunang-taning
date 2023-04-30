@@ -1,17 +1,14 @@
 import React, { useContext } from 'react'
 import '../styles/Register.scss'
-import { PlusOutlined } from '@ant-design/icons'
 import {
     DatePicker,
     Form,
     Input,
     InputNumber,
     Select,
-    Upload,
     Col,
     Row,
     Radio,
-    message,
 } from 'antd'
 import OtpInput from 'react-otp-input'
 import SuccessIcon from '../images/success.png'
@@ -19,26 +16,13 @@ import { ScoreContext } from '../App'
 
 const { TextArea } = Input
 
-const props = {
-    beforeUpload: (file) => {
-        const isPNG = file.type === 'image/png' || file.type === 'image/jpg' || file.type === 'image/jpeg'
-        if (!isPNG) {
-            message.error(`${file.name} ไม่ใช่ไฟล์รูปภาพ`)
-        }
-        return isPNG || Upload.LIST_IGNORE
-    },
-    onChange: (info) => {
-        console.log(info.fileList)
-    },
-}
-
 const RegisterForm = ({ step }) => {
     const {
         belongTo, setBelongTo,
         firstNameTH, setFirstNameTH,
         lastNameTH, setLastNameTH,
-        firstNameEN, setFirstNameEN,
-        lastNameEN, setLastNameEN,
+        firstNameAR, setFirstNameAR,
+        lastNameAR, setLastNameAR,
         idCardNumber, setidCardNumber,
         idCardCopy, setIdCardCopy,
         phoneNumber, setPhoneNumber,
@@ -76,6 +60,27 @@ const RegisterForm = ({ step }) => {
 
         setBirthDate(dateFormat)
         setAge(years)
+    }
+
+    const onLoad = (fileString) => {
+        const searchTerm = 'base64,'
+        const indexOfFirst = fileString.indexOf(searchTerm)
+        const firstIndex = indexOfFirst + 7
+        const base64 = fileString.slice(firstIndex)
+
+        setIdCardCopy(base64)
+    }
+
+    const getBase64 = file => {
+        let reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = () => {
+            onLoad(reader.result)
+        }
+    }
+
+    const onImageChange = (e) => {
+        getBase64(e.target.files[0])
     }
 
     switch (step) {
@@ -117,13 +122,13 @@ const RegisterForm = ({ step }) => {
 
                         <Row>
                             <Col span={12} style={{ paddingRight: 10 }}>
-                                <Form.Item label='ชื่อ (ภาษาอังกฤษ)'>
-                                    <Input value={firstNameEN} onChange={e => setFirstNameEN(e.target.value)} />
+                                <Form.Item label='ชื่อ (ภาษาอาหรับ)'>
+                                    <Input value={firstNameAR} onChange={e => setFirstNameAR(e.target.value)} />
                                 </Form.Item>
                             </Col>
                             <Col span={12} style={{ paddingLeft: 10 }}>
-                                <Form.Item label='นามสกุล (ภาษาอังกฤษ)'>
-                                    <Input value={lastNameEN} onChange={e => setLastNameEN(e.target.value)} />
+                                <Form.Item label='นามสกุล (ภาษาอาหรับ)'>
+                                    <Input value={lastNameAR} onChange={e => setLastNameAR(e.target.value)} />
                                 </Form.Item>
                             </Col>
                         </Row>
@@ -181,20 +186,12 @@ const RegisterForm = ({ step }) => {
                         </Form.Item>
 
                         <Form.Item label='สำเนาบัตรประชาชน' valuePropName='fileList'>
-                            <Upload 
-                            {...props} 
-                            maxCount={1} 
-                            action='/api/fileupload' 
-                            listType='picture-card'
-                            accept='.png, .jpg, .jpeg'
-                            >
-                                <div>
-                                    <PlusOutlined />
-                                    <div style={{ marginTop: 8 }}>
-                                        Upload
-                                    </div>
-                                </div>
-                            </Upload>
+                            <input
+                                type='file'
+                                id='images'
+                                accept='image/*'
+                                onChange={onImageChange}
+                            />
                         </Form.Item>
                     </Form>
                 </div>

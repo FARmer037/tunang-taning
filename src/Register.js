@@ -40,8 +40,8 @@ const Register = () => {
         belongTo,
         firstNameTH,
         lastNameTH,
-        firstNameEN,
-        lastNameEN,
+        firstNameAR,
+        lastNameAR,
         idCardNumber,
         idCardCopy,
         phoneNumber,
@@ -71,8 +71,8 @@ const Register = () => {
         // console.log('belongTo -> ', belongTo)
         // console.log('firstNameTH -> ', firstNameTH)
         // console.log('lastNameTH -> ', lastNameTH)
-        // console.log('firstNameEN -> ', firstNameEN)
-        // console.log('lastNameEN -> ', lastNameEN)
+        // console.log('firstNameAR -> ', firstNameAR)
+        // console.log('lastNameAR -> ', lastNameAR)
         // console.log('idCardNumber -> ', idCardNumber)
         // console.log('idCardCopy -> ', idCardCopy)
         // console.log('phoneNumber -> ', phoneNumber)
