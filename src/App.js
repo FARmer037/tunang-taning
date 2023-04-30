@@ -23,6 +23,7 @@ function App() {
   const [answerArr, setAnswerArr] = useState([])
 
   const [belongTo, setBelongTo] = useState(null)
+  const [nameTitle, setNameTitle] = useState(null)
   const [firstNameTH, setFirstNameTH] = useState('')
   const [lastNameTH, setLastNameTH] = useState('')
   const [firstNameAR, setFirstNameAR] = useState('')
@@ -35,11 +36,27 @@ function App() {
   const [birthDate, setBirthDate] = useState(null)
   const [age, setAge] = useState(0)
   const [sex, setSex] = useState(null)
-  const [address, setAddress] = useState('')
   const [email, setEmail] = useState('')
   const [occupation, setOccupation] = useState(null)
-  const [sendingPlace, setSendingPlace] = useState('')
+  const [addNumber, setAddNumber] = useState('')
+  const [addMoo, setAddMoo] = useState('')
+  const [addThanon, setAddThanon] = useState('')
+  const [addSoi, setAddSoi] = useState('')
+  const [addTambon, setAddTambon] = useState('')
+  const [addAmphoe, setAddAmphoe] = useState('')
+  const [addChangwat, setAddChangwat] = useState('')
+  const [addZipCode, setAddZipCode] = useState('')
   
+  const [sendingPlace, setSendingPlace] = useState('same')
+  const [sendNumber, setSendNumber] = useState('')
+  const [sendMoo, setSendMoo] = useState('')
+  const [sendThanon, setSendThanon] = useState('')
+  const [sendSoi, setSendSoi] = useState('')
+  const [sendTambon, setSendTambon] = useState('')
+  const [sendAmphoe, setSendAmphoe] = useState('')
+  const [sendChangwat, setSendChangwat] = useState('')
+  const [sendZipCode, setSendZipCode] = useState('')
+
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -53,6 +70,7 @@ function App() {
         count, setCount,
         answerArr, setAnswerArr,
         belongTo, setBelongTo,
+        nameTitle, setNameTitle,
         firstNameTH, setFirstNameTH,
         lastNameTH, setLastNameTH,
         firstNameAR, setFirstNameAR,
@@ -65,10 +83,25 @@ function App() {
         birthDate, setBirthDate,
         age, setAge,
         sex, setSex,
-        address, setAddress,
         email, setEmail,
         occupation, setOccupation,
         sendingPlace, setSendingPlace,
+        addNumber, setAddNumber,
+        addMoo, setAddMoo,
+        addThanon, setAddThanon,
+        addSoi, setAddSoi,
+        addTambon, setAddTambon,
+        addAmphoe, setAddAmphoe,
+        addChangwat, setAddChangwat,
+        addZipCode, setAddZipCode,
+        sendNumber, setSendNumber,
+        sendMoo, setSendMoo,
+        sendThanon, setSendThanon,
+        sendSoi, setSendSoi,
+        sendTambon, setSendTambon,
+        sendAmphoe, setSendAmphoe,
+        sendChangwat, setSendChangwat,
+        sendZipCode, setSendZipCode,
         username, setUsername,
         password, setPassword,
         confirmPassword, setConfirmPassword,

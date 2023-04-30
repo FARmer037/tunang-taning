@@ -9,32 +9,49 @@ import {
     Col,
     Row,
     Radio,
+    Space
 } from 'antd'
 import OtpInput from 'react-otp-input'
 import SuccessIcon from '../images/success.png'
 import { ScoreContext } from '../App'
 
-const { TextArea } = Input
+const nameTitleList = ['นาย', 'นาง', 'นางสาว']
 
 const RegisterForm = ({ step }) => {
     const {
         belongTo, setBelongTo,
+        nameTitle, setNameTitle,
         firstNameTH, setFirstNameTH,
         lastNameTH, setLastNameTH,
         firstNameAR, setFirstNameAR,
         lastNameAR, setLastNameAR,
         idCardNumber, setidCardNumber,
-        idCardCopy, setIdCardCopy,
+        setIdCardCopy,
         phoneNumber, setPhoneNumber,
         mosqueAdress, setMosqueAddress,
         birthDateShow, setBirthDateShow,
-        birthDate, setBirthDate,
+        setBirthDate,
         age, setAge,
         sex, setSex,
-        address, setAddress,
         email, setEmail,
         occupation, setOccupation,
         sendingPlace, setSendingPlace,
+        addNumber, setAddNumber,
+        addMoo, setAddMoo,
+        addThanon, setAddThanon,
+        addSoi, setAddSoi,
+        addTambon, setAddTambon,
+        addAmphoe, setAddAmphoe,
+        addChangwat, setAddChangwat,
+        addZipCode, setAddZipCode,
+        sendNumber, setSendNumber,
+        sendMoo, setSendMoo,
+        sendThanon, setSendThanon,
+        sendSoi, setSendSoi,
+        sendTambon, setSendTambon,
+        sendAmphoe, setSendAmphoe,
+        sendChangwat, setSendChangwat,
+        sendZipCode, setSendZipCode,
         username, setUsername,
         password, setPassword,
         confirmPassword, setConfirmPassword,
@@ -107,6 +124,23 @@ const RegisterForm = ({ step }) => {
                             </Select>
                         </Form.Item>
 
+                        <Form.Item label='เพศ'>
+                            <Radio.Group value={sex} onChange={e => setSex(e.target.value)}>
+                                <Radio value='male'> ชาย </Radio>
+                                <Radio value='female'> หญิง </Radio>
+                            </Radio.Group>
+                        </Form.Item>
+
+                        <Form.Item label='คำนำหน้า'>
+                            <Radio.Group value={nameTitle} onChange={e => setNameTitle(e.target.value)}>
+                                {
+                                    nameTitleList.map((item, index) => (
+                                        <Radio key={index} value={item}> {item} </Radio>
+                                    ))
+                                }
+                            </Radio.Group>
+                        </Form.Item>
+
                         <Row>
                             <Col span={12} style={{ paddingRight: 10 }}>
                                 <Form.Item label='ชื่อ (ภาษาไทย)'>
@@ -137,10 +171,6 @@ const RegisterForm = ({ step }) => {
                             <Input value={idCardNumber} onChange={e => setidCardNumber(e.target.value)} />
                         </Form.Item>
 
-                        <Form.Item label='เบอร์โทรศัพท์'>
-                            <Input value={phoneNumber} onChange={e => setPhoneNumber(e.target.value)} />
-                        </Form.Item>
-
                         <Row>
                             <Col span={8} style={{ paddingRight: 10 }}>
                                 <Form.Item label='วันเดือนปีเกิด'>
@@ -154,15 +184,123 @@ const RegisterForm = ({ step }) => {
                             </Col>
                         </Row>
 
-                        <Form.Item label='เพศ'>
-                            <Radio.Group value={sex} onChange={e => setSex(e.target.value)}>
-                                <Radio value='male'> ชาย </Radio>
-                                <Radio value='female'> หญิง </Radio>
-                            </Radio.Group>
+                        <Form.Item label='ที่อยู่' className='wrap-label'>
+                            <div className='address-form form-desktop'>
+                                <Row style={{ marginBottom: 6 }}>
+                                    <Col span={11}>
+                                        <Form.Item label='บ้านเลขที่'>
+                                            <Input value={addNumber} onChange={e => setAddNumber(e.target.value)} />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={11} offset={2}>
+                                        <Form.Item label='หมู่ที่'>
+                                            <Input value={addMoo} onChange={e => setAddMoo(e.target.value)} />
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+
+                                <Row style={{ marginBottom: 6 }}>
+                                    <Col span={11}>
+                                        <Form.Item label='ซอย'>
+                                            <Input value={addSoi} onChange={e => setAddSoi(e.target.value)} />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={11} offset={2}>
+                                        <Form.Item label='ถนน'>
+                                            <Input value={addThanon} onChange={e => setAddThanon(e.target.value)} />
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+
+                                <Row style={{ marginBottom: 6 }}>
+                                    <Col span={11}>
+                                        <Form.Item label='ตำบล'>
+                                            <Input value={addTambon} onChange={e => setAddTambon(e.target.value)} />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={11} offset={2}>
+                                        <Form.Item label='จังหวัด'>
+                                            <Select value={addChangwat} onSelect={(value) => setAddChangwat(value)}>
+                                                <Select.Option value='demo1'>Demo1</Select.Option>
+                                                <Select.Option value='demo2'>Demo2</Select.Option>
+                                                <Select.Option value='demo3'>Demo3</Select.Option>
+                                            </Select>
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+
+                                <Row>
+                                    <Col span={11}>
+                                        <Form.Item label='อำเภอ'>
+                                            <Select value={addAmphoe} onSelect={(value) => setAddAmphoe(value)}>
+                                                <Select.Option value='demo1'>Demo1</Select.Option>
+                                                <Select.Option value='demo2'>Demo2</Select.Option>
+                                                <Select.Option value='demo3'>Demo3</Select.Option>
+                                            </Select>
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={11} offset={2}>
+                                        <Form.Item label='รหัสไปรษณี'>
+                                            <Input disabled={true} value={addZipCode} />
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+                            </div>
+
+                            <div className='address-form form-mobile'>
+                                <Form.Item label='บ้านเลขที่'>
+                                    <Input value={addNumber} onChange={e => setAddNumber(e.target.value)} />
+                                </Form.Item>
+
+                                <Form.Item label='หมู่ที่'>
+                                    <Input value={addMoo} onChange={e => setAddMoo(e.target.value)} />
+                                </Form.Item>
+
+                                <Form.Item label='ซอย'>
+                                    <Input value={addSoi} onChange={e => setAddSoi(e.target.value)} />
+                                </Form.Item>
+
+                                <Form.Item label='ถนน'>
+                                    <Input value={addThanon} onChange={e => setAddThanon(e.target.value)} />
+                                </Form.Item>
+
+                                <Form.Item label='ตำบล'>
+                                    <Input value={addTambon} onChange={e => setAddTambon(e.target.value)} />
+                                </Form.Item>
+
+                                <Form.Item label='จังหวัด'>
+                                    <Select value={addChangwat} onSelect={(value) => setAddChangwat(value)}>
+                                        <Select.Option value='demo1'>Demo1</Select.Option>
+                                        <Select.Option value='demo2'>Demo2</Select.Option>
+                                        <Select.Option value='demo3'>Demo3</Select.Option>
+                                    </Select>
+                                </Form.Item>
+
+                                <Form.Item label='อำเภอ'>
+                                    <Select value={addAmphoe} onSelect={(value) => setAddAmphoe(value)}>
+                                        <Select.Option value='demo1'>Demo1</Select.Option>
+                                        <Select.Option value='demo2'>Demo2</Select.Option>
+                                        <Select.Option value='demo3'>Demo3</Select.Option>
+                                    </Select>
+                                </Form.Item>
+
+                                <Form.Item label='รหัสไปรษณี'>
+                                    <Input disabled={true} value={addZipCode} />
+                                </Form.Item>
+                            </div>
                         </Form.Item>
 
-                        <Form.Item label='ที่อยู่' className='wrap-label'>
-                            <TextArea rows={4} value={address} onChange={e => setAddress(e.target.value)} />
+                        <Form.Item label='สำเนาบัตรประชาชน' valuePropName='fileList'>
+                            <input
+                                type='file'
+                                id='images'
+                                accept='image/*'
+                                onChange={onImageChange}
+                            />
+                        </Form.Item>
+
+                        <Form.Item label='เบอร์โทรศัพท์'>
+                            <Input value={phoneNumber} onChange={e => setPhoneNumber(e.target.value)} />
                         </Form.Item>
 
                         <Form.Item label='อีเมล'>
@@ -182,17 +320,123 @@ const RegisterForm = ({ step }) => {
                         </Form.Item>
 
                         <Form.Item label='สถานที่ส่งเกียรติบัตรอบรม' className='wrap-label'>
-                            <TextArea rows={4} value={sendingPlace} onChange={e => setSendingPlace(e.target.value)} />
+                            <Radio.Group value={sendingPlace} onChange={e => setSendingPlace(e.target.value)}>
+                                <Space direction="vertical">
+                                    <Radio value='same'> ส่งตามที่อยู่ด้านบน </Radio>
+                                    <Radio value='other'> ส่งที่อยู่อื่น </Radio>
+                                </Space>
+                            </Radio.Group>
                         </Form.Item>
 
-                        <Form.Item label='สำเนาบัตรประชาชน' valuePropName='fileList'>
-                            <input
-                                type='file'
-                                id='images'
-                                accept='image/*'
-                                onChange={onImageChange}
-                            />
-                        </Form.Item>
+                        {
+                            sendingPlace === 'other' && (
+                                <>
+                                    <div className='address-form form-desktop'>
+                                        <Row style={{ marginBottom: 6 }}>
+                                            <Col span={11}>
+                                                <Form.Item label='บ้านเลขที่'>
+                                                    <Input value={sendNumber} onChange={e => setSendNumber(e.target.value)} />
+                                                </Form.Item>
+                                            </Col>
+                                            <Col span={11} offset={2}>
+                                                <Form.Item label='หมู่ที่'>
+                                                    <Input value={sendMoo} onChange={e => setSendMoo(e.target.value)} />
+                                                </Form.Item>
+                                            </Col>
+                                        </Row>
+
+                                        <Row style={{ marginBottom: 6 }}>
+                                            <Col span={11}>
+                                                <Form.Item label='ซอย'>
+                                                    <Input value={sendSoi} onChange={e => setSendSoi(e.target.value)} />
+                                                </Form.Item>
+                                            </Col>
+                                            <Col span={11} offset={2}>
+                                                <Form.Item label='ถนน'>
+                                                    <Input value={sendThanon} onChange={e => setSendThanon(e.target.value)} />
+                                                </Form.Item>
+                                            </Col>
+                                        </Row>
+
+                                        <Row style={{ marginBottom: 6 }}>
+                                            <Col span={11}>
+                                                <Form.Item label='ตำบล'>
+                                                    <Input value={sendTambon} onChange={e => setSendTambon(e.target.value)} />
+                                                </Form.Item>
+                                            </Col>
+                                            <Col span={11} offset={2}>
+                                                <Form.Item label='จังหวัด'>
+                                                    <Select value={sendChangwat} onSelect={(value) => setSendChangwat(value)}>
+                                                        <Select.Option value='demo1'>Demo1</Select.Option>
+                                                        <Select.Option value='demo2'>Demo2</Select.Option>
+                                                        <Select.Option value='demo3'>Demo3</Select.Option>
+                                                    </Select>
+                                                </Form.Item>
+                                            </Col>
+                                        </Row>
+
+                                        <Row>
+                                            <Col span={11}>
+                                                <Form.Item label='อำเภอ'>
+                                                    <Select value={sendAmphoe} onSelect={(value) => setSendAmphoe(value)}>
+                                                        <Select.Option value='demo1'>Demo1</Select.Option>
+                                                        <Select.Option value='demo2'>Demo2</Select.Option>
+                                                        <Select.Option value='demo3'>Demo3</Select.Option>
+                                                    </Select>
+                                                </Form.Item>
+                                            </Col>
+                                            <Col span={11} offset={2}>
+                                                <Form.Item label='รหัสไปรษณี'>
+                                                    <Input disabled={true} value={sendZipCode} />
+                                                </Form.Item>
+                                            </Col>
+                                        </Row>
+                                    </div>
+
+                                    <div className='address-form form-mobile'>
+                                        <Form.Item label='บ้านเลขที่'>
+                                            <Input value={sendNumber} onChange={e => setSendNumber(e.target.value)} />
+                                        </Form.Item>
+
+                                        <Form.Item label='หมู่ที่'>
+                                            <Input value={sendMoo} onChange={e => setSendMoo(e.target.value)} />
+                                        </Form.Item>
+
+                                        <Form.Item label='ซอย'>
+                                            <Input value={sendSoi} onChange={e => setSendSoi(e.target.value)} />
+                                        </Form.Item>
+
+                                        <Form.Item label='ถนน'>
+                                            <Input value={sendThanon} onChange={e => setSendThanon(e.target.value)} />
+                                        </Form.Item>
+
+                                        <Form.Item label='ตำบล'>
+                                            <Input value={sendTambon} onChange={e => setSendTambon(e.target.value)} />
+                                        </Form.Item>
+
+                                        <Form.Item label='จังหวัด'>
+                                            <Select value={sendChangwat} onSelect={(value) => setSendChangwat(value)}>
+                                                <Select.Option value='demo1'>Demo1</Select.Option>
+                                                <Select.Option value='demo2'>Demo2</Select.Option>
+                                                <Select.Option value='demo3'>Demo3</Select.Option>
+                                            </Select>
+                                        </Form.Item>
+
+                                        <Form.Item label='อำเภอ'>
+                                            <Select value={sendAmphoe} onSelect={(value) => setSendAmphoe(value)}>
+                                                <Select.Option value='demo1'>Demo1</Select.Option>
+                                                <Select.Option value='demo2'>Demo2</Select.Option>
+                                                <Select.Option value='demo3'>Demo3</Select.Option>
+                                            </Select>
+                                        </Form.Item>
+
+                                        <Form.Item label='รหัสไปรษณี'>
+                                            <Input disabled={true} value={sendZipCode} />
+                                        </Form.Item>
+                                    </div>
+                                </>
+                            )
+                        }
                     </Form>
                 </div>
             )
