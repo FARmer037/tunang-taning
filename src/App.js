@@ -31,7 +31,7 @@ function App() {
   const [idCardNumber, setidCardNumber] = useState('')
   const [idCardCopy, setIdCardCopy] = useState(null)
   const [phoneNumber, setPhoneNumber] = useState('')
-  const [mosqueAdress, setMosqueAddress] = useState('')
+  const [mosqueName, setMosqueName] = useState('')
   const [birthDateShow, setBirthDateShow] = useState(dayjs())
   const [birthDate, setBirthDate] = useState(null)
   const [age, setAge] = useState(0)
@@ -41,7 +41,6 @@ function App() {
   const [addNumber, setAddNumber] = useState('')
   const [addMoo, setAddMoo] = useState('')
   const [addThanon, setAddThanon] = useState('')
-  const [addSoi, setAddSoi] = useState('')
   const [addTambon, setAddTambon] = useState('')
   const [addAmphoe, setAddAmphoe] = useState('')
   const [addChangwat, setAddChangwat] = useState('')
@@ -51,7 +50,6 @@ function App() {
   const [sendNumber, setSendNumber] = useState('')
   const [sendMoo, setSendMoo] = useState('')
   const [sendThanon, setSendThanon] = useState('')
-  const [sendSoi, setSendSoi] = useState('')
   const [sendTambon, setSendTambon] = useState('')
   const [sendAmphoe, setSendAmphoe] = useState('')
   const [sendChangwat, setSendChangwat] = useState('')
@@ -78,7 +76,7 @@ function App() {
         idCardNumber, setidCardNumber,
         idCardCopy, setIdCardCopy,
         phoneNumber, setPhoneNumber,
-        mosqueAdress, setMosqueAddress,
+        mosqueName, setMosqueName,
         birthDateShow, setBirthDateShow,
         birthDate, setBirthDate,
         age, setAge,
@@ -89,7 +87,6 @@ function App() {
         addNumber, setAddNumber,
         addMoo, setAddMoo,
         addThanon, setAddThanon,
-        addSoi, setAddSoi,
         addTambon, setAddTambon,
         addAmphoe, setAddAmphoe,
         addChangwat, setAddChangwat,
@@ -97,7 +94,6 @@ function App() {
         sendNumber, setSendNumber,
         sendMoo, setSendMoo,
         sendThanon, setSendThanon,
-        sendSoi, setSendSoi,
         sendTambon, setSendTambon,
         sendAmphoe, setSendAmphoe,
         sendChangwat, setSendChangwat,

@@ -9,28 +9,28 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import Warning from './Warning'
 import LoadingPage from './LoadingPage'
-import { createServer } from 'miragejs'
+// import { createServer } from 'miragejs'
 
-createServer({
-  routes() {
-    this.post("/api/courses", () => {
-      return {
-        code: 10,
-        item: {
-          ACCOUNT_ID: 1,
-          MEM_ID: "00001",
-          USER_NAME: "นายอนิรุตย์  ขุนราม",
-          REGISTER_DATE: "25/03/66 00:00",
-          CONFIRM_STATUS: "2",
-          CONFIRM_DATE: "25/03/66",
-          VIDEO_URL: 'https://www.youtube.com/watch?v=d0qVXvjV8LM',
-        },
-        itemdetail: 'token',
-        message: 'Invalid user!'
-      }
-    })
-  }
-})
+// createServer({
+//   routes() {
+//     this.post("/api/courses", () => {
+//       return {
+//         code: 10,
+//         item: {
+//           ACCOUNT_ID: 1,
+//           MEM_ID: "00001",
+//           USER_NAME: "นายอนิรุตย์  ขุนราม",
+//           REGISTER_DATE: "25/03/66 00:00",
+//           CONFIRM_STATUS: "2",
+//           CONFIRM_DATE: "25/03/66",
+//           VIDEO_URL: 'https://www.youtube.com/watch?v=d0qVXvjV8LM',
+//         },
+//         itemdetail: 'token',
+//         message: 'Invalid user!'
+//       }
+//     })
+//   }
+// })
 
 const Courses = () => {
   const lecturer = 'ผศ.ดร.อิสมาอีล ราโอบ'

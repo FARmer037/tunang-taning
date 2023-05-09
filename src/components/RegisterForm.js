@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import '../styles/Register.scss'
 import {
     DatePicker,
@@ -15,9 +15,7 @@ import OtpInput from 'react-otp-input'
 import SuccessIcon from '../images/success.png'
 import { ScoreContext } from '../App'
 
-const nameTitleList = ['นาย', 'นาง', 'นางสาว']
-
-const RegisterForm = ({ step }) => {
+const RegisterForm = ({ step, district, province, ptitle, occupationList, belong }) => {
     const {
         belongTo, setBelongTo,
         nameTitle, setNameTitle,
@@ -28,7 +26,7 @@ const RegisterForm = ({ step }) => {
         idCardNumber, setidCardNumber,
         setIdCardCopy,
         phoneNumber, setPhoneNumber,
-        mosqueAdress, setMosqueAddress,
+        mosqueName, setMosqueName,
         birthDateShow, setBirthDateShow,
         setBirthDate,
         age, setAge,
@@ -39,7 +37,6 @@ const RegisterForm = ({ step }) => {
         addNumber, setAddNumber,
         addMoo, setAddMoo,
         addThanon, setAddThanon,
-        addSoi, setAddSoi,
         addTambon, setAddTambon,
         addAmphoe, setAddAmphoe,
         addChangwat, setAddChangwat,
@@ -47,7 +44,6 @@ const RegisterForm = ({ step }) => {
         sendNumber, setSendNumber,
         sendMoo, setSendMoo,
         sendThanon, setSendThanon,
-        sendSoi, setSendSoi,
         sendTambon, setSendTambon,
         sendAmphoe, setSendAmphoe,
         sendChangwat, setSendChangwat,
@@ -115,12 +111,11 @@ const RegisterForm = ({ step }) => {
                     >
                         <Form.Item label='สังกัด คณะกรรมการอิสลามประจำจังหวัด'>
                             <Select value={belongTo} onSelect={(value) => setBelongTo(value)}>
-                                <Select.Option value='demo1'>Demo1</Select.Option>
-                                <Select.Option value='demo2'>Demo2</Select.Option>
-                                <Select.Option value='demo3'>Demo3</Select.Option>
-                                <Select.Option value='demo4'>Demo4</Select.Option>
-                                <Select.Option value='demo5'>Demo5</Select.Option>
-                                <Select.Option value='demo6'>Demo6</Select.Option>
+                                {
+                                    belong.map(item => (
+                                        <Select.Option key={item.belong_id} value={item.belong_id}>{item.belong_name}</Select.Option>
+                                    ))
+                                }
                             </Select>
                         </Form.Item>
 
@@ -134,8 +129,8 @@ const RegisterForm = ({ step }) => {
                         <Form.Item label='คำนำหน้า'>
                             <Radio.Group value={nameTitle} onChange={e => setNameTitle(e.target.value)}>
                                 {
-                                    nameTitleList.map((item, index) => (
-                                        <Radio key={index} value={item}> {item} </Radio>
+                                    ptitle.map((item) => (
+                                        <Radio key={item.ptitle_id} value={item.ptitle_id}> {item.ptitle_name} </Radio>
                                     ))
                                 }
                             </Radio.Group>
@@ -184,7 +179,7 @@ const RegisterForm = ({ step }) => {
                             </Col>
                         </Row>
 
-                        <Form.Item label='ที่อยู่' className='wrap-label'>
+                        <Form.Item label='ที่อยู่ตามบัตรประชาชน' className='wrap-label'>
                             <div className='address-form form-desktop'>
                                 <Row style={{ marginBottom: 6 }}>
                                     <Col span={11}>
@@ -201,29 +196,37 @@ const RegisterForm = ({ step }) => {
 
                                 <Row style={{ marginBottom: 6 }}>
                                     <Col span={11}>
-                                        <Form.Item label='ซอย'>
-                                            <Input value={addSoi} onChange={e => setAddSoi(e.target.value)} />
+                                        <Form.Item label='ถนน'>
+                                            <Input value={addThanon} onChange={e => setAddThanon(e.target.value)} />
                                         </Form.Item>
                                     </Col>
                                     <Col span={11} offset={2}>
-                                        <Form.Item label='ถนน'>
-                                            <Input value={addThanon} onChange={e => setAddThanon(e.target.value)} />
+                                        <Form.Item label='ตำบล'>
+                                            <Input value={addTambon} onChange={e => setAddTambon(e.target.value)} />
                                         </Form.Item>
                                     </Col>
                                 </Row>
 
                                 <Row style={{ marginBottom: 6 }}>
                                     <Col span={11}>
-                                        <Form.Item label='ตำบล'>
-                                            <Input value={addTambon} onChange={e => setAddTambon(e.target.value)} />
+                                        <Form.Item label='อำเภอ'>
+                                            <Select value={addAmphoe} onSelect={(value) => setAddAmphoe(value)}>
+                                                {
+                                                    district.map(item => (
+                                                        <Select.Option key={item.district_id} value={item.district_id}>{item.district_name}</Select.Option>
+                                                    ))
+                                                }
+                                            </Select>
                                         </Form.Item>
                                     </Col>
                                     <Col span={11} offset={2}>
                                         <Form.Item label='จังหวัด'>
                                             <Select value={addChangwat} onSelect={(value) => setAddChangwat(value)}>
-                                                <Select.Option value='demo1'>Demo1</Select.Option>
-                                                <Select.Option value='demo2'>Demo2</Select.Option>
-                                                <Select.Option value='demo3'>Demo3</Select.Option>
+                                                {
+                                                    province.map(item => (
+                                                        <Select.Option key={item.province_id} value={item.province_id}>{item.province_name}</Select.Option>
+                                                    ))
+                                                }
                                             </Select>
                                         </Form.Item>
                                     </Col>
@@ -231,17 +234,8 @@ const RegisterForm = ({ step }) => {
 
                                 <Row>
                                     <Col span={11}>
-                                        <Form.Item label='อำเภอ'>
-                                            <Select value={addAmphoe} onSelect={(value) => setAddAmphoe(value)}>
-                                                <Select.Option value='demo1'>Demo1</Select.Option>
-                                                <Select.Option value='demo2'>Demo2</Select.Option>
-                                                <Select.Option value='demo3'>Demo3</Select.Option>
-                                            </Select>
-                                        </Form.Item>
-                                    </Col>
-                                    <Col span={11} offset={2}>
                                         <Form.Item label='รหัสไปรษณี'>
-                                            <Input disabled={true} value={addZipCode} />
+                                            <Input value={addZipCode} />
                                         </Form.Item>
                                     </Col>
                                 </Row>
@@ -256,10 +250,6 @@ const RegisterForm = ({ step }) => {
                                     <Input value={addMoo} onChange={e => setAddMoo(e.target.value)} />
                                 </Form.Item>
 
-                                <Form.Item label='ซอย'>
-                                    <Input value={addSoi} onChange={e => setAddSoi(e.target.value)} />
-                                </Form.Item>
-
                                 <Form.Item label='ถนน'>
                                     <Input value={addThanon} onChange={e => setAddThanon(e.target.value)} />
                                 </Form.Item>
@@ -268,24 +258,28 @@ const RegisterForm = ({ step }) => {
                                     <Input value={addTambon} onChange={e => setAddTambon(e.target.value)} />
                                 </Form.Item>
 
-                                <Form.Item label='จังหวัด'>
-                                    <Select value={addChangwat} onSelect={(value) => setAddChangwat(value)}>
-                                        <Select.Option value='demo1'>Demo1</Select.Option>
-                                        <Select.Option value='demo2'>Demo2</Select.Option>
-                                        <Select.Option value='demo3'>Demo3</Select.Option>
+                                <Form.Item label='อำเภอ'>
+                                    <Select value={addAmphoe} onSelect={(value) => setAddAmphoe(value)}>
+                                        {
+                                            district.map(item => (
+                                                <Select.Option key={item.district_id} value={item.district_id}>{item.district_name}</Select.Option>
+                                            ))
+                                        }
                                     </Select>
                                 </Form.Item>
 
-                                <Form.Item label='อำเภอ'>
-                                    <Select value={addAmphoe} onSelect={(value) => setAddAmphoe(value)}>
-                                        <Select.Option value='demo1'>Demo1</Select.Option>
-                                        <Select.Option value='demo2'>Demo2</Select.Option>
-                                        <Select.Option value='demo3'>Demo3</Select.Option>
+                                <Form.Item label='จังหวัด'>
+                                    <Select value={addChangwat} onSelect={(value) => setAddChangwat(value)}>
+                                        {
+                                            province.map(item => (
+                                                <Select.Option key={item.province_id} value={item.province_id}>{item.province_name}</Select.Option>
+                                            ))
+                                        }
                                     </Select>
                                 </Form.Item>
 
                                 <Form.Item label='รหัสไปรษณี'>
-                                    <Input disabled={true} value={addZipCode} />
+                                    <Input value={addZipCode} />
                                 </Form.Item>
                             </div>
                         </Form.Item>
@@ -309,20 +303,22 @@ const RegisterForm = ({ step }) => {
 
                         <Form.Item label='อาชีพ'>
                             <Select value={occupation} onSelect={(value) => setOccupation(value)}>
-                                <Select.Option value='demo1'>Demo1</Select.Option>
-                                <Select.Option value='demo2'>Demo2</Select.Option>
-                                <Select.Option value='demo3'>Demo3</Select.Option>
+                                {
+                                    occupationList.map(item => (
+                                        <Select.Option key={item.occupation_id} value={item.occupation_id}>{item.occupation_name}</Select.Option>
+                                    ))
+                                }
                             </Select>
                         </Form.Item>
 
                         <Form.Item label='ชื่อมัสยิดที่อยู่'>
-                            <Input value={mosqueAdress} onChange={e => setMosqueAddress(e.target.value)} />
+                            <Input value={mosqueName} onChange={e => setMosqueName(e.target.value)} />
                         </Form.Item>
 
                         <Form.Item label='สถานที่ส่งเกียรติบัตรอบรม' className='wrap-label'>
                             <Radio.Group value={sendingPlace} onChange={e => setSendingPlace(e.target.value)}>
                                 <Space direction="vertical">
-                                    <Radio value='same'> ส่งตามที่อยู่ด้านบน </Radio>
+                                    <Radio value='same'> ส่งที่อยู่ตามบัตรประชาชน </Radio>
                                     <Radio value='other'> ส่งที่อยู่อื่น </Radio>
                                 </Space>
                             </Radio.Group>
@@ -347,29 +343,37 @@ const RegisterForm = ({ step }) => {
 
                                         <Row style={{ marginBottom: 6 }}>
                                             <Col span={11}>
-                                                <Form.Item label='ซอย'>
-                                                    <Input value={sendSoi} onChange={e => setSendSoi(e.target.value)} />
+                                                <Form.Item label='ถนน'>
+                                                    <Input value={sendThanon} onChange={e => setSendThanon(e.target.value)} />
                                                 </Form.Item>
                                             </Col>
                                             <Col span={11} offset={2}>
-                                                <Form.Item label='ถนน'>
-                                                    <Input value={sendThanon} onChange={e => setSendThanon(e.target.value)} />
+                                                <Form.Item label='ตำบล'>
+                                                    <Input value={sendTambon} onChange={e => setSendTambon(e.target.value)} />
                                                 </Form.Item>
                                             </Col>
                                         </Row>
 
                                         <Row style={{ marginBottom: 6 }}>
                                             <Col span={11}>
-                                                <Form.Item label='ตำบล'>
-                                                    <Input value={sendTambon} onChange={e => setSendTambon(e.target.value)} />
+                                                <Form.Item label='อำเภอ'>
+                                                    <Select value={sendAmphoe} onSelect={(value) => setSendAmphoe(value)}>
+                                                        {
+                                                            district.map(item => (
+                                                                <Select.Option key={item.district_id} value={item.district_id}>{item.district_name}</Select.Option>
+                                                            ))
+                                                        }
+                                                    </Select>
                                                 </Form.Item>
                                             </Col>
                                             <Col span={11} offset={2}>
                                                 <Form.Item label='จังหวัด'>
                                                     <Select value={sendChangwat} onSelect={(value) => setSendChangwat(value)}>
-                                                        <Select.Option value='demo1'>Demo1</Select.Option>
-                                                        <Select.Option value='demo2'>Demo2</Select.Option>
-                                                        <Select.Option value='demo3'>Demo3</Select.Option>
+                                                        {
+                                                            province.map(item => (
+                                                                <Select.Option key={item.province_id} value={item.province_id}>{item.province_name}</Select.Option>
+                                                            ))
+                                                        }
                                                     </Select>
                                                 </Form.Item>
                                             </Col>
@@ -377,17 +381,8 @@ const RegisterForm = ({ step }) => {
 
                                         <Row>
                                             <Col span={11}>
-                                                <Form.Item label='อำเภอ'>
-                                                    <Select value={sendAmphoe} onSelect={(value) => setSendAmphoe(value)}>
-                                                        <Select.Option value='demo1'>Demo1</Select.Option>
-                                                        <Select.Option value='demo2'>Demo2</Select.Option>
-                                                        <Select.Option value='demo3'>Demo3</Select.Option>
-                                                    </Select>
-                                                </Form.Item>
-                                            </Col>
-                                            <Col span={11} offset={2}>
                                                 <Form.Item label='รหัสไปรษณี'>
-                                                    <Input disabled={true} value={sendZipCode} />
+                                                    <Input value={sendZipCode} />
                                                 </Form.Item>
                                             </Col>
                                         </Row>
@@ -402,10 +397,6 @@ const RegisterForm = ({ step }) => {
                                             <Input value={sendMoo} onChange={e => setSendMoo(e.target.value)} />
                                         </Form.Item>
 
-                                        <Form.Item label='ซอย'>
-                                            <Input value={sendSoi} onChange={e => setSendSoi(e.target.value)} />
-                                        </Form.Item>
-
                                         <Form.Item label='ถนน'>
                                             <Input value={sendThanon} onChange={e => setSendThanon(e.target.value)} />
                                         </Form.Item>
@@ -416,22 +407,26 @@ const RegisterForm = ({ step }) => {
 
                                         <Form.Item label='จังหวัด'>
                                             <Select value={sendChangwat} onSelect={(value) => setSendChangwat(value)}>
-                                                <Select.Option value='demo1'>Demo1</Select.Option>
-                                                <Select.Option value='demo2'>Demo2</Select.Option>
-                                                <Select.Option value='demo3'>Demo3</Select.Option>
+                                                {
+                                                    province.map(item => (
+                                                        <Select.Option key={item.province_id} value={item.province_id}>{item.province_name}</Select.Option>
+                                                    ))
+                                                }
                                             </Select>
                                         </Form.Item>
 
                                         <Form.Item label='อำเภอ'>
                                             <Select value={sendAmphoe} onSelect={(value) => setSendAmphoe(value)}>
-                                                <Select.Option value='demo1'>Demo1</Select.Option>
-                                                <Select.Option value='demo2'>Demo2</Select.Option>
-                                                <Select.Option value='demo3'>Demo3</Select.Option>
+                                                {
+                                                    district.map(item => (
+                                                        <Select.Option key={item.district_id} value={item.district_id}>{item.district_name}</Select.Option>
+                                                    ))
+                                                }
                                             </Select>
                                         </Form.Item>
 
                                         <Form.Item label='รหัสไปรษณี'>
-                                            <Input disabled={true} value={sendZipCode} />
+                                            <Input value={sendZipCode} />
                                         </Form.Item>
                                     </div>
                                 </>
