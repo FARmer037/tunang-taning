@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import '../../styles/Dashboard.scss'
 import { Link } from 'react-router-dom'
 import { Button } from 'antd'
 
-const DashboardHeader = () => {
-    const [isDone, setIsDone] = useState(true)
-
+const DashboardHeader = ({ name, progress }) => {
     return (
         <div className='dashboardheader'>
             <div className='dashboardheader__coueses'>
@@ -16,32 +14,55 @@ const DashboardHeader = () => {
             <div className='dashboardheader__progress'>
                 <div className='dashboardheader__progress-detail'>
                     <p>Course Progress:</p>
-                    <h1>21.6<span>%</span></h1>
+                    <h1>{progress}<span>%</span></h1>
                 </div>
                 <div className='dashboardheader__progress-name'>
-                    <h2>Mustofa Sachi</h2>
+                    <h2>{name}</h2>
 
                     {
-                        isDone ? (
-                            <Link to='/certificate' target='_blank'>
+                        progress > 80 ? (
+                            <div className='dashboardheader__progress-button'>
+                                <Link to='/certificate' target='_blank'>
+                                    <Button
+                                        shape='round'
+                                        type='primary'
+                                        size='large'
+                                        style={{ marginRight: 14 }}
+                                    >
+                                        เกียรติบัตร
+                                    </Button>
+                                </Link>
+                                <Link to='/' target='_blank'>
+                                    <Button
+                                        shape='round'
+                                        type='primary'
+                                        size='large'
+                                        style={{ background: '#c79274' }}
+                                    >
+                                        แบบประเมิน
+                                    </Button>
+                                </Link>
+                            </div>
+                        ) : (
+                            <div className='dashboardheader__progress-button'>
                                 <Button
                                     shape='round'
                                     type='primary'
                                     size='large'
-                                    disabled={!isDone}
+                                    style={{ marginRight: 14 }}
+                                    disabled
                                 >
                                     เกียรติบัตร
                                 </Button>
-                            </Link>
-                        ) : (
-                            <Button
-                                shape='round'
-                                type='primary'
-                                size='large'
-                                disabled={!isDone}
-                            >
-                                เกียรติบัตร
-                            </Button>
+                                <Button
+                                    shape='round'
+                                    type='primary'
+                                    size='large'
+                                    disabled
+                                >
+                                    แบบประเมิน
+                                </Button>
+                            </div>
                         )
                     }
                 </div>

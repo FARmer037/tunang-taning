@@ -21,6 +21,7 @@
   @include navbar();
   padding: 20px;
   min-height: 80px;
+  display: none;
 
   img {
     max-height: 45px;
@@ -85,5 +86,9 @@
     border-top: $lightBorder;
     width: 100%;
     align-items: center;
+  }
+
+  .navbarMobile {
+    display: flex;
   }
 }

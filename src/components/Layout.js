@@ -1,17 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Footer from './Footer'
 import Navbar from './Navbar'
 import AuthenNavbar from './AuthenNavbar'
+import Cookies from 'js-cookie'
 
 const Layout = ({ children }) => {
-  const [isAuthen, setIsAuthen] = useState(false)
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    const user = Cookies.get('user')
+
+    setUser(user)
+  }, [])
+
   return (
     <>
       {
-        isAuthen ? (
-          <AuthenNavbar />
-        ) : (
+        !user ? (
           <Navbar />
+        ) : (
+          <AuthenNavbar />
         )
       }
 
