@@ -29,24 +29,29 @@ const LoginForm = () => {
   const error = () => {
     messageApi.open({
       type: 'error',
-      content: 'invalid username or password',
-    });
-  };
+      content: 'invalid username or password'
+    })
+  }
 
   const onSubmit = () => {
     setIsLoading(true)
 
-    axios.post(`${process.env.REACT_APP_API_URL}Login`, {
-      USER: username,
-      PASSWORD: password
-    }, {
-      headers: {
-        Authorization: `App ${process.env.REACT_APP_AUTHORIZATION}`,
-        APP_KEY: process.env.REACT_APP_APP_KEY
-      }
-    })
+    axios
+      .post(
+        `${process.env.REACT_APP_API_URL}Login`,
+        {
+          USER: username,
+          PASSWORD: password
+        },
+        {
+          headers: {
+            Authorization: `App ${process.env.REACT_APP_AUTHORIZATION}`,
+            APP_KEY: process.env.REACT_APP_APP_KEY
+          }
+        }
+      )
       .then(response => {
-        // console.log(response.data)
+        console.log(response.data)
 
         const { code, itemdetail, item } = response.data
 
@@ -69,7 +74,6 @@ const LoginForm = () => {
           navigate('/courses')
 
           setIsLoading(false)
-
         } else {
           error()
         }
@@ -89,14 +93,14 @@ const LoginForm = () => {
         <Input
           style={{ marginBottom: 20 }}
           value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={e => setUsername(e.target.value)}
         />
 
         <h5>Password</h5>
         <Input.Password
           style={{ marginBottom: 20 }}
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={e => setPassword(e.target.value)}
         />
 
         <div className='login__card-forgotbox'>
@@ -112,17 +116,15 @@ const LoginForm = () => {
         </div>
       </div>
 
-      {
-        isLoading ? (
-          <Button type="primary" loading>
-            Loading
-          </Button>
-        ) : (
-          <Button type='primary' size='large' onClick={onSubmit}>
-            เข้าสู่ระบบ
-          </Button>
-        )
-      }
+      {isLoading ? (
+        <Button type='primary' loading>
+          Loading
+        </Button>
+      ) : (
+        <Button type='primary' size='large' onClick={onSubmit}>
+          เข้าสู่ระบบ
+        </Button>
+      )}
 
       <p>
         ยังไม่ได้เป็นสมาชิก <Link to='register'>สมัครเลย!</Link>
