@@ -28,15 +28,27 @@ const Banner = ({ status, videoUrl, lecturer }) => {
 
         <div className='banner__courses-button'>
           {isAuthen ? (
-            <Button
-              shape='round'
-              type='primary'
-              size='large'
-              onClick={() => navigate('/dashboard')}
-              disabled={status !== '2'}
-            >
-              เข้าอบรบ
-            </Button>
+            <div>
+              <Button
+                shape='round'
+                type='primary'
+                size='large'
+                onClick={() => navigate('/dashboard')}
+                disabled={status !== '3'}
+              >
+                เข้าอบรบ
+              </Button>
+              <Button
+                shape='round'
+                type='primary'
+                size='large'
+                onClick={() => navigate('/books')}
+                disabled={status !== '3'}
+                style={{ marginLeft: 16, backgroundColor: '#c79274' }}
+              >
+                คู่มืออบรม
+              </Button>
+            </div>
           ) : (
             <Button
               shape='round'
