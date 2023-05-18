@@ -14,6 +14,7 @@ import Register from './Register'
 import Page404 from './Page404'
 import Home from './Home'
 import Test from './Test'
+import Books from './Books'
 
 export const ScoreContext = createContext()
 
@@ -122,6 +123,7 @@ function App() {
           <Route path='/pay' element={<Pay />} />
           <Route path='/video/:id' element={<VideoPlayer />} />
           <Route path='/certificate' element={<Certificate />} />
+          <Route path='/books' element={<Books />} />
           <Route path='/test' element={<Test />} />
           <Route path='/*' element={<Page404 />} />
         </Routes>
