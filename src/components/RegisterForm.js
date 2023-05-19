@@ -54,6 +54,12 @@ const RegisterForm = ({ step, district, province, ptitle, occupationList, belong
         otp, setOtp
     } = useContext(ScoreContext)
 
+    const addZero = (value) => {
+        let str = value + ''
+
+        return str.length === 1 ? `0${value}` : value
+    }
+
     const handleDateStartChange = (newValue) => {
         const date = new Date()
 
@@ -65,11 +71,12 @@ const RegisterForm = ({ step, district, province, ptitle, occupationList, belong
 
         let day = newValue.$D
         let month = newValue.$M + 1
-        let year = newValue.$y
+        let year = newValue.$y + 543
 
-        let dateFormat = `${year}/${month}/${day}`
+        day = addZero(day)
+        month = addZero(month)
 
-        console.log(dateFormat)
+        let dateFormat = `${day}/${month}/${year}`
 
         setBirthDate(dateFormat)
         setAge(years)
@@ -121,8 +128,8 @@ const RegisterForm = ({ step, district, province, ptitle, occupationList, belong
 
                         <Form.Item label='เพศ'>
                             <Radio.Group value={sex} onChange={e => setSex(e.target.value)}>
-                                <Radio value='male'> ชาย </Radio>
-                                <Radio value='female'> หญิง </Radio>
+                                <Radio value='1'> ชาย </Radio>
+                                <Radio value='2'> หญิง </Radio>
                             </Radio.Group>
                         </Form.Item>
 
@@ -235,7 +242,7 @@ const RegisterForm = ({ step, district, province, ptitle, occupationList, belong
                                 <Row>
                                     <Col span={11}>
                                         <Form.Item label='รหัสไปรษณี'>
-                                            <Input value={addZipCode} />
+                                            <Input value={addZipCode} onChange={e => setAddZipCode(e.target.value)} />
                                         </Form.Item>
                                     </Col>
                                 </Row>
@@ -279,7 +286,7 @@ const RegisterForm = ({ step, district, province, ptitle, occupationList, belong
                                 </Form.Item>
 
                                 <Form.Item label='รหัสไปรษณี'>
-                                    <Input value={addZipCode} />
+                                    <Input value={addZipCode} onChange={e => setAddZipCode(e.target.value)} />
                                 </Form.Item>
                             </div>
                         </Form.Item>
@@ -382,7 +389,7 @@ const RegisterForm = ({ step, district, province, ptitle, occupationList, belong
                                         <Row>
                                             <Col span={11}>
                                                 <Form.Item label='รหัสไปรษณี'>
-                                                    <Input value={sendZipCode} />
+                                                    <Input value={sendZipCode} onChange={e => setSendZipCode(e.target.value)} />
                                                 </Form.Item>
                                             </Col>
                                         </Row>
@@ -426,7 +433,7 @@ const RegisterForm = ({ step, district, province, ptitle, occupationList, belong
                                         </Form.Item>
 
                                         <Form.Item label='รหัสไปรษณี'>
-                                            <Input value={sendZipCode} />
+                                            <Input value={sendZipCode} onChange={e => setSendZipCode(e.target.value)} />
                                         </Form.Item>
                                     </div>
                                 </>

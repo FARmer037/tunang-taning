@@ -4,13 +4,8 @@ import { Input, Button, Checkbox, message } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Cookies from 'js-cookie'
-// import { useStateValue } from '../StateProvider'
-// import { actionType } from '../reducers/userReducer'
-// import { useSignIn } from 'react-auth-kit'
 
 const LoginForm = () => {
-  // const [{ user }, dispatch] = useStateValue()
-
   const [isRemember, setIsRemember] = useState(true)
   const [username, setUsername] = useState(null)
   const [password, setPassword] = useState(null)
@@ -20,17 +15,17 @@ const LoginForm = () => {
 
   const navigate = useNavigate()
 
-  // const signIn = useSignIn()
-
   const onChange = () => {
     setIsRemember(!isRemember)
   }
 
-  const error = () => {
+  const error = message => {
     messageApi.open({
       type: 'error',
-      content: 'invalid username or password'
+      content: !message ? 'invalid username or password' : message
     })
+
+    setIsLoading(false)
   }
 
   const onSubmit = () => {
@@ -40,7 +35,7 @@ const LoginForm = () => {
       .post(
         `${process.env.REACT_APP_API_URL}Login`,
         {
-          USER: username,
+          USER_NAME: username,
           PASSWORD: password
         },
         {
@@ -53,29 +48,16 @@ const LoginForm = () => {
       .then(response => {
         console.log(response.data)
 
-        const { code, itemdetail, item } = response.data
-
-        // dispatch({
-        //   type: actionType.SET_USER,
-        //   user: item[0]
-        // })
-
-        // signIn({
-        //   token: itemdetail,
-        //   expiresIn: 3600,
-        //   tokenType: 'Bearer',
-        //   authState: { user: username }
-        // })
+        const { code, itemdetail, item, message } = response.data
 
         if (code === 10) {
-          Cookies.set('user', item[0].USER_NAME, { expires: 1 })
+          Cookies.set('user', item.MEM_ID, { expires: 1 })
           Cookies.set('token', itemdetail)
 
           navigate('/courses')
-
           setIsLoading(false)
         } else {
-          error()
+          error(message)
         }
       })
       .catch(err => console.log(err))

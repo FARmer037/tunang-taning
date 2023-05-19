@@ -1,0 +1,49 @@
+@import "./Variables.scss";
+
+.books {
+  @include center();
+
+  h1 {
+    font-size: $xl;
+    color: $darkGray;
+    margin: 40px 0px 20px 0px;
+  }
+
+  .books__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 80%;
+    margin-bottom: 40px;
+  }
+}
+
+.bookcard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 0;
+
+  h3 {
+    font-size: $lg;
+    color: $darkGray;
+    font-weight: 400;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .books {
+    h1 {
+      font-size: $lg;
+      margin: 20px 0px 10px 0px;
+    }
+    
+    .books__list {
+        flex-direction: column;
+    }
+  }
+
+  .bookcard {
+      border-bottom: $lightBorder;
+  }
+}

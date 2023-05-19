@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { ScoreContext } from './App'
 import LoadingPage from './LoadingPage'
 import axios from 'axios'
+import Cookies from 'js-cookie'
 
 const steps = [
     {
@@ -100,49 +101,86 @@ const Register = () => {
                 setSendChangwat(addChangwat)
                 setSendZipCode(addZipCode)
             }
-        } else if (step === 2) {
-            console.log(belongTo)
-            console.log(sex)
-            console.log(nameTitle)
-            console.log(firstNameTH)
-            console.log(lastNameTH)
-            console.log(firstNameAR)
-            console.log(lastNameAR)
-            console.log(idCardNumber)
-            console.log(birthDate)
-            console.log(age)
-            console.log(addNumber)
-            console.log(addMoo)
-            console.log(addThanon)
-            console.log(addTambon)
-            console.log(addAmphoe)
-            console.log(addChangwat)
-            console.log(addZipCode)
-            console.log(idCardCopy)
-            console.log(phoneNumber)
-            console.log(email)
-            console.log(occupation)
-            console.log(mosqueName)
-            console.log(sendNumber)
-            console.log(sendMoo)
-            console.log(sendThanon)
-            console.log(sendTambon)
-            console.log(sendAmphoe)
-            console.log(sendChangwat)
-            console.log(sendZipCode)
-            console.log(username)
-            console.log(password)
-            console.log(confirmPassword)
 
+            setStep(step + 1)
+        } else if (step === 2) {
             //  save the information to the database.
+            // console.log(username)
+            // console.log(password)
+            // console.log(confirmPassword)
+            // console.log(nameTitle)
+            // console.log(firstNameTH)
+            // console.log(lastNameTH)
+            // console.log(firstNameAR)
+            // console.log(lastNameAR)
+            // console.log(idCardNumber)
+            // console.log(phoneNumber)
+            // console.log(mosqueName)
+            // console.log(birthDate)
+            // console.log(sex)
+            // console.log(addNumber)
+            // console.log(addMoo)
+            // console.log(addTambon)
+            // console.log(addThanon)
+            // console.log(addAmphoe)
+            // console.log(addChangwat)
+            // console.log(addZipCode)
+            // console.log(email)
+            // console.log(occupation)
+
+            axios.post(`${process.env.REACT_APP_API_URL}Register`, {
+                USER_NAME: username,
+                PASSWORD: password,
+                PASSWORD_CONFIRM: confirmPassword,
+                PTITLE_ID: nameTitle,
+                F_NAME_TH: firstNameTH,
+                L_NAME_TH: lastNameTH,
+                F_NAME_EN: firstNameAR,
+                L_NAME_EN: lastNameAR,
+                ID_CARD_NO: idCardNumber,
+                PHONE_NO: phoneNumber,
+                MOSQUE_NAME: mosqueName,
+                BIRTHDATE: birthDate,
+                SEX: sex,
+                ADDRESS: addNumber,
+                MOO_ADDR: addMoo,
+                TUMBOL: addTambon,
+                TANON: addThanon,
+                DISTRICT_ID: addAmphoe,
+                PROVINCE_ID: addChangwat,
+                ZIP_CODE: addZipCode,
+                EMAIL: email,
+                OCCUPATION_ID: occupation,
+                SENDING_PLACE: 'same',
+                ID_CARD_IMAGE: idCardCopy,
+            }, {
+                headers: {
+                    Authorization: `App ${process.env.REACT_APP_AUTHORIZATION}`,
+                    APP_KEY: process.env.REACT_APP_APP_KEY
+                }
+            })
+                .then(async response => {
+                    console.log(response.data)
+
+                    const { code, item, itemdetail, message } = response.data
+
+                    if (code === 10) {
+                        // Cookies.set('user', item.MEM_ID, { expires: 1 })
+                        Cookies.set('token', itemdetail)
+
+                        setStep(step + 1)
+                    } else {
+                        alert(message)
+                    }
+                })
+                .catch(err => console.log(err))
 
         } else if (step === 3) {
             console.log('otp', otp)
             //  otp verify here!
 
+            setStep(step + 1)
         }
-
-        setStep(step + 1)
     }
 
     const delay = (t) => {
