@@ -64,6 +64,22 @@
   }
 }
 
+.navbar__menu-user {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: $solidBorder;
+  border-color: $lightPink;
+  border-radius: 100px;
+  padding: 4px 8px;
+
+  h4 {
+    font-weight: 400;
+    color: $primaryPink;
+    margin-right: 8px;
+  }
+}
+
 @media screen and (max-width: 820px) {
   .navbar {
     padding: 0px;
