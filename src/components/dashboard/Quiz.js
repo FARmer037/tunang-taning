@@ -1,10 +1,10 @@
 import React from 'react'
 import '../../styles/Dashboard.scss'
 import { Progress } from 'antd'
-import { VideoCameraFilled, RightCircleFilled } from '@ant-design/icons'
+import { RightCircleFilled, EditOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 
-const Lesson = ({ lesson }) => {
+const Quiz = ({ lesson }) => {
     const { video_id, video_name, video_url, video_learning_time, video_learning_views, video_learning_status } = lesson
 
     const route = `/video/${video_id}`
@@ -23,7 +23,7 @@ const Lesson = ({ lesson }) => {
 
                 <div className='video-button'>
                     <div>
-                        <VideoCameraFilled style={{ color: '#777' }} />
+                        <EditOutlined style={{ color: '#777' }} />
 
                         <Link to={route} target='_blank'>
                             {video_name}
@@ -37,4 +37,4 @@ const Lesson = ({ lesson }) => {
     )
 }
 
-export default Lesson
+export default Quiz
