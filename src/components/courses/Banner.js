@@ -62,11 +62,7 @@ const Banner = ({ status, videoUrl, lecturer }) => {
         </div>
       </div>
       <div className='banner__videos'>
-        <ReactPlayer
-          url={videoUrl}
-          controls={true}
-          width='100%'
-        />
+        <ReactPlayer url={videoUrl} controls={true} width='100%' />
       </div>
     </div>
   )
