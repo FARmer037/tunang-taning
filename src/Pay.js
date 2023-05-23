@@ -84,18 +84,16 @@ const Pay = () => {
           ))}
         </div>
         <div className='pay__inform'>
-          <h1>แจ้งชำระเงิน</h1>
+          <div className='pay__inform-title'>
+            <img src={require('./images/logo.png')} alt='login image' />
+            <h1>แจ้งชำระเงิน</h1>
+          </div>
+
           <Form
-            labelCol={{
-              span: 6
-            }}
-            wrapperCol={{
-              span: 14
-            }}
+            labelCol={{ span: 6 }}
+            wrapperCol={{ span: 14 }}
             layout='horizontal'
-            style={{
-              maxWidth: 600
-            }}
+            style={{ maxWidth: 600, margin: '20px 0' }}
           >
             <Form.Item label='ชื่อผู้โอน'>
               <Input />

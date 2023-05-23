@@ -19,7 +19,9 @@ const Navbar = () => {
   return (
     <>
       <div className='navbar'>
-        <img src={image} alt='logo' />
+        <a href='/'>
+          <img src={image} alt='logo' />
+        </a>
 
         <div className='navbar__menu'>
           <div className='navbar__menu-item'>

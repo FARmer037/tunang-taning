@@ -4,6 +4,7 @@ import { Button } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import ReactPlayer from 'react-player'
+import { getYoutubeUrl } from '../../util'
 
 const Banner = ({ status, videoUrl, lecturer }) => {
   const [isAuthen, setIsAuthen] = useState(false)
