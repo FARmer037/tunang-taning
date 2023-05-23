@@ -5,28 +5,28 @@ import { RightCircleFilled, EditOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 
 const Quiz = ({ lesson }) => {
-    const { video_id, video_name, video_url, video_learning_time, video_learning_views, video_learning_status } = lesson
+    const { QUIZ_ID, TITLE, IS_DONE } = lesson
 
-    const route = `/video/${video_id}`
+    const route = `/quiz/${QUIZ_ID}`
 
     return (
         <div className='lesson'>
             <div className='left'>
                 <div>
-                    <p>{video_id}</p>
+                    <p>{QUIZ_ID === 1 ? '0' : '16'}</p>
                 </div>
             </div>
             <div className='right'>
-                <h2>{video_name}</h2>
+                <h2>{TITLE}</h2>
 
-                <Progress percent={video_learning_views} strokeColor={video_learning_views < 80 ? '#fb6f92' : '#52c41a'} />
+                <Progress percent={IS_DONE === 0 ? 0 : 100} strokeColor={IS_DONE === 0 ? '#fb6f92' : '#52c41a'} />
 
                 <div className='video-button'>
                     <div>
                         <EditOutlined style={{ color: '#777' }} />
 
                         <Link to={route} target='_blank'>
-                            {video_name}
+                            {TITLE}
                         </Link>
                     </div>
 

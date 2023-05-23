@@ -57,9 +57,23 @@
 .pay__inform {
   @include payCard();
 
-  h1 {
-    margin-bottom: 20px;
-    font-weight: 400;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .pay__inform-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+      width: 40%;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
   }
 }
 
@@ -72,6 +86,12 @@
 
   .pay__inform {
     @include responsivePayCard();
+
+    .pay__inform-title {
+      img {
+        width: 80%;
+      }
+    }
   }
 
   .pay__channel {

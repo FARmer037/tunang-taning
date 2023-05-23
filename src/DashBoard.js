@@ -44,11 +44,11 @@ const DashBoard = () => {
                     const { code, item, itemdetail, message } = await response.data
 
                     if (code === 10) {
-                        const { lessons, quiz } = await item
+                        const { lessons, quiz, COURSES_PROGRESS } = await item
 
                         setLessons(lessons)
                         setQuiz(quiz)
-                        //     setProgress(progress)
+                        setProgress(COURSES_PROGRESS)
                     } else {
                         alert(message)
                     }
