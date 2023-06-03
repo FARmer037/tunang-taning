@@ -24,7 +24,23 @@
   border-right: 1px solid $lightGray;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  // justify-content: center;
+
+  .pay__channel-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  img {
+    width: 40%;
+  }
+
+  h1 {
+    margin-bottom: 20px;
+    font-weight: 400;
+  }
 }
 
 .pay__channel-list {
@@ -42,7 +58,7 @@
     align-items: center;
   }
 
-  h1 {
+  h2 {
     margin-left: 20px;
     font-weight: 400;
   }
@@ -59,7 +75,7 @@
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  // justify-content: center;
 
   .pay__inform-title {
     display: flex;
@@ -98,5 +114,11 @@
     @include responsivePayCard();
     border-right: none;
     border-bottom: 1px solid $lightGray;
+
+    .pay__channel-title {
+      img {
+        width: 80%;
+      }
+    }
   }
 }

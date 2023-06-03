@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './styles/Pay.scss'
 import Layout from './components/Layout'
 import {
@@ -9,49 +9,105 @@ import {
   InputNumber,
   Radio,
   Space,
+  Modal
 } from 'antd'
-
-const data = [
-  {
-    bankName: 'ธนาคารกรุงเทพ',
-    accountName: 'บริษัท ตูนังตานิง จำกัด',
-    bankIcon: 'bbl.png',
-    accountNumber: '111-1-11111-1',
-    branchName: 'ระยอง'
-  },
-  {
-    bankName: 'ธนาคารไทยพาณิชย์',
-    accountName: 'บริษัท ตูนังตานิง จำกัด',
-    bankIcon: 'scb.png',
-    accountNumber: '111-111111-1',
-    branchName: 'ระยอง'
-  },
-  {
-    bankName: 'ธนาคารทหารไทยธนชาต',
-    accountName: 'บริษัท ตูนังตานิง จำกัด',
-    bankIcon: 'ttb.png',
-    accountNumber: '111-1-11111-1',
-    branchName: 'ระยอง'
-  }
-]
+import axios from 'axios'
+import Cookies from 'js-cookie'
+import LoadingPage from './LoadingPage'
+import { getDate, searchBank } from './util'
+import { useNavigate } from 'react-router-dom'
+import Warning from './Warning'
 
 const Pay = () => {
   const [value, setValue] = useState(null)
   const [slip, setSlip] = useState(null)
+  const [data, setData] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [memId, setMemId] = useState('')
+  const [name, setName] = useState('')
+  const [bankCode, setBankCode] = useState('')
+  const [amount, setAmount] = useState('')
+  const [payDate, setPayDate] = useState('')
+  const [token, setToken] = useState('')
+  const [isExpired, setIsExpired] = useState(false)
+
+  const navigate = useNavigate()
+
+  const success = () => {
+    Modal.success({
+      title: 'แจ้งชำระเงินสำเร็จ',
+      content:
+        'ระบบกำลังตรวจสอบการชำระเงินของคุณ และจะอัปเดทสถานะของคุณภายใน 24 ชม.',
+      onOk () {
+        navigate('/courses')
+      }
+    })
+  }
+
+  const error = message => {
+    Modal.error({
+      title: 'ไม่สำเร็จ',
+      content: message
+    })
+  }
 
   const onChange = e => {
-    console.log('radio checked', e.target.value)
+    const bank = searchBank(e.target.value)
+    setBankCode(bank.bankCode)
     setValue(e.target.value)
   }
 
-  const onLoad = (fileString) => {
+  const onSubmit = () => {
+    axios
+      .post(
+        `${process.env.REACT_APP_API_URL}Pay`,
+        {
+          MEM_ID: memId,
+          PAY_NAME: name,
+          BANK_CODE: bankCode,
+          AMOUNT: +amount,
+          DATE: payDate,
+          SLIP_PATH: slip
+        },
+        {
+          headers: {
+            APP_KEY: process.env.REACT_APP_APP_KEY,
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
+      .then(async response => {
+        console.log(response.data)
+
+        const { code, item, itemdetail, message } = response.data
+
+        if (code === 10) {
+          success()
+        } else {
+          error(message)
+        }
+
+        Cookies.set('token', itemdetail)
+      })
+      .catch(err => {
+        console.log(err.response.status)
+        if (err.response.status === 401) {
+          setIsExpired(true)
+        }
+      })
+  }
+
+  const onLoad = fileString => {
     const searchTerm = 'base64,'
     const indexOfFirst = fileString.indexOf(searchTerm)
     const firstIndex = indexOfFirst + 7
     const base64 = fileString.slice(firstIndex)
 
     setSlip(base64)
-    console.log(base64)
+  }
+
+  const onOk = value => {
+    setPayDate(getDate(value))
   }
 
   const getBase64 = file => {
@@ -62,30 +118,80 @@ const Pay = () => {
     }
   }
 
-  const onImageChange = (e) => {
+  const onImageChange = e => {
     getBase64(e.target.files[0])
   }
 
-  return (
+  useEffect(() => {
+    const getAccount = async () => {
+      const user = Cookies.get('user')
+
+      setMemId(user)
+
+      const config = {
+        headers: {
+          APP_KEY: process.env.REACT_APP_APP_KEY
+        }
+      }
+      axios
+        .get(`${process.env.REACT_APP_API_URL}Pay`, config)
+        .then(async response => {
+          // console.log(response.data)
+          const { code, item, itemdetail, message } = response.data
+
+          if (code === 10) {
+            setData(item)
+            setIsLoading(false)
+            setToken(itemdetail)
+
+            Cookies.set('token', itemdetail)
+          } else {
+            alert(message)
+          }
+        })
+        .catch(err => {
+          console.log(err.message)
+        })
+    }
+
+    getAccount()
+  }, [])
+
+  return isLoading ? (
+    isExpired ? (
+      <Warning />
+    ) : (
+      <LoadingPage />
+    )
+  ) : (
     <Layout>
       <div className='pay'>
         <div className='pay__channel'>
+          <div className='pay__channel-title'>
+            <img src={require('./images/logo.png')} alt='login' />
+            <h1>ช่องทางการชำระ</h1>
+          </div>
+
           {data.map((item, index) => (
             <div key={index} className='pay__channel-list'>
               <div>
-                <img src={require(`./images/banks/${item.bankIcon}`)} alt='' />
-                <h1>{item.bankName}</h1>
+                <img
+                  src={require(`./images/banks/${
+                    searchBank(item.bank_code).bankLogo
+                  }`)}
+                  alt=''
+                />
+                <h2>{searchBank(item.bank_code).bankName}</h2>
               </div>
 
-              <h3>ชื่อบัญชี: {item.accountName}</h3>
-              <h3>เลขที่บัญชี: {item.accountNumber}</h3>
-              <h3>สาขา: {item.branchName}</h3>
+              <h3>ชื่อบัญชี: {item.account_name}</h3>
+              <h3>เลขที่บัญชี: {item.account_number}</h3>
             </div>
           ))}
         </div>
         <div className='pay__inform'>
           <div className='pay__inform-title'>
-            <img src={require('./images/logo.png')} alt='login image' />
+            <img src={require('./images/logo.png')} alt='login' />
             <h1>แจ้งชำระเงิน</h1>
           </div>
 
@@ -96,22 +202,27 @@ const Pay = () => {
             style={{ maxWidth: 600, margin: '20px 0' }}
           >
             <Form.Item label='ชื่อผู้โอน'>
-              <Input />
+              <Input value={name} onChange={e => setName(e.target.value)} />
             </Form.Item>
             <Form.Item label='ธนาคารที่โอนเข้า'>
               <Radio.Group onChange={onChange} value={value}>
                 <Space direction='vertical'>
                   {data.map((item, index) => (
-                    <Radio key={index} value={index + 1}>{item.bankName}</Radio>
+                    <Radio key={index} value={item.bank_code}>
+                      {searchBank(item.bank_code).bankName}
+                    </Radio>
                   ))}
                 </Space>
               </Radio.Group>
             </Form.Item>
             <Form.Item label='จำนวนเงินที่โอน'>
-              <InputNumber />
+              <InputNumber
+                value={amount}
+                onChange={value => setAmount(value)}
+              />
             </Form.Item>
             <Form.Item label='วันที่โอน'>
-              <DatePicker />
+              <DatePicker showTime onOk={onOk} />
             </Form.Item>
             <Form.Item label='หลักฐานการโอน' valuePropName='fileList'>
               <input
@@ -122,7 +233,9 @@ const Pay = () => {
               />
             </Form.Item>
           </Form>
-          <Button type='primary'>แจ้งชำระเงิน</Button>
+          <Button type='primary' onClick={onSubmit}>
+            แจ้งชำระเงิน
+          </Button>
         </div>
       </div>
     </Layout>
