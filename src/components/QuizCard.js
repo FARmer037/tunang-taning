@@ -4,9 +4,9 @@ import '../styles/Quiz.scss'
 import { ScoreContext } from '../App'
 
 const QuizCard = ({ question, id }) => {
-  const { question_id, title, choice, answer } = question
+  const { QUESTION_ID, title, choice } = question
 
-  const { setScore, answerArr, setAnswerArr, count, setCount } = useContext(ScoreContext)
+  const { answerArr, setAnswerArr, count, setCount } = useContext(ScoreContext)
 
   const [value, setValue] = useState(null)
 
@@ -25,17 +25,18 @@ const QuizCard = ({ question, id }) => {
   const onChange = e => {
     setValue(e.target.value)
 
-    const repeatedAnswer = answerArr.find(item => item.answer_id === question_id)
+    const repeatedAnswer = answerArr.find(
+      item => item.answer_id === QUESTION_ID
+    )
 
     if (repeatedAnswer) {
       updateAnswer(repeatedAnswer, e.target.value)
     } else {
-      setAnswerArr(answerArr => [...answerArr, { answer_id: question_id, answer_value: e.target.value }])
+      setAnswerArr(answerArr => [
+        ...answerArr,
+        { answer_id: QUESTION_ID, answer_value: e.target.value }
+      ])
       setCount(count + 1)
-    }
-
-    if (e.target.value === answer) {
-      setScore(prev => prev + 1)
     }
   }
 

@@ -18,8 +18,7 @@ import Books from './Books'
 
 export const ScoreContext = createContext()
 
-function App() {
-  const [score, setScore] = useState(0)
+function App () {
   const [count, setCount] = useState(0)
   const [answerArr, setAnswerArr] = useState([])
 
@@ -46,7 +45,7 @@ function App() {
   const [addAmphoe, setAddAmphoe] = useState('')
   const [addChangwat, setAddChangwat] = useState('')
   const [addZipCode, setAddZipCode] = useState('')
-  
+
   const [sendingPlace, setSendingPlace] = useState('same')
   const [sendNumber, setSendNumber] = useState('')
   const [sendMoo, setSendMoo] = useState('')
@@ -65,44 +64,80 @@ function App() {
   return (
     <ScoreContext.Provider
       value={{
-        score, setScore,
-        count, setCount,
-        answerArr, setAnswerArr,
-        belongTo, setBelongTo,
-        nameTitle, setNameTitle,
-        firstNameTH, setFirstNameTH,
-        lastNameTH, setLastNameTH,
-        firstNameAR, setFirstNameAR,
-        lastNameAR, setLastNameAR,
-        idCardNumber, setidCardNumber,
-        idCardCopy, setIdCardCopy,
-        phoneNumber, setPhoneNumber,
-        mosqueName, setMosqueName,
-        birthDateShow, setBirthDateShow,
-        birthDate, setBirthDate,
-        age, setAge,
-        sex, setSex,
-        email, setEmail,
-        occupation, setOccupation,
-        sendingPlace, setSendingPlace,
-        addNumber, setAddNumber,
-        addMoo, setAddMoo,
-        addThanon, setAddThanon,
-        addTambon, setAddTambon,
-        addAmphoe, setAddAmphoe,
-        addChangwat, setAddChangwat,
-        addZipCode, setAddZipCode,
-        sendNumber, setSendNumber,
-        sendMoo, setSendMoo,
-        sendThanon, setSendThanon,
-        sendTambon, setSendTambon,
-        sendAmphoe, setSendAmphoe,
-        sendChangwat, setSendChangwat,
-        sendZipCode, setSendZipCode,
-        username, setUsername,
-        password, setPassword,
-        confirmPassword, setConfirmPassword,
-        otp, setOtp
+        count,
+        setCount,
+        answerArr,
+        setAnswerArr,
+        belongTo,
+        setBelongTo,
+        nameTitle,
+        setNameTitle,
+        firstNameTH,
+        setFirstNameTH,
+        lastNameTH,
+        setLastNameTH,
+        firstNameAR,
+        setFirstNameAR,
+        lastNameAR,
+        setLastNameAR,
+        idCardNumber,
+        setidCardNumber,
+        idCardCopy,
+        setIdCardCopy,
+        phoneNumber,
+        setPhoneNumber,
+        mosqueName,
+        setMosqueName,
+        birthDateShow,
+        setBirthDateShow,
+        birthDate,
+        setBirthDate,
+        age,
+        setAge,
+        sex,
+        setSex,
+        email,
+        setEmail,
+        occupation,
+        setOccupation,
+        sendingPlace,
+        setSendingPlace,
+        addNumber,
+        setAddNumber,
+        addMoo,
+        setAddMoo,
+        addThanon,
+        setAddThanon,
+        addTambon,
+        setAddTambon,
+        addAmphoe,
+        setAddAmphoe,
+        addChangwat,
+        setAddChangwat,
+        addZipCode,
+        setAddZipCode,
+        sendNumber,
+        setSendNumber,
+        sendMoo,
+        setSendMoo,
+        sendThanon,
+        setSendThanon,
+        sendTambon,
+        setSendTambon,
+        sendAmphoe,
+        setSendAmphoe,
+        sendChangwat,
+        setSendChangwat,
+        sendZipCode,
+        setSendZipCode,
+        username,
+        setUsername,
+        password,
+        setPassword,
+        confirmPassword,
+        setConfirmPassword,
+        otp,
+        setOtp
       }}
     >
       <ConfigProvider
