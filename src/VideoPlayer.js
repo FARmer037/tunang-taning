@@ -71,7 +71,6 @@ const VideoPlayer = () => {
         .post(
           `${process.env.REACT_APP_API_URL}Video`,
           {
-            // MEM_ID: '00001',
             MEM_ID: user,
             VIDEO_ID: id
           },
@@ -111,7 +110,7 @@ const VideoPlayer = () => {
         })
         .catch(err => {
           console.log(err.response.status)
-          if (err.response.status == 401) {
+          if (err.response.status === 401) {
             setIsExpired(true)
           }
         })

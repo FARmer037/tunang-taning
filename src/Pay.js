@@ -64,7 +64,7 @@ const Pay = () => {
         {
           MEM_ID: memId,
           PAY_NAME: name,
-          BANK_CODE: bankCode,
+          PAY_ID: bankCode,
           AMOUNT: +amount,
           DATE: payDate,
           SLIP_PATH: slip

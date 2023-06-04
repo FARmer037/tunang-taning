@@ -46,7 +46,7 @@ const LoginForm = () => {
         }
       )
       .then(response => {
-        console.log(response.data)
+        // console.log(response.data)
 
         const { code, itemdetail, item, message } = response.data
 
