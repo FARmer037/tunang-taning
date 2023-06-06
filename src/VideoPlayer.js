@@ -7,7 +7,6 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import { useParams } from 'react-router-dom'
 import LoadingPage from './LoadingPage'
 import { Button } from 'antd'
-import numeral from 'numeral'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import Warning from './Warning'
@@ -25,6 +24,8 @@ const VideoPlayer = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [videoUrl, setVideoUrl] = useState('')
   const [videoTitle, setVideoTitle] = useState('')
+  const [token, setToken] = useState(null)
+  const [memId, setMemId] = useState(null)
 
   const playerRef = useRef()
 
@@ -39,39 +40,112 @@ const VideoPlayer = () => {
     }
   }, [isReady])
 
-  const onPause = () => {
-    let timeFormat = getDuration()
+  const updateTime = (videoTime, videoView) => {
+    axios
+      .post(
+        `${process.env.REACT_APP_API_URL}VideoUpdateTime`,
+        {
+          MEM_ID: memId,
+          VIDEO_ID: id,
+          VIDEO_TIME: videoTime,
+          VIDEO_VIEW: videoView
+        },
+        {
+          headers: {
+            APP_KEY: process.env.REACT_APP_APP_KEY,
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
+      .then(async response => {
+        // console.log(response.data)
+        const { code, item, itemdetail, message } = await response.data
 
-    //  save played! (call api)
+        if (code === 10) {
+          console.log(item.VIDEO_TIME)
+          Cookies.set('token', itemdetail)
+        } else {
+          console.log(message)
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   const getDuration = () => {
-    // let timeFormat = numeral(played).format('00:00:00')
-    // console.log(timeFormat)
-
     let hour = played / 3600
     let min = (played % 3600) / 60
     let sec = (played % 3600) % 60
 
-    return Math.floor(hour) + ':' + Math.floor(min) + ':' + Math.floor(sec)
+    if ((Math.floor(hour) + '').length === 1) {
+      hour = '0' + Math.floor(hour)
+    } else {
+      hour = Math.floor(hour) + ''
+    }
+
+    if ((Math.floor(min) + '').length === 1) {
+      min = '0' + Math.floor(min)
+    } else {
+      min = Math.floor(min) + ''
+    }
+
+    if ((Math.floor(sec) + '').length === 1) {
+      sec = '0' + Math.floor(sec)
+    } else {
+      sec = Math.floor(sec) + ''
+    }
+
+    return hour + min + sec
+  }
+
+  const getPercent = () => {
+    let percent = (played * 100) / duration
+
+    return Math.floor(percent) + ''
+  }
+
+  const onPause = () => {
+    //  update time ตอนกด pause
+    let timeFormat = getDuration()
+    let viewPercent = getPercent()
+
+    updateTime(timeFormat, viewPercent)
   }
 
   useEffect(() => {
+    //  update time ทุก ๆ 10 วิ
     let timeFormat = getDuration()
+    let viewPercent = getPercent()
 
-    //  save timeFormat! (call api)
+    updateTime(timeFormat, viewPercent)
   }, [played])
+
+  useEffect(() => {
+    //  update time ตอนออกไปแท็บอื่น
+    if (!isVisible) {
+      setIsPlaying(false)
+
+      let timeFormat = getDuration()
+      let viewPercent = getPercent()
+
+      updateTime(timeFormat, viewPercent)
+    }
+  }, [isVisible])
 
   useEffect(() => {
     const getData = async () => {
       const token = Cookies.get('token')
-      const user = Cookies.get('user')
+      const memId = Cookies.get('user')
+
+      setToken(token)
+      setMemId(memId)
 
       axios
         .post(
           `${process.env.REACT_APP_API_URL}Video`,
           {
-            MEM_ID: user,
+            MEM_ID: memId,
             VIDEO_ID: id
           },
           {
@@ -87,19 +161,18 @@ const VideoPlayer = () => {
 
           if (code === 10) {
             const { VIDEO_TIME, VIDEO_TITLE, VIDEO_URL } = item
-            const video_start_at = '000000'
+            let h = 0
+            let m = 0
+            let s = 0
 
-            let h = +video_start_at.slice(0, 2)
-            let m = +video_start_at.slice(2, 4)
-            let s = +video_start_at.slice(4, 6)
-
-            let nh = +VIDEO_TIME.slice(0, 2)
-            let nm = +VIDEO_TIME.slice(2, 4)
-            let ns = +VIDEO_TIME.slice(4, 6)
+            if (VIDEO_TIME.length === 6) {
+              h = +VIDEO_TIME.slice(0, 2)
+              m = +VIDEO_TIME.slice(2, 4)
+              s = +VIDEO_TIME.slice(4, 6)
+            }
 
             setIsLoading(false)
             setStartAt(h * 3600 + m * 60 + s)
-            // setStartAt(nh * 3600 + nm * 60 + ns)
             setVideoUrl(VIDEO_URL)
             setVideoTitle(VIDEO_TITLE)
           } else {
@@ -118,16 +191,6 @@ const VideoPlayer = () => {
 
     getData()
   }, [])
-
-  useEffect(() => {
-    if (!isVisible) {
-      setIsPlaying(false)
-
-      let timeFormat = getDuration()
-
-      //  save played! (call api)
-    }
-  }, [isVisible])
 
   return isLoading ? (
     isExpired ? (
@@ -151,7 +214,7 @@ const VideoPlayer = () => {
             height='100%'
             playing={isPlaying}
             onReady={onReady}
-            progressInterval={1000}
+            progressInterval={10000}
             playsinline={true}
             onProgress={progress => {
               setPlayed(progress.playedSeconds)
