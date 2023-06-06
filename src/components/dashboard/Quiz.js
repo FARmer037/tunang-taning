@@ -4,7 +4,7 @@ import { Progress } from 'antd'
 import { RightCircleFilled, EditOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 
-const Quiz = ({ lesson }) => {
+const Quiz = ({ lesson, isQuizDisable }) => {
     const { QUIZ_ID, TITLE, IS_DONE } = lesson
 
     const route = `/quiz/${QUIZ_ID}`
@@ -25,9 +25,20 @@ const Quiz = ({ lesson }) => {
                     <div>
                         <EditOutlined style={{ color: '#777' }} />
 
-                        <Link to={route} target='_blank'>
+                        {
+                            isQuizDisable ? (
+                                <Link>
+                                    {TITLE}
+                                </Link>
+                            ) : (
+                                <Link to={route} target='_blank'>
+                                    {TITLE}
+                                </Link>
+                            )
+                        }
+                        {/* <Link to={route} target='_blank'>
                             {TITLE}
-                        </Link>
+                        </Link> */}
                     </div>
 
                     <RightCircleFilled style={{ color: '#777' }} />

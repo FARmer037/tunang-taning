@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import './styles/Register.scss'
 import RegisterForm from './components/RegisterForm'
 import { UnlockOutlined, SmileOutlined, SolutionOutlined, UserOutlined } from '@ant-design/icons'
-import { Steps, Progress, Button } from 'antd'
+import { Steps, Progress, Button, message } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { ScoreContext } from './App'
 import LoadingPage from './LoadingPage'
@@ -44,6 +44,8 @@ const Register = () => {
     const [ptitle, setPtitle] = useState(null)
     const [occupationList, setOccupationList] = useState(null)
     const [belong, setBelong] = useState(null)
+
+    const [messageApi, contextHolder] = message.useMessage()
 
     const {
         belongTo,
@@ -90,6 +92,15 @@ const Register = () => {
         return step.title
     }
 
+    const error = message => {
+        messageApi.open({
+            type: 'error',
+            content: !message ? 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง' : message
+        })
+
+        setIsLoading(false)
+    }
+
     const onNextClick = () => {
         if (step === 1) {
             if (sendingPlace === 'same') {
@@ -102,31 +113,40 @@ const Register = () => {
                 setSendZipCode(addZipCode)
             }
 
-            setStep(step + 1)
+            console.log({ sex })
+            console.log({ nameTitle })
+            console.log({ firstNameTH })
+            console.log({ lastNameTH })
+            console.log({ firstNameAR })
+            console.log({ lastNameAR })
+            console.log({ idCardNumber })
+            console.log({ phoneNumber })
+            console.log({ mosqueName })
+            console.log({ birthDate })
+            console.log({ addNumber })
+            console.log({ addMoo })
+            console.log({ addTambon })
+            console.log({ addThanon })
+            console.log({ addAmphoe })
+            console.log({ addChangwat })
+            console.log({ addZipCode })
+            console.log({ email })
+            console.log({ occupation })
+
+            if (
+                !sex || !nameTitle || !occupation || !birthDate || firstNameTH === '' || lastNameTH === '' || firstNameAR === ''
+                || firstNameAR === '' || idCardNumber === '' || phoneNumber === '' || mosqueName === '' || addNumber === '' || addTambon === ''
+                || addThanon === '' || addAmphoe === '' || addChangwat === '' || addZipCode === '' || lastNameTH === '' || email === ''
+            ) {
+
+            } else {
+                setStep(step + 1)
+            }
         } else if (step === 2) {
             //  save the information to the database.
             // console.log(username)
             // console.log(password)
             // console.log(confirmPassword)
-            // console.log(nameTitle)
-            // console.log(firstNameTH)
-            // console.log(lastNameTH)
-            // console.log(firstNameAR)
-            // console.log(lastNameAR)
-            // console.log(idCardNumber)
-            // console.log(phoneNumber)
-            // console.log(mosqueName)
-            // console.log(birthDate)
-            // console.log(sex)
-            // console.log(addNumber)
-            // console.log(addMoo)
-            // console.log(addTambon)
-            // console.log(addThanon)
-            // console.log(addAmphoe)
-            // console.log(addChangwat)
-            // console.log(addZipCode)
-            // console.log(email)
-            // console.log(occupation)
 
             axios.post(`${process.env.REACT_APP_API_URL}Register`, {
                 USER_NAME: username,
@@ -231,6 +251,7 @@ const Register = () => {
             <LoadingPage />
         ) : (
             <div className='register'>
+                {contextHolder}
                 <div className='register__content'>
                     <img src={require('./images/logo.png')} alt='login image' />
 

@@ -63,7 +63,7 @@ const Courses = () => {
         })
         .catch(err => {
           console.log(err.response.status)
-          if (err.response.status == 401) {
+          if (err.response.status === 401) {
             setIsExpired(true)
           }
         })

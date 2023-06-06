@@ -22,7 +22,7 @@ const LoginForm = () => {
   const error = message => {
     messageApi.open({
       type: 'error',
-      content: !message ? 'invalid username or password' : message
+      content: !message ? 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง' : message
     })
 
     setIsLoading(false)
@@ -31,37 +31,41 @@ const LoginForm = () => {
   const onSubmit = () => {
     setIsLoading(true)
 
-    axios
-      .post(
-        `${process.env.REACT_APP_API_URL}Login`,
-        {
-          USER_NAME: username,
-          PASSWORD: password
-        },
-        {
-          headers: {
-            Authorization: `App ${process.env.REACT_APP_AUTHORIZATION}`,
-            APP_KEY: process.env.REACT_APP_APP_KEY
+    if (!username || !password) {
+      error()
+    } else {
+      axios
+        .post(
+          `${process.env.REACT_APP_API_URL}Login`,
+          {
+            USER_NAME: username,
+            PASSWORD: password
+          },
+          {
+            headers: {
+              Authorization: `App ${process.env.REACT_APP_AUTHORIZATION}`,
+              APP_KEY: process.env.REACT_APP_APP_KEY
+            }
           }
-        }
-      )
-      .then(response => {
-        // console.log(response.data)
+        )
+        .then(response => {
+          // console.log(response.data)
 
-        const { code, itemdetail, item, message } = response.data
+          const { code, itemdetail, item, message } = response.data
 
-        if (code === 10) {
-          Cookies.set('user', item.MEM_ID, { expires: 1 })
-          Cookies.set('fullname', item.USER_NAME)
-          Cookies.set('token', itemdetail)
+          if (code === 10) {
+            Cookies.set('user', item.MEM_ID, { expires: 1 })
+            Cookies.set('fullname', item.USER_NAME)
+            Cookies.set('token', itemdetail)
 
-          navigate('/courses')
-          setIsLoading(false)
-        } else {
-          error(message)
-        }
-      })
-      .catch(err => console.log(err))
+            navigate('/courses')
+            setIsLoading(false)
+          } else {
+            error(message)
+          }
+        })
+        .catch(err => console.log(err))
+    }
   }
 
   return (

@@ -17,6 +17,7 @@ const DashBoard = () => {
     const [name, setName] = useState('')
     const [progress, setProgress] = useState(0)
     const [isExpired, setIsExpired] = useState(false)
+    const [isQuizDisable, setIsQuizDisable] = useState(true)
 
     const refreshPage = () => {
         window.location.reload()
@@ -40,7 +41,7 @@ const DashBoard = () => {
                     }
                 })
                 .then(async response => {
-                    console.log(response.data)
+                    // console.log(response.data)
                     const { code, item, itemdetail, message } = await response.data
 
                     if (code === 10) {
@@ -49,6 +50,10 @@ const DashBoard = () => {
                         setLessons(lessons)
                         setQuiz(quiz)
                         setProgress(COURSES_PROGRESS)
+
+                        if (+COURSES_PROGRESS >= 80) {
+                            setIsQuizDisable(false)
+                        }
                     } else {
                         alert(message)
                     }
@@ -57,7 +62,7 @@ const DashBoard = () => {
                 })
                 .catch(err => {
                     console.log(err.response.status)
-                    if (err.response.status == 401) {
+                    if (err.response.status === 401) {
                         setIsExpired(true)
                     }
                 })
@@ -90,7 +95,7 @@ const DashBoard = () => {
                     </div>
 
                     {
-                        quiz != 0 && (
+                        quiz !== 0 && (
                             <Quiz
                                 lesson={quiz[0]}
                             />
@@ -107,9 +112,10 @@ const DashBoard = () => {
                     }
 
                     {
-                        quiz != 0 && (
+                        quiz !== 0 && (
                             <Quiz
                                 lesson={quiz[1]}
+                                isQuizDisable={isQuizDisable}
                             />
                         )
                     }
