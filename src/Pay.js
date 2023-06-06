@@ -38,7 +38,7 @@ const Pay = () => {
       title: 'แจ้งชำระเงินสำเร็จ',
       content:
         'ระบบกำลังตรวจสอบการชำระเงินของคุณ และจะอัปเดทสถานะของคุณภายใน 24 ชม.',
-      onOk () {
+      onOk() {
         navigate('/courses')
       }
     })
@@ -58,43 +58,47 @@ const Pay = () => {
   }
 
   const onSubmit = () => {
-    axios
-      .post(
-        `${process.env.REACT_APP_API_URL}Pay`,
-        {
-          MEM_ID: memId,
-          PAY_NAME: name,
-          PAY_ID: bankCode,
-          AMOUNT: +amount,
-          DATE: payDate,
-          SLIP_PATH: slip
-        },
-        {
-          headers: {
-            APP_KEY: process.env.REACT_APP_APP_KEY,
-            Authorization: `Bearer ${token}`
+    if (name === '' || bankCode === '' || amount === '' || payDate === '' || slip === null) {
+      error('กรุณากรอกข้อมูลให้ครบถ้วน')
+    } else {
+      axios
+        .post(
+          `${process.env.REACT_APP_API_URL}Pay`,
+          {
+            MEM_ID: memId,
+            // PAY_NAME: name,
+            PAY_ID: bankCode,
+            PAY_AMOUNT: amount,
+            PAY_DATE: payDate,
+            PAY_SLIP_PATH: slip
+          },
+          {
+            headers: {
+              APP_KEY: process.env.REACT_APP_APP_KEY,
+              Authorization: `Bearer ${token}`
+            }
           }
-        }
-      )
-      .then(async response => {
-        console.log(response.data)
+        )
+        .then(async response => {
+          // console.log(response.data)
 
-        const { code, item, itemdetail, message } = response.data
+          const { code, item, itemdetail, message } = response.data
 
-        if (code === 10) {
-          success()
-        } else {
-          error(message)
-        }
+          if (code === 10) {
+            success()
+          } else {
+            error(message)
+          }
 
-        Cookies.set('token', itemdetail)
-      })
-      .catch(err => {
-        console.log(err.response.status)
-        if (err.response.status === 401) {
-          setIsExpired(true)
-        }
-      })
+          Cookies.set('token', itemdetail)
+        })
+        .catch(err => {
+          console.log(err.response.status)
+          if (err.response.status === 401) {
+            setIsExpired(true)
+          }
+        })
+    }
   }
 
   const onLoad = fileString => {
@@ -176,9 +180,8 @@ const Pay = () => {
             <div key={index} className='pay__channel-list'>
               <div>
                 <img
-                  src={require(`./images/banks/${
-                    searchBank(item.bank_code).bankLogo
-                  }`)}
+                  src={require(`./images/banks/${searchBank(item.bank_code).bankLogo
+                    }`)}
                   alt=''
                 />
                 <h2>{searchBank(item.bank_code).bankName}</h2>
