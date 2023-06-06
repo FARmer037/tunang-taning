@@ -12,8 +12,8 @@ const QuizCard = ({ question, id }) => {
 
   const updateAnswer = (repeatedAnswer, value) => {
     const newAnswer = answerArr.map(item => {
-      if (item.answer_id === repeatedAnswer.answer_id) {
-        return { ...item, answer_value: value }
+      if (item.QUESTIONS_ID === repeatedAnswer.QUESTIONS_ID) {
+        return { ...item, ANSWER_VALUE: value }
       } else {
         return item
       }
@@ -26,7 +26,7 @@ const QuizCard = ({ question, id }) => {
     setValue(e.target.value)
 
     const repeatedAnswer = answerArr.find(
-      item => item.answer_id === QUESTION_ID
+      item => item.QUESTIONS_ID === QUESTION_ID
     )
 
     if (repeatedAnswer) {
@@ -34,7 +34,7 @@ const QuizCard = ({ question, id }) => {
     } else {
       setAnswerArr(answerArr => [
         ...answerArr,
-        { answer_id: QUESTION_ID, answer_value: e.target.value }
+        { QUESTIONS_ID: QUESTION_ID, ANSWER_VALUE: e.target.value+'' }
       ])
       setCount(count + 1)
     }

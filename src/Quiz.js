@@ -12,6 +12,7 @@ import LoadingPage from './LoadingPage'
 import Warning from './Warning'
 import Countdown from 'react-countdown'
 import numeral from 'numeral'
+import { getDate } from './util'
 
 const Quiz = () => {
   const { id } = useParams()
@@ -39,57 +40,34 @@ const Quiz = () => {
 
   const onSubmit = () => {
     axios
-      .post(
-        '/api/QuizSubmit',
-        {
-          MEM_ID: memId,
-          ANSWER: answerArr.sort()
-        },
-        {
-          headers: {
-            APP_KEY: process.env.REACT_APP_APP_KEY,
-            Authorization: `Bearer ${token}`
-          }
+      .post(`${process.env.REACT_APP_API_URL}QuizSubmit`, {
+        MEM_ID: memId,
+        GROUP_ID: id,
+        DATE: getDate(),
+        ANSWER: answerArr.sort()
+      }, {
+        headers: {
+          APP_KEY: process.env.REACT_APP_APP_KEY,
+          Authorization: `Bearer ${token}`
         }
-      )
+      })
       .then(response => {
+        // console.log(response.data)
         const { code, item, itemdetail, message } = response.data
 
         if (code === 10) {
-          setUserScore(item.score)
-          setCreateAt(item.createAt)
+          setUserScore(item.SCORE)
+          setCreateAt(item.CREATE_DATE)
           setOpen(true)
+        } else {
+          alert(message)
         }
 
-        // Cookies.set('token', itemdetail)
+        Cookies.set('token', itemdetail)
       })
       .catch(err => {
         console.log(err)
       })
-    // axios
-    //   .post(`${process.env.REACT_APP_API_URL}/Quiz`, {
-    //     MEM_ID: memId,
-    //     ANSWER: answerArr.sort()
-    //   }, {
-    //     headers: {
-    //       APP_KEY: process.env.REACT_APP_APP_KEY,
-    //       Authorization: `Bearer ${token}`
-    //     }
-    //   })
-    //   .then(response => {
-    //     const { code, item, itemdetail, message } = response.data
-
-    //     if (code === 10) {
-    //       setUserScore(item.score)
-    //       setCreateAt(item.createAt)
-    //       setOpen(true)
-    //     }
-
-    //     // Cookies.set('token', itemdetail)
-    //   })
-    //   .catch(err => {
-    //     console.log(err)
-    //   })
   }
 
   const onFinish = () => {
