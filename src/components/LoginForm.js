@@ -54,12 +54,17 @@ const LoginForm = () => {
           const { code, itemdetail, item, message } = response.data
 
           if (code === 10) {
-            Cookies.set('user', item.MEM_ID, { expires: 1 })
-            Cookies.set('fullname', item.USER_NAME)
-            Cookies.set('token', itemdetail)
+            if (item.ROLE_ID === '3') {
+              window.location.href = `${process.env.REACT_APP_ADMIN_URL}?id=${item.USER_NAME}`
+            } else {
+              Cookies.set('user', item.MEM_ID, { expires: 1 })
+              Cookies.set('fullname', item.USER_NAME)
+              Cookies.set('token', itemdetail)
 
-            navigate('/courses')
-            setIsLoading(false)
+              navigate('/courses')
+
+              setIsLoading(false)
+            }
           } else {
             error(message)
           }
