@@ -38,19 +38,52 @@ const Quiz = () => {
     })
   }
 
-  const onSubmit = () => {
+  const insertCer = () => {
     axios
-      .post(`${process.env.REACT_APP_API_URL}QuizSubmit`, {
-        MEM_ID: memId,
-        GROUP_ID: id,
-        DATE: getDate(),
-        ANSWER: answerArr.sort()
-      }, {
-        headers: {
-          APP_KEY: process.env.REACT_APP_APP_KEY,
-          Authorization: `Bearer ${token}`
+      .post(
+        `${process.env.REACT_APP_API_URL}InsertCertificate`,
+        {
+          MEM_ID: memId
+        },
+        {
+          headers: {
+            APP_KEY: process.env.REACT_APP_APP_KEY,
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
+      .then(response => {
+        // console.log(response.data)
+        const { code, item, message } = response.data
+
+        if (code === 10) {
+          Cookies.set('token', item)
+        } else {
+          alert(message)
         }
       })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  const onSubmit = () => {
+    axios
+      .post(
+        `${process.env.REACT_APP_API_URL}QuizSubmit`,
+        {
+          MEM_ID: memId,
+          GROUP_ID: id,
+          DATE: getDate(),
+          ANSWER: answerArr.sort()
+        },
+        {
+          headers: {
+            APP_KEY: process.env.REACT_APP_APP_KEY,
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
       .then(response => {
         // console.log(response.data)
         const { code, item, itemdetail, message } = response.data
@@ -59,6 +92,10 @@ const Quiz = () => {
           setUserScore(item.SCORE)
           setCreateAt(item.CREATE_DATE)
           setOpen(true)
+
+          if (id === '2' && +item.SCORE > 11) {
+            setTimeOut(insertCer, 1000)
+          }
         } else {
           alert(message)
         }

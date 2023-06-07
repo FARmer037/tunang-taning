@@ -55,7 +55,7 @@ const LoginForm = () => {
 
           if (code === 10) {
             if (item.ROLE_ID === '3') {
-              window.location.href = `${process.env.REACT_APP_ADMIN_URL}?id=${item.USER_NAME}`
+              window.location.href = `${process.env.REACT_APP_ADMIN_URL}?id=${username}`
             } else {
               Cookies.set('user', item.MEM_ID, { expires: 1 })
               Cookies.set('fullname', item.USER_NAME)
@@ -76,7 +76,7 @@ const LoginForm = () => {
   return (
     <div className='login__card-form'>
       {contextHolder}
-      <img src={require('../images/logo.png')} alt='login image' />
+      <img src={require('../images/logo.png')} alt='login' />
       <h2>ยินดีต้อนรับ</h2>
 
       <div className='login__card-input'>

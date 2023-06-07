@@ -39,6 +39,11 @@
     left: 210px;
   }
 
+  .cer-no {
+    top: 90px;
+    left: 360px;
+  }
+
   .name {
     top: 324px;
     left: 180px;
@@ -83,6 +88,12 @@
     .id-number {
       top: 200px;
       left: 150px;
+      font-size: $sm;
+    }
+
+    .cer-no {
+      top: 63px;
+      left: 260px;
       font-size: $sm;
     }
 
