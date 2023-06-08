@@ -93,7 +93,7 @@ const Quiz = () => {
           setCreateAt(item.CREATE_DATE)
           setOpen(true)
 
-          if (id === '2' && +item.SCORE > 11) {
+          if (id === '2' && +item.QUIZ_RESULTS === 1) {
             setTimeOut(insertCer, 1000)
           }
         } else {
@@ -166,6 +166,7 @@ const Quiz = () => {
               setOpen(true)
             }
           } else {
+            console.log('Quiz:', message)
             alert(message)
           }
 

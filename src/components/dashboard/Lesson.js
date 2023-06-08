@@ -4,7 +4,7 @@ import { Progress } from 'antd'
 import { VideoCameraFilled, RightCircleFilled } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 
-const Lesson = ({ lesson }) => {
+const Lesson = ({ lesson, isVideoDisable }) => {
     const { video_id, video_name, video_url, video_learning_time, video_learning_views, video_learning_status } = lesson
 
     const route = `/video/${video_id}`
@@ -25,9 +25,17 @@ const Lesson = ({ lesson }) => {
                     <div>
                         <VideoCameraFilled style={{ color: '#777' }} />
 
-                        <Link to={route} target='_blank'>
-                            {video_name}
-                        </Link>
+                        {
+                            isVideoDisable ? (
+                                <Link>
+                                    {video_name}
+                                </Link>
+                            ) : (
+                                <Link to={route} target='_blank'>
+                                    {video_name}
+                                </Link>
+                            )
+                        }
                     </div>
 
                     <RightCircleFilled style={{ color: '#777' }} />

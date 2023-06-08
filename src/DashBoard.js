@@ -18,6 +18,7 @@ const DashBoard = () => {
     const [progress, setProgress] = useState(0)
     const [isExpired, setIsExpired] = useState(false)
     const [isQuizDisable, setIsQuizDisable] = useState(true)
+    const [isVideoDisable, setIsVideoDisable] = useState(true)
 
     const refreshPage = () => {
         window.location.reload()
@@ -46,6 +47,10 @@ const DashBoard = () => {
 
                     if (code === 10) {
                         const { lessons, quiz, COURSES_PROGRESS } = await item
+
+                        if(quiz[0].IS_DONE === 2) {
+                            setIsVideoDisable(false)
+                        }
 
                         setLessons(lessons)
                         setQuiz(quiz)
@@ -107,6 +112,7 @@ const DashBoard = () => {
                             <Lesson
                                 key={element.lesson_id}
                                 lesson={element}
+                                isVideoDisable={isVideoDisable}
                             />
                         ))
                     }
