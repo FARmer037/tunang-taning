@@ -26,8 +26,6 @@ const Navbar = () => {
         <div className='navbar__menu'>
           <div className='navbar__menu-item'>
             <a href='/'>หน้าแรก</a>
-            <a href='/courses'>กูรสุสอบรบแต่งงาน</a>
-            <a href='/courses'>แต่งงานออนไลน์</a>
             <LinkId
               to='gifts'
               py={true}
@@ -37,11 +35,22 @@ const Navbar = () => {
             >
               ของที่ระลึก
             </LinkId>
+            <LinkId
+              to='gifts'
+              py={true}
+              smooth={true}
+              offset={50}
+              duration={500}
+            >
+              เวลาละหมาด
+            </LinkId>
           </div>
 
           <div className='navbar__menu-login'>
             <Link to='/register'>ลงทะเบียน</Link>
-            <Link to='/login' className='register'>เข้าสู่ระบบ</Link>
+            <Link to='/login' className='register'>
+              เข้าสู่ระบบ
+            </Link>
           </div>
         </div>
       </div>
@@ -52,7 +61,7 @@ const Navbar = () => {
         <MenuOutlined onClick={showDrawer} />
       </div>
 
-      <Drawer placement="right" onClose={onClose} open={open}>
+      <Drawer placement='right' onClose={onClose} open={open}>
         <div className='navbar__menu'>
           <div className='navbar__menu-item'>
             <a href='/'>หน้าแรก</a>
@@ -71,7 +80,9 @@ const Navbar = () => {
 
           <div className='navbar__menu-login'>
             <Link to='/register'>ลงทะเบียน</Link>
-            <Link to='/login' className='register'>เข้าสู่ระบบ</Link>
+            <Link to='/login' className='register'>
+              เข้าสู่ระบบ
+            </Link>
           </div>
         </div>
       </Drawer>
