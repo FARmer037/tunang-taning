@@ -16,7 +16,7 @@ const VideoPlayer = () => {
   const { id } = useParams()
 
   const [isPlaying, setIsPlaying] = useState(true)
-  const [isReady, setIsReady] = useState(false)
+  // const [isReady, setIsReady] = useState(false)
   const [played, setPlayed] = useState(0)
   const [startAt, setStartAt] = useState(0) // 0 หรือ รับจาก api
   const [duration, setDuration] = useState(0)
@@ -31,14 +31,14 @@ const VideoPlayer = () => {
 
   const isVisible = usePageVisibility()
 
-  const onReady = useCallback(() => {
-    if (!isReady) {
-      const timeToStart = startAt
-      console.log(timeToStart)
-      playerRef.current.seekTo(timeToStart, 'seconds')
-      setIsReady(true)
-    }
-  }, [isReady])
+  // const onReady = useCallback(() => {
+  //   if (!isReady) {
+  //     const timeToStart = startAt
+  //     console.log(timeToStart)
+  //     playerRef.current.seekTo(timeToStart, 'seconds')
+  //     setIsReady(true)
+  //   }
+  // }, [isReady])
 
   const updateTime = (videoTime, videoView) => {
     axios
@@ -171,10 +171,10 @@ const VideoPlayer = () => {
               s = +VIDEO_TIME.slice(4, 6)
             }
 
-            setIsLoading(false)
             setStartAt(h * 3600 + m * 60 + s)
             setVideoUrl(VIDEO_URL)
             setVideoTitle(VIDEO_TITLE)
+            setIsLoading(false)
           } else {
             alert(message)
           }
@@ -213,7 +213,7 @@ const VideoPlayer = () => {
             width='100%'
             height='100%'
             playing={isPlaying}
-            onReady={onReady}
+            // onReady={onReady}
             progressInterval={10000}
             playsinline={true}
             onProgress={progress => {
