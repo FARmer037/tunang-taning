@@ -22,10 +22,10 @@ const Courses = () => {
 
   const [messageApi, contextHolder] = message.useMessage()
 
-  const error = (message) => {
+  const error = message => {
     messageApi.open({
       type: 'error',
-      content: message,
+      content: message
     })
   }
 
@@ -35,16 +35,20 @@ const Courses = () => {
       const user = Cookies.get('user')
 
       axios
-        .post(`${process.env.REACT_APP_API_URL}/Courses`, {
-          MEM_ID: user
-        }, {
-          headers: {
-            APP_KEY: process.env.REACT_APP_APP_KEY,
-            Authorization: `Bearer ${token}`
+        .post(
+          `${process.env.REACT_APP_API_URL}/Courses`,
+          {
+            MEM_ID: user
+          },
+          {
+            headers: {
+              APP_KEY: process.env.REACT_APP_APP_KEY,
+              Authorization: `Bearer ${token}`
+            }
           }
-        })
+        )
         .then(async response => {
-          // console.log(response.data)
+          console.log(response.data)
           const { code, item, itemdetail, message } = await response.data
 
           if (code === 10) {
@@ -72,52 +76,44 @@ const Courses = () => {
     getData()
   }, [])
 
-  return (
-    isLoading ? (
-      isExpired ? (
-        <Warning />
-      ) : (
-        <>
-          {contextHolder}
-          <LoadingPage />
-        </>
-      )
+  return isLoading ? (
+    isExpired ? (
+      <Warning />
     ) : (
-      <Layout>
-        <Banner
-          status={status}
-          videoUrl={videoUrl}
-          lecturer={lecturer}
-        />
-
-        {
-          status === '1' ? (
-            <Alert
-              message='คุณยังไม่ได้ชำระเงินค่าสมัครอบรบ กรุณาชำระเงินก่อนเข้าอบรบ'
-              type='error'
-              className='alert'
-              action={
-                <Button size='small' danger onClick={() => navigate('/pay')}>
-                  ชำระเงิน
-                </Button>
-              }
-            />
-          ) : (
-            status === '2' && (
-              <Alert
-                message="ระบบกำลังตรวจสอบการชำระเงินของท่าน"
-                type="warning"
-                className='alert'
-              />
-            )
-          )
-        }
-
-        <Descriptions />
-
-        <Lecturer lecturer={lecturer} />
-      </Layout>
+      <>
+        {contextHolder}
+        <LoadingPage />
+      </>
     )
+  ) : (
+    <Layout>
+      <Banner status={status} videoUrl={videoUrl} lecturer={lecturer} />
+
+      {status === '1' ? (
+        <Alert
+          message='คุณยังไม่ได้ชำระเงินค่าสมัครอบรบ กรุณาชำระเงินก่อนเข้าอบรบ'
+          type='error'
+          className='alert'
+          action={
+            <Button size='small' danger onClick={() => navigate('/pay')}>
+              ชำระเงิน
+            </Button>
+          }
+        />
+      ) : (
+        status === '2' && (
+          <Alert
+            message='ระบบกำลังตรวจสอบการชำระเงินของท่าน'
+            type='warning'
+            className='alert'
+          />
+        )
+      )}
+
+      <Descriptions />
+
+      <Lecturer lecturer={lecturer} />
+    </Layout>
   )
 }
 
