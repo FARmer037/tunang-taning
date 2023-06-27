@@ -31,6 +31,7 @@ const AuthenNavbar = () => {
         Cookies.remove('user')
         Cookies.remove('token')
         Cookies.remove('fullname')
+        Cookies.remove('confirm')
         navigate('/')
     }
 

@@ -56,6 +56,8 @@ const Quiz = () => {
         // console.log(response.data)
         const { code, item, message } = response.data
 
+        setOpen(true)
+
         if (code === 10) {
           Cookies.set('token', item)
         } else {
@@ -91,11 +93,11 @@ const Quiz = () => {
         if (code === 10) {
           setUserScore(item.SCORE)
           setCreateAt(item.CREATE_DATE)
-          setOpen(true)
-
-          if (id === '2' && +item.QUIZ_RESULTS === 1) {
-            setTimeOut(insertCer, 1000)
+          
+          if (+id === 2 && +item.QUIZ_RESULTS === 1) {
+            setTimeOut(insertCer, 500)
           }
+          setOpen(true)
         } else {
           alert(message)
         }
@@ -118,7 +120,9 @@ const Quiz = () => {
   const renderer = ({ hours, minutes, seconds, completed }) => {
     if (completed) {
       // Render a complete state
-      onSubmit()
+      if (!userScore || +userScore === 0) {
+        onSubmit()
+      }
     } else {
       // Render a countdown
       return (

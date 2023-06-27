@@ -59,6 +59,7 @@ const LoginForm = () => {
             } else {
               Cookies.set('user', item.MEM_ID, { expires: 1 })
               Cookies.set('fullname', item.USER_NAME)
+              Cookies.set('confirm', item.CONFIRM_STATUS)
               Cookies.set('token', itemdetail)
 
               navigate('/courses')

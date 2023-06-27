@@ -66,7 +66,8 @@ export const getDate = object => {
     const hour = twoDigits(dNow.getHours())
     const minute = twoDigits(dNow.getMinutes())
 
-    date = `${day}/${month}/${year} ${hour}:${minute}`
+    // date = `${day}/${month}/${year} ${hour}:${minute}`
+    date = `${year}-${month}-${day}`
   } else {
     const { $D, $M, $y, $H, $m } = object
 

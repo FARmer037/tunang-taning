@@ -34,7 +34,7 @@ const QuizCard = ({ question, id }) => {
     } else {
       setAnswerArr(answerArr => [
         ...answerArr,
-        { QUESTIONS_ID: QUESTION_ID, ANSWER_VALUE: e.target.value+'' }
+        { QUESTIONS_ID: QUESTION_ID, ANSWER_VALUE: e.target.value + '' }
       ])
       setCount(count + 1)
     }
@@ -56,7 +56,7 @@ const QuizCard = ({ question, id }) => {
         <Radio.Group onChange={onChange} value={value}>
           <Space direction='vertical'>
             {choice.map((element, index) => (
-              <Radio key={index} value={index + 1}>
+              <Radio key={index} value={element.choice_id}>
                 {element.choice_name}
               </Radio>
             ))}

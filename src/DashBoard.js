@@ -6,9 +6,10 @@ import './styles/Dashboard.scss'
 import Lesson from './components/dashboard/Lesson'
 import Quiz from './components/dashboard/Quiz'
 import { ReloadOutlined } from '@ant-design/icons'
-import { Button, Tooltip } from 'antd'
+import { Button, Tooltip, Modal } from 'antd'
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import { useNavigate } from 'react-router-dom'
 import Warning from './Warning'
 
 const DashBoard = () => {
@@ -19,6 +20,19 @@ const DashBoard = () => {
   const [isExpired, setIsExpired] = useState(false)
   const [isQuizDisable, setIsQuizDisable] = useState(true)
   const [isVideoDisable, setIsVideoDisable] = useState(true)
+  const [watchingStatus, setWatchingStatus] = useState(true)
+
+  const navigate = useNavigate()
+
+  const error = message => {
+    Modal.error({
+      title: 'ไม่สำเร็จ',
+      content: message,
+      onOk() {
+        navigate('/courses')
+      }
+    })
+  }
 
   const refreshPage = () => {
     window.location.reload()
@@ -29,6 +43,12 @@ const DashBoard = () => {
       const token = Cookies.get('token')
       const user = Cookies.get('user')
       const fullname = Cookies.get('fullname')
+      const confirmUser = Cookies.get('confirm')
+
+      if(+confirmUser !== 3) {
+        error('ผู้ใช้ยังไม่ผ่านการอนุมัติ กรุณาชำระเงินค่าอบรม หรือรอการอนุมัติจากผู้ดูแลระบบ')
+        return
+      }
 
       setName(fullname)
 
@@ -56,11 +76,19 @@ const DashBoard = () => {
               setIsVideoDisable(false)
             }
 
+            lessons.forEach(element => {
+              // console.log('video_id: ' + element.video_id + ' status: ' + element.video_learning_status)
+
+              if (+element.video_learning_status !== 2) {
+                setWatchingStatus(false)
+              }
+            })
+
             setLessons(lessons)
             setQuiz(quiz)
             setProgress(COURSES_PROGRESS)
 
-            if (+COURSES_PROGRESS >= 80) {
+            if (+COURSES_PROGRESS >= 80 && watchingStatus) {
               setIsQuizDisable(false)
             }
           } else {
