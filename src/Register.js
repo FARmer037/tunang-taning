@@ -13,6 +13,7 @@ import { ScoreContext } from './App'
 import LoadingPage from './LoadingPage'
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import dayjs from 'dayjs'
 
 const steps = [
   {
@@ -48,52 +49,44 @@ const Register = () => {
   const [province, setProvince] = useState(null)
   const [ptitle, setPtitle] = useState(null)
   const [occupationList, setOccupationList] = useState(null)
-  const [belong, setBelong] = useState(null)
 
   const [messageApi, contextHolder] = message.useMessage()
 
   const {
-    belongTo,
-    nameTitle,
-    firstNameTH,
-    lastNameTH,
-    firstNameAR,
-    lastNameAR,
-    idCardNumber,
-    idCardCopy,
-    phoneNumber,
-    mosqueName,
-    birthDate,
-    age,
-    sex,
-    email,
-    occupation,
-    sendingPlace,
-    username,
-    password,
-    confirmPassword,
-    otp,
-    addNumber,
-    addMoo,
-    addThanon,
-    addTambon,
-    addAmphoe,
-    addChangwat,
-    addZipCode,
-    sendNumber,
-    setSendNumber,
-    sendMoo,
-    setSendMoo,
-    sendThanon,
-    setSendThanon,
-    sendTambon,
-    setSendTambon,
-    sendAmphoe,
-    setSendAmphoe,
-    sendChangwat,
-    setSendChangwat,
-    sendZipCode,
-    setSendZipCode
+    nameTitle, setNameTitle,
+    firstNameTH, setFirstNameTH,
+    lastNameTH, setLastNameTH,
+    firstNameAR, setFirstNameAR,
+    lastNameAR, setLastNameAR,
+    idCardNumber, setidCardNumber,
+    idCardCopy, setIdCardCopy,
+    phoneNumber, setPhoneNumber,
+    mosqueName, setMosqueName,
+    birthDate, setBirthDateShow,
+    setBirthDate,
+    age, setAge,
+    sex, setSex,
+    email, setEmail,
+    occupation, setOccupation,
+    sendingPlace, setSendingPlace,
+    username, setUsername,
+    password, setPassword,
+    confirmPassword, setConfirmPassword,
+    otp, setOtp,
+    addNumber, setAddNumber,
+    addMoo, setAddMoo,
+    addThanon, setAddThanon,
+    addTambon, setAddTambon,
+    addAmphoe, setAddAmphoe,
+    addChangwat, setAddChangwat,
+    addZipCode, setAddZipCode,
+    sendNumber, setSendNumber,
+    sendMoo, setSendMoo,
+    sendThanon, setSendThanon,
+    sendTambon, setSendTambon,
+    sendAmphoe, setSendAmphoe,
+    sendChangwat, setSendChangwat,
+    sendZipCode, setSendZipCode
   } = useContext(ScoreContext)
 
   const navigate = useNavigate()
@@ -111,6 +104,43 @@ const Register = () => {
     })
 
     setIsLoading(false)
+  }
+
+  const resetForm = () => {
+    setNameTitle(null)
+    setFirstNameTH('')
+    setLastNameTH('')
+    setFirstNameAR('')
+    setLastNameAR('')
+    setidCardNumber('')
+    setIdCardCopy(null)
+    setPhoneNumber('')
+    setMosqueName('')
+    setBirthDateShow(dayjs())
+    setBirthDate(null)
+    setAge('')
+    setSex(null)
+    setEmail('')
+    setOccupation(null)
+    setSendingPlace('same')
+    setUsername('')
+    setPassword('')
+    setConfirmPassword('')
+    setOtp('')
+    setAddNumber('')
+    setAddMoo('')
+    setAddThanon('')
+    setAddTambon('')
+    setAddAmphoe('')
+    setAddChangwat('')
+    setAddZipCode('')
+    setSendNumber('')
+    setSendMoo('')
+    setSendThanon('')
+    setSendTambon('')
+    setSendAmphoe('')
+    setSendChangwat('')
+    setSendZipCode('')
   }
 
   const onNextClick = () => {
@@ -152,6 +182,8 @@ const Register = () => {
     } else if (step === 2) {
       if (username === '' || password === '' || confirmPassword === '') {
         error('กรุณากรอกข้อมูลให้ครบถ้วน')
+      } else if (password.length < 8) {
+        error('รหัสผ่านต้องมีอย่างน้อย 8 ตัวขึ้นไป!')
       } else if (password !== confirmPassword) {
         error('รหัสผ่านไม่ตรงกัน!')
       } else {
@@ -201,6 +233,7 @@ const Register = () => {
               Cookies.set('token', itemdetail)
 
               setStep(step + 1)
+              resetForm()
             } else {
               error(message)
             }
@@ -254,13 +287,11 @@ const Register = () => {
         const provinces = await results[1].data.item
         const ptitle = await results[2].data.item
         const occupation = await results[3].data.item
-        const belong = await results[4].data.item
 
         setDistrict(districts)
         setProvince(provinces)
         setPtitle(ptitle)
         setOccupationList(occupation)
-        setBelong(belong)
 
         setIsLoading(false)
       })
@@ -324,7 +355,6 @@ const Register = () => {
           province={province}
           ptitle={ptitle}
           occupationList={occupationList}
-          belong={belong}
         />
 
         <div className='register__content-button'>

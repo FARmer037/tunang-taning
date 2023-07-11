@@ -22,7 +22,6 @@ function App () {
   const [count, setCount] = useState(0)
   const [answerArr, setAnswerArr] = useState([])
 
-  const [belongTo, setBelongTo] = useState(null)
   const [nameTitle, setNameTitle] = useState(null)
   const [firstNameTH, setFirstNameTH] = useState('')
   const [lastNameTH, setLastNameTH] = useState('')
@@ -68,8 +67,6 @@ function App () {
         setCount,
         answerArr,
         setAnswerArr,
-        belongTo,
-        setBelongTo,
         nameTitle,
         setNameTitle,
         firstNameTH,

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import '../styles/Register.scss'
 import {
     DatePicker,
@@ -15,9 +15,8 @@ import OtpInput from 'react-otp-input'
 import SuccessIcon from '../images/success.png'
 import { ScoreContext } from '../App'
 
-const RegisterForm = ({ step, district, province, ptitle, occupationList, belong }) => {
+const RegisterForm = ({ step, district, province, ptitle, occupationList }) => {
     const {
-        belongTo, setBelongTo,
         nameTitle, setNameTitle,
         firstNameTH, setFirstNameTH,
         lastNameTH, setLastNameTH,
@@ -116,16 +115,6 @@ const RegisterForm = ({ step, district, province, ptitle, occupationList, belong
                             width: '100%',
                         }}
                     >
-                        <Form.Item label='สังกัด คณะกรรมการอิสลามประจำจังหวัด'>
-                            <Select value={belongTo} onSelect={(value) => setBelongTo(value)}>
-                                {
-                                    belong.map(item => (
-                                        <Select.Option key={item.belong_id} value={item.belong_id}>{item.belong_name}</Select.Option>
-                                    ))
-                                }
-                            </Select>
-                        </Form.Item>
-
                         <Form.Item label='เพศ'>
                             <Radio.Group value={sex} onChange={e => setSex(e.target.value)}>
                                 <Radio value='1'> ชาย </Radio>
