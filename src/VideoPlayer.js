@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react'
 import ReactPlayer from 'react-player'
-import { usePageVisibility } from 'react-page-visibility'
+// import { usePageVisibility } from 'react-page-visibility'
 import './styles/Video.scss'
 import Layout from './components/Layout'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
@@ -29,7 +29,7 @@ const VideoPlayer = () => {
 
   const playerRef = useRef()
 
-  const isVisible = usePageVisibility()
+  // const isVisible = usePageVisibility()
 
   // const onReady = useCallback(() => {
   //   if (!isReady) {
@@ -121,17 +121,17 @@ const VideoPlayer = () => {
     updateTime(timeFormat, viewPercent)
   }, [played])
 
-  useEffect(() => {
-    //  update time ตอนออกไปแท็บอื่น
-    if (!isVisible) {
-      setIsPlaying(false)
+  // useEffect(() => {
+  //   //  update time ตอนออกไปแท็บอื่น
+  //   if (!isVisible) {
+  //     setIsPlaying(false)
 
-      let timeFormat = getDuration()
-      let viewPercent = getPercent()
+  //     let timeFormat = getDuration()
+  //     let viewPercent = getPercent()
 
-      updateTime(timeFormat, viewPercent)
-    }
-  }, [isVisible])
+  //     updateTime(timeFormat, viewPercent)
+  //   }
+  // }, [isVisible])
 
   useEffect(() => {
     const getData = async () => {
